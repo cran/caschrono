@@ -1,0 +1,588 @@
+%\VignetteIndexEntry{Annexe Chapitre 5}
+%\VignetteDepends{}
+%\VignetteKeywords{ts}
+%\VignettePackage{caschrono}
+\documentclass{article}
+\usepackage{Sweave}
+\usepackage{times}
+\usepackage{mathptm}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{pratiquer}
+\setkeys{Gin}{width=0.95\textwidth}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator{\BB}{BB}
+\DeclareMathOperator{\BBN}{BBN}
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\V}{V}
+\DeclareMathOperator{\C}{Cov}
+\DeclareMathOperator{\Prob}{Pr}
+\DeclareMathOperator{\diag}{diag}
+\def\agra{\boldsymbol{a}} % a grave
+%
+\def\alg{\boldsymbol{\alpha}}
+\def\b{\mbox{\bf b}}
+%
+\def\B{\mbox{\bf B}}
+\def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
+\def\bm{\mbox{B}}
+\def\betg{\boldsymbol{\beta}}
+\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bgr{\mbox{\bf b}}
+\def\bla{\mbox{~}}
+\def\blb{\mbox{~~}}
+%
+\def\card{\mbox{card}}
+\def\corr{\mbox{corr}}
+\def\cov{\mbox{\sf cov}}
+\def\cv{\mbox{CV}}
+%
+\def\D{\mbox{\bf D}}
+\def\d{\bf d}
+\def\degr{^{\circ}}
+\def\deltag{\boldsymbol{\delta}}
+\def\Deltag{\boldsymbol{\Delta}} % ligne 64
+\def\diag{\mbox{diag}}
+\def\dir{\mbox{\tiny{DIR}}}
+\def\dsp{\displaystyle}
+%
+\def\e{\mbox{\bf e}}
+\def\eps{{\bf \epsilon}}
+\def\esp{\mbox{\sf E}}
+\def\eti{\tilde{\epsilon}}
+
+\def\F{\mbox{\bf F}}
+\def\g{\mbox{\bf g}}
+\def\gamg{\boldsymbol{\Gamma}}
+\def\gamgp{\boldsymbol{\gamma}}
+\def\hors{\mathbin{\in\mkern-12mu/}}
+
+\def\I{\mbox{\bf I}}
+\def\indic{\mathrm{I\mkern-8muI}}
+\def\ie{c'est-à-dire}
+\def\iid{\sim_{\mbox{i.i.d.}}}
+\def\lm{\mbox{L}}
+
+\def\mapsous#1{\smash{ \mathop{\longrightarrow}\limits_{#1}}} %
+\def\mapsur#1{\smash{ \mathop{\longrightarrow}\limits^{#1}}}  %
+\def\M{\mbox{\bf M}}
+\def\mug{\boldsymbol{\mu}}
+\def\nor{\mathcal{N}}
+\def\nug{\boldsymbol{\nu}}
+\def\Nx{\mbox{\bf N}}
+\def\P{\mbox{\bf P}}
+\def\Phig{\boldsymbol{\Phi}}
+\def\phig{\boldsymbol{\phi}}
+\def\poi{\mbox{\cal P}}
+\def\pr{\mbox{Pr}}
+\def\prim{^{\boldsymbol{\prime}}}
+\def\px{\mbox{\bf x}}
+
+\def\Rho{\boldsymbol{\rho}}
+\def\rl{\mathbin{I\mkern-8muR}} % Reel
+\def\RR{\textsf{R}\/}
+
+\newcommand{\sig}[2]{\Sigma_{{#1},{#2}}}
+\def \sitst{\textsf{SiteST}\/}
+\def\SP{\texttt{S-PLUS}\/}
+\def\T{\mbox{\bf T}}
+\def\tr{\triangle}
+\def\t{\mbox{\bf t}}
+\def\tra{\mbox{tr}}
+
+\def\U{\mbox{\bf U}}
+\def\Unif{\emph{Unif}}
+\def\u{\mbox{\bf u}}
+\def\v{\mbox{\bf v}}
+
+\def\w{\mbox{\bf w}}
+\def\var{\mbox{\sf var}}
+\def\W{\mbox{\bf W}}
+\def\X{\textbf{X}}
+\def\x{\textbf{x}}
+
+\def\Y{\textbf{Y}}
+\def\yg{\textbf{y}}
+\def\y0{y^0}
+
+\def\Z{\textbf{Z}}
+\def\z{ \textbf{z}}
+\def\zer{\large{0}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\urlstyle{sf}
+\def\rmdefault{cmr}
+
+%%%% pour les chiffres des équations
+\makeatletter
+\renewcommand\theequation{\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+\title{Séries temporelles non stationnaires (compléments du Chapitre 5)}
+\author{Yves Aragon\footnote{aragon@cict.fr} \cr
+{\normalsize Université Toulouse 1 Capitole} }
+\begin{document}
+\maketitle
+\setcounter{section}{5}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+
+\SweaveOpts{keep.source=TRUE}
+<<echo=FALSE>>=
+owidth <- getOption("width") # largeur des sorties
+options(width=60, continue="+ ","warn"=-1 )
+.PngNo <- 0
+nom.fich = "./Figures/anx5-bitmap-"
+@
+%
+@
+%
+\SweaveOpts{keep.source=TRUE}
+%
+% les différents types de graphiques
+%  ancien
+<<label=bfig,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")
+@
+
+<<label=bfigps,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 7, height = 7, pointsize = 12, bg = "white",horizontal= FALSE,paper="special")
+@
+
+
+% 1111111111111
+<<label=bfig1,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 5, height = 2, pointsize = 10, bg = "white")
+@
+
+<<label=bfigps1,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""),  width = 5, height =2, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+% 222222222222222
+<<label=bfig2,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 3.9, height = 3.1, pointsize = 10, bg = "white")
+@
+
+<<label=bfigps2,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 3.9, height = 3.1,   pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+%   3333333333333333333333333333
+
+<<label=bfig3,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 5.92, height = 6.74, pointsize = 10, bg = "white")
+@
+<<label=bfigps3,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 5.92, height = 6.74, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+
+<<label=bfig4,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
+@
+<<label=bfigps4,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+
+<<label=zfig2,echo=FALSE,eval=FALSE>>=
+dev.null <- dev.off()
+@
+
+<<label=zfiginclude,echo=FALSE,eval=FALSE>>=
+cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
+@
+
+
+\subsection{Séries intégrées - Modèles ARIMA et SARIMA \label{eth1:arisari}}
+
+\begin{exercice}[Différenciation  saisonnière]
+Vérifier empiriquement l'effet d'une différenciation saisonnière sur 
+
+\begin{equation}\label{trend.saiso}
+y_t=  a + b \cos(2 \pi t/4 )+ c \sin( 2 \pi t/4) + u_t \mbox{~avec~~} u_t  =  \frac{1 }{1 -0.9\: \bm}z_t.
+\end{equation}
+
+Pour cela on pourra définir les séries 
+ $\cos(2 \pi t/4 )$ et $ \sin( 2 \pi t/4)$, $t=1,\cdots,48$ et calculer leurs différences saisonnières.
+ 
+Pour des compléments théoriques on peut consulter  Gourieroux et Monfort (1995),  chap. 3,
+qui présentent les propriétés algébriques des 
+ filtres
+de moyenne mobile, appelés aussi filtres de moyenne glissante (\textit{running mean}).  Ladiray et Quenneville (2000) expliquent en détail l'usage de ces filtres en macro-économie.
+
+\end{exercice}
+
+\textbf{Réponse.}
+
+{\small
+<<label=period>>=
+# série de 48 points
+# x1 et x2 sont les fonctions périodiques
+# et on vérifie que leurs différences saisonnières sont nulles.
+temps = 1:48
+x1 = cos(2*pi*temps/4)
+diff(x1,4)
+x2 = sin(2*pi*temps/4)
+diff(x2,4)
+@
+}
+
+On voit que les différenciations saisonnières de \code{x1} et \code{x2} sont nulles.
+
+\begin{exercice}[Estimation d'un SARIMA avec dérive]
+On a indiqué à la section 5.1, comment \proglang{R} estime les modèles intégrés. Ainsi, s'il y avait différenciation aux ordres 1 et 12, il faudrait introduire le
+régresseur $t^2$ (la constante et le régresseur $t$ sont éliminés dans les différenciations) :
+\[
+Y_t = c \; t^2 + e_t.
+\]
+La différenciation aux ordres 1 et 12 donne
+\[
+  (1 - \bm)(1 - \bm^{12}) Y_t = 24 \;c    +  (1 - \bm)(1 - \bm^{12}) e_t,
+\]
+ et \proglang{R} fournit donc une estimation de $c$ et non de $24 \;c$.
+ 
+ Vérifier cette assertion en simulant un SARIMA$(1,1,0)(0,1,1)_{12}$ puis en l'estimant.
+ 
+ \end{exercice}
+ 
+\textbf{ Réponse.}
+ Il faut évidemment simuler un SARIMA avec dérive. Nous allons faire cette simulation de deux façons.
+ D'abord, nous choisissons un modèle, un \\
+  SARIMA$(1,1,0)(0,1,1)_{12}$  avec dérive :
+ \[
+ (1 - \bm)(1-\bm^{12} ) y_t  = \texttt{moy} +\frac{1 +0.5\: \bm^{12}}{1+0.8\: \bm} z_t,\;z_t \sim \BBN(0,1)
+ \]
+\code{moy} est la moyenne du processus différencié aux ordres 1 et 12 et donne une dérive sur le processus $y_t$.
+Nous écrivons les différents polynômes qui seront utilisés.
+
+{\small
+<<>>=
+require(dse)
+require(polynom)
+require(forecast)
+nobs=200
+set.seed(234)
+ar.1=c(1,.8)
+masaiso = polynomial(c(1,rep(0,11),.5))
+ar.13=  polynomial(c(1,rep(0,11),-1))*polynomial(ar.1)
+ar.2 = polynomial(c(1,-1))*polynomial(ar.1)
+moy=5
+@
+}
+\begin{itemize}
+  \item \textbf{Simulation par} \code{arima.sim}\\
+On commence par  simuler $ (1 - \bm)(1-\bm^{12} ) y_t $ :
+
+{\small
+<<label=arimasim>>=
+ya = arima.sim(n=nobs,list(order=c(1,0,12),ar=-.8,
+ma=c(rep(0,11),.5))) + moy
+mean(ya)
+Arima(ya,order=c(1,0,0),seasonal=list(order=c(0,0,1),period=12),
+include.mean=TRUE)
+@
+}
+
+Comme vérification, nous avons imprimé  la moyenne de la série simulée et estimé le modèle attendu.
+On intègre maintenant la série en deux étapes et à chacune, on estime le modèle de la série intégrée.
+On procède de deux façons, ou bien en utilisant l'option \code{include.drift=TRUE} ou bien en régressant sur la
+série $1, 2,\cdots$
+
+{\small
+<<label=arimasim2>>=
+# I(1)
+yd0=diffinv(ya,1)[-1]
+x1 = as.matrix(seq(1,length(yd0)))
+Arima(yd0,order=c(1,1,0),
+seasonal=list(order=c(0,0,1), period=12),xreg=x1)
+Arima(yd0,order=c(1,1,0),
+seasonal=list(order=c(0,0,1), period=12),
+include.drift=TRUE)
+@
+}
+On obtient les mêmes résultats par les deux méthodes.
+Enfin pour simuler la série $y_t$, on intègre saisonnièrement \code{yd0}
+
+{\small
+<<label=arimasim3>>=
+# I(12)
+yd2=diffinv(yd0,12)[-(1:12)]
+x2 = as.matrix(seq(1,length(yd0))^2)
+(m1=Arima(yd2,order=c(1,1,0),seasonal=list(order=c(0,1,1),
+         frequency=12),xreg=x2))
+(m1b=Arima(yd2,order=c(1,1,0),seasonal=list(order=c(0,1,1),
+       frequency=12),include.drift=TRUE))
+@
+}
+\code{m1} estime le coefficient de \code{x2} et la dérive 24 fois ce coefficient.
+Dans l'estimation utilisant l'option \code{include.drift=TRUE}
+on note que la dérive n'est pas significative, alors qu'elle vaut 5 dans le modèle simulé.
+
+ 
+
+   
+   \item \textbf{Simulation par} \code{simulate} \\Il nous faut   développer le polynôme d'autorégression 
+   dans
+   \[
+    (1 - \bm)(1-\bm^{12} ) (1+0.8 \:\bm) y_t= (1+0.8 \:\bm) \texttt{moy} + (1 +0.5\: \bm^{12}) z_t
+   \]
+
+On définit donc les trois polynômes qui définissent l'autorégression
+    
+{\small
+<<label=simulate1>>=    
+(ar.1=polynomial(c(1,.8)))
+(ar.2 = polynomial(c(1,-1))*ar.1)
+# terme autorégressif complet jusqu'au retard 14
+(ar.14 =  polynomial(c(1,rep(0,11),-1))*ar.2)
+moy=5   
+(masaiso = polynomial(c(1,rep(0,11),.5)))
+(MA2= array(masaiso,c(13,1,1)))
+# 
+AR2 = array(ar.14,c(15,1,1))
+MA2= array(masaiso,c(13,1,1))
+modsarima=   ARMA(A=AR2, B=MA2,C=1)
+derive= moy
+cte =  derive*predict(polynomial(ar.1),1)
+u.t = cte*matrix(rep(1,nobs))
+y2 = simulate(modsarima,input=u.t,sampleT=nobs)$output
+@
+}
+
+Pour vérifier, on calcule la moyenne de la série différenciée une fois simplement et une fois saisonnièrement :
+
+{\small
+<<>>=
+mean(diff(diff(y2,1),12))
+@
+}
+puis estimons le modèle dont on a simulé une trajectoire :
+
+{\small
+<<>>=
+x1 = as.matrix(seq(1,length(y2)))
+x2 = as.matrix(seq(1,length(y2))^2)
+(m1=Arima(y2,order=c(1,1,0),
+seasonal=list(order=c(0,1,1), period=12), 
+xreg=x1))
+(m2=Arima(y2,order=c(1,1,0),
+seasonal=list(order=c(0,1,1),period=12),
+include.drift=TRUE))
+(m3=Arima(y2,order=c(1,1,0),
+seasonal=list(order=c(0,1,1),period=12),
+xreg=x2))
+@
+}
+On peut observer que l'estimation n'a pas fonctionné correctement aussi bien en introduisant le régresseur $1,2,\cdots$
+<<echo=FALSE>>=
+cf3 = m3$coef
+@
+qu'une dérive. On peut enfin vérifier que 24 $\times$ \code{cf3["x2"]} = \Sexpr{round(24*cf3["x2"],digits=2)} qui est très proche de la moyenne empirique de la série différenciée deux fois.
+
+
+\end{itemize}
+
+
+\begin{exercice}[Lag plot  d'une série avec dérive]
+Simuler des séries de 200 points suivant 
+\[
+y_t = c+ y_{t-4}+u_t,\mbox{~~avec~} u_t = \frac{1}{1 - 0.9 \:\bm }z_t
+\]
+ avec $\sigma_z^2 = 1$ et 
+les valeurs initiales égales à 0. D'abord avec $c=-.2$ puis $c=.2$.
+Dessiner les lag plots de ces séries jusqu'au retard 6 et observer la dérive sur ces graphes. 
+Commenter.
+\end{exercice}
+
+\textbf{Réponse.}
+Le plus simple est de simuler l'ARMA de la série différenciée puis de l'intégrer.
+
+{\small
+<<label=derive,eval=FALSE>>=
+set.seed(51)
+c=-.2
+y0=arima.sim(list(order=c(1,0,0),ar=.9),n=200)+c
+y1=diffinv(y0,4)[-(1:4)]
+lag.plot(rev(y1),4,layout=c(2,2),do.lines=FALSE,
+   main="Dérive négative",diag.col="red")
+c=.2
+y0=arima.sim(list(order=c(1,0,0),ar=.9),n=200)+c
+y1=diffinv(y0,4)[-(1:4)]
+lag.plot(rev(y1),4,layout=c(2,2),ask=NA,do.lines=FALSE,
+                     main="Dérive positive",diag.col="red")
+@
+}
+On observe dans la plupart des simulations qu'au retard 4 il y a plus de points au-dessus de la droite $y=x$
+quand la dérive est positive et moins de points au-dessus de la droite $y=x$ quand elle est négative.
+L'écart vertical à la diagonale est de l'ordre de $c$.
+
+
+
+
+
+\begin{exercice}[Régression d'une marche aléatoire]
+
+Simuler deux marches aléatoires \code{x} et \code{y} indépendantes, par exemple à l'aide du code :
+
+{\small
+<<label=spur1>>=
+set.seed(514) ; nobs=300
+y0 = 2+rnorm(nobs)
+y = diffinv(y0)
+x0 = 2-1.5*rnorm(nobs)
+x = diffinv(x0)
+@
+}
+
+\begin{enumerate}
+  \item Dessiner le diagramme de dispersion de (\code{x},\code{y}). 
+  \item Superposer les chronogrammes des deux séries. 
+  \item Que suggèrent ces graphiques ?
+  \item Effectuer la régression linéaire de \code{y} sur \code{x}. 
+  \item Etudier la stationnarité du résidu  et conclure sur la pertinence de cette régression.
+\end{enumerate}
+
+\end{exercice}
+
+
+\textbf{Réponse}
+
+\begin{enumerate}
+  \item 
+  
+  {\small
+<<label=spur20,eval=FALSE>>=
+plot(x,y,type=l)
+@
+}
+
+  \item 
+ {\small
+<<label=spur2,eval=FALSE>>=
+plot.ts(cbind(x,y), plot.type = "single",lty=1:2)
+legend("topleft",c("x","y"),lty=1:2)
+@
+}
+
+Le diagramme de dispersion (fig. \ref{spur1c}  haut) suggère 
+contre tout bon sens 
+une forte corrélation, et les chronogrammes (fig. \ref{spur1c}  bas)  évoluent parallèlement si on néglige le
+décrochement entre les deux séries.
+
+
+
+<<label=spur1c,fig=TRUE,echo=FALSE,eval=FALSE,height=5>>=
+op <- par(mfrow=c(2,1), mar=c(4,4,1,1), oma=c(0,0,0,0))
+plot(x,y, xlab='x', ylab='y',pch='+',cex=.6)
+plot.ts(cbind(x,y), plot.type='single', ylab='x, y', xlab='temps')
+par(op)
+@
+
+
+\begin{figure}[h]
+\begin{center}
+<<label=spur2.a,  echo=FALSE,results=tex>>=
+<<bfig2>>
+<<spur1c>>
+<<zfig2>>
+<<bfigps2>>
+<<spur1c>>
+<<zfig2>>
+<<zfiginclude>>
+@
+\caption{Diagramme de dispersion (haut) et chronogrammes (bas) de deux marches aléatoires, \texttt{x} et \texttt{y}, indépendantes.}\label{spur1c}
+\end{center}
+\end{figure} 
+  \item Les graphiques suggèrent une évolution parallèle des deux séries.
+  \item Nous  régressons \code{y} sur \code{x}.
+
+{\small
+<<label=spur1>>=
+mod4 = lm(y~x)
+(aa=summary(mod4))
+@
+}  
+
+Nous obtenons  \code{R2} $= \Sexpr{round(aa$r.squared,4)}$, valeur  élevée, et la régression semble très significative. Pour aller plus loin,
+nous dessinons le chronogramme du résidu et son ACF (fig. \ref{spur2d}). Le chronogramme du résidu montre de longues séries de valeurs de même signe ; typiquement,
+ce résidu n'est pas stationnaire. L'accumulation de valeurs consécutives de même signe entra\^{\i}ne une forte valeur de l'autocorrélation d'ordre 1. Evidemment, cette autocorrélation
+est purement numérique et n'est pas l'estimation d'une autocorrélation théorique, non définie dans cet exemple.
+  \item 
+  
+{\small
+<<label=spur4,eval=FALSE>>=
+acf(resid)
+@
+}    
+  
+{\small
+<<label=spur2d,fig=TRUE,echo=TRUE,eval=FALSE,height=6>>=
+op <- par(mfrow=c(2,1), mar=c(4,3,1,0), oma=c(0,0,0,0))
+plot.ts(mod4$residuals, xlab='temps',ylab='résidu MCO')
+abline(h=0)
+acf(mod4$residuals,main="")
+par(op)
+@
+}
+
+\begin{figure}[h]
+\begin{center}
+<<label=spur2.b,  echo=FALSE,results=tex>>=
+<<bfig>>
+<<spur2d>>
+<<zfig2>>
+<<bfigps>>
+<<spur2d>>
+<<zfig2>>
+<<zfiginclude>>
+@
+\caption{Résidu de la régression de y sur x - Chronogramme  et ACF.}\label{spur2.b}
+\end{center}
+\end{figure}
+
+\end{enumerate}
+
+
+
+
+
+
+\noindent
+
+
+Résumons. Cet exemple nous a conduit à effectuer une régression ayant une significativité illusoire : un R2 élevé et une 
+régression apparemment très significative, 
+le diagramme de dispersion des
+ deux séries est trompeur mais
+les chronogrammes montrent l'absence de lien entre elles. 
+ 
+
+Pour compléter le traitement de cet exemple, voyons ce que suggère un test de racine unité. On sait que le résidu est de moyenne nulle,
+d'où, \code{type=none}, indiqué dans l'appel de \code{ur.df()}, ci-dessous.
+ Des essais avec différentes valeurs de \code{lags} nous conduisent à \code{lags=0}
+%http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
+
+{\small
+<<label=racu.xy>>=
+require(urca)
+ur.mod4=ur.df(mod4$residuals, type = "none",lags = 0) 
+summary(ur.mod4)
+@
+}
+\noindent
+On obtient une p-value assez élevée, proche de 10\%. On conserve donc l'hypothèse nulle : la série du résidu est non stationnaire.
+
+\subsection*{Bibliographie}
+Gourieroux C. et Monfort A. (1995). Séries temporelles et modèles dynamiques.
+Economica, 2 edn.. \newline
+
+Ladiray D. et Quenneville B. (2000). Désaisonnaliser avec la méthode x-11. Tech.
+Rep.. \url{http://www.census.gov/ts/papers/x11french.pdf}.
+\end{document}

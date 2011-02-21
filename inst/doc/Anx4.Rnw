@@ -1,0 +1,738 @@
+%\VignetteIndexEntry{Annexe Chapitre 4}
+%\VignetteDepends{}
+%\VignetteKeywords{ts}
+%\VignettePackage{caschrono}
+\documentclass{article}
+\usepackage{Sweave}
+\usepackage{times}
+\usepackage{enumerate}
+\usepackage{mathptm}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{pratiquer}
+\setkeys{Gin}{width=0.95\textwidth}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator{\BB}{BB}
+\DeclareMathOperator{\BBN}{BBN}
+\DeclareMathOperator{\rang}{rang}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\V}{V}
+\DeclareMathOperator{\C}{Cov}
+\DeclareMathOperator{\Prob}{Pr}
+\DeclareMathOperator{\diag}{diag}
+\def\agra{\boldsymbol{a}} % a grave
+%
+\def\alg{\boldsymbol{\alpha}}
+\def\b{\mbox{\bf b}}
+%
+\def\B{\mbox{\bf B}}
+\def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
+\def\bm{\mbox{B}}
+\def\betg{\boldsymbol{\beta}}
+\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bgr{\mbox{\bf b}}
+\def\bla{\mbox{~}}
+\def\blb{\mbox{~~}}
+%
+\def\card{\mbox{card}}
+\def\corr{\mbox{corr}}
+\def\cov{\mbox{\sf cov}}
+\def\cv{\mbox{CV}}
+%
+\def\D{\mbox{\bf D}}
+\def\d{\bf d}
+\def\degr{^{\circ}}
+\def\deltag{\boldsymbol{\delta}}
+\def\Deltag{\boldsymbol{\Delta}} % ligne 64
+\def\diag{\mbox{diag}}
+\def\dir{\mbox{\tiny{DIR}}}
+\def\dsp{\displaystyle}
+%
+\def\e{\mbox{\bf e}}
+\def\eps{{\bf \epsilon}}
+\def\esp{\mbox{\sf E}}
+\def\eti{\tilde{\epsilon}}
+
+\def\F{\mbox{\bf F}}
+\def\g{\mbox{\bf g}}
+\def\gamg{\boldsymbol{\Gamma}}
+\def\gamgp{\boldsymbol{\gamma}}
+\def\hors{\mathbin{\in\mkern-12mu/}}
+
+\def\I{\mbox{\bf I}}
+\def\indic{\mathrm{I\mkern-8muI}}
+\def\ie{c'est-à-dire}
+\def\iid{\sim_{\mbox{i.i.d.}}}
+\def\lm{\mbox{L}}
+
+\def\mapsous#1{\smash{ \mathop{\longrightarrow}\limits_{#1}}} %
+\def\mapsur#1{\smash{ \mathop{\longrightarrow}\limits^{#1}}}  %
+\def\M{\mbox{\bf M}}
+\def\mug{\boldsymbol{\mu}}
+\def\nor{\mathcal{N}}
+\def\nug{\boldsymbol{\nu}}
+\def\Nx{\mbox{\bf N}}
+\def\P{\mbox{\bf P}}
+\def\Phig{\boldsymbol{\Phi}}
+\def\phig{\boldsymbol{\phi}}
+\def\poi{\mbox{\cal P}}
+\def\pr{\mbox{Pr}}
+\def\prim{^{\boldsymbol{\prime}}}
+\def\px{\mbox{\bf x}}
+
+\def\Rho{\boldsymbol{\rho}}
+\def\rl{\mathbin{I\mkern-8muR}} % Reel
+\def\RR{\textsf{R}\/}
+
+\newcommand{\sig}[2]{\Sigma_{{#1},{#2}}}
+\def \sitst{\textsf{SiteST}\/}
+\def\SP{\texttt{S-PLUS}\/}
+\def\T{\mbox{\bf T}}
+\def\tr{\triangle}
+\def\t{\mbox{\bf t}}
+\def\tra{\mbox{tr}}
+
+\def\U{\mbox{\bf U}}
+\def\Unif{\emph{Unif}}
+\def\u{\mbox{\bf u}}
+\def\v{\mbox{\bf v}}
+
+\def\w{\mbox{\bf w}}
+\def\var{\mbox{\sf var}}
+\def\W{\mbox{\bf W}}
+\def\X{\textbf{X}}
+\def\x{\textbf{x}}
+
+\def\Y{\textbf{Y}}
+\def\yg{\textbf{y}}
+\def\y0{y^0}
+
+\def\Z{\textbf{Z}}
+\def\z{ \textbf{z}}
+\def\zer{\large{0}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\urlstyle{sf}
+\def\rmdefault{cmr}
+
+%%%% pour les chiffres des équations
+\makeatletter
+\renewcommand\theequation{\thesection.\arabic{equation}}
+\@addtoreset{equation}{section}
+\makeatother
+
+
+\title{Modèles de base en séries temporelles (compléments du Chapitre 4)}
+\author{Yves Aragon\footnote{aragon@cict.fr} \cr
+{\normalsize Université Toulouse 1 Capitole} }
+\begin{document}
+\maketitle
+\setcounter{section}{4}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+
+
+\SweaveOpts{keep.source=TRUE}
+<<echo=FALSE>>=
+owidth <- getOption("width") # largeur des sorties
+options(width=60, continue="+ ","warn"=-1 )
+.PngNo <- 0
+nom.fich = "./Figures/anx4-bitmap-"
+@
+% les différents types de graphiques
+%  ancien
+<<label=bfig,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")
+@
+
+<<label=bfigps,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 7, height = 7, pointsize = 12, bg = "white",horizontal= FALSE,paper="special")
+@
+
+
+% 1111111111111
+<<label=bfig1,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 5, height = 2, pointsize = 10, bg = "white")
+@
+
+<<label=bfigps1,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""),  width = 5, height =2, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+% 222222222222222
+<<label=bfig2,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 3.9, height = 3.1, pointsize = 10, bg = "white")
+@
+
+<<label=bfigps2,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 3.9, height = 3.1,   pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+%   3333333333333333333333333333
+
+<<label=bfig3,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 5.92, height = 6.74, pointsize = 10, bg = "white")
+@
+<<label=bfigps3,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 5.92, height = 6.74, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+
+<<label=bfig4,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
+@
+<<label=bfigps4,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
+
+<<label=zfig2,echo=FALSE,eval=FALSE>>=
+dev.null <- dev.off()
+@
+
+<<label=zfiginclude,echo=FALSE,eval=FALSE>>=
+cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
+@ 
+
+\subsection{Stationnarité}
+% ###################################################################
+\begin{Exercice} [Danone - test de blancheur] Test de la blancheur du rendement de l'action Danone et celle de son carré. On suivra les étapes suivantes :
+\begin{enumerate}
+\item
+Calculer le  carré du rendement centré.
+\item
+Tester la blancheur du rendement sur toute la série (on pourra tester la blancheur aux retards 3, 6, 9 et 12). On obtient un résultat inattendu. Lequel ?
+\item
+Après examen du chronogramme du rendement (fig. 1.4, chap. 1) on décide de se limiter à l'étude de la série des 600 premières valeurs. Pourquoi ce choix ?
+Qu'a-t-on observé sur le chronogramme ?
+\item
+Tester la blancheur du rendement et du rendement centré au carré sur la série de ces 600 valeurs. Conclusion ?
+\item
+Au vu de ces résultats, le rendement peut-il être un bruit blanc gaussien ?
+\end{enumerate}
+\end{Exercice} 
+
+\textbf{Réponse.} 
+\begin{enumerate}[{Q}-1.]
+\item Le calcul du rendement s'effectue sans difficulté, voir le code ci-dessous.
+\item
+Si nous prenons toute la série,
+ nous rejetons   la blancheur du
+rendement, colonne \code{p-val. série compl.} du Tableau~\ref{danoblanc}, or il est très rare qu'un rendement ne soit pas un bruit blanc. 
+Nous examinons donc  la série et constatons,
+fig. 1.4, chap. 1,
+qu'elle fluctue beaucoup autour de la 700{\ieme}
+observation. Aussi nous effectuons maintenant le test sur la sous-série des 600 premières
+valeurs.
+
+{\small
+<<label=lb2>>=
+require(fBasics)
+require(caschrono)
+data(csdl)
+aa = returns(csdl, percentage = TRUE)
+aab = aa[complete.cases(aa) == TRUE,]
+r.csdl = its(aab, as.POSIXct(row.names(aab)))
+r.danone= r.csdl[,3]
+rdt2 = (r.danone-mean(r.danone))^2
+a0=Box.test.2(r.danone, nlag=c(3,6,9,12),
+ type="Ljung-Box",decim=4)
+a1=Box.test.2(r.danone[1:600], nlag=c(3,6,9,12),
+ type="Ljung-Box",decim=4)
+a2=Box.test.2(rdt2[1:600], nlag=c(3,6,9,12), 
+ type="Ljung-Box",decim=4)
+a12 = cbind(a0,a1[,2],a2[,2])
+colnames(a12)= c("Retard","p-val. série compl.",
+ "p-val. 600 obs.", "p-val. rdt carré")
+@
+}
+
+<<label=lb2.tex, results=tex>>=
+require(xtable)
+xtable(a12, caption="Table a12 : test de blancheur 
+du rendement de Danone et de son carré.",label="danoblanc", 
+digits=4)
+@
+
+
+\noindent
+\item On constate que le rendement est un bruit blanc, mais que son carré, dernière colonne de la table (\ref{danoblanc}), n'en est pas un.
+Notons qu'on a  centré le rendement avant de l'élever au carré, au cas où il serait de moyenne non nulle.
+\item Un bruit blanc gaussien ($\BBN$) est une suite de v.a. \textit{indépendantes} identiquement distribuées. Si le rendement de Danone était un $\BBN$ alors son 
+carré serait une suite de v.a. indépendantes,
+identiquement distribuées,
+et donc un bruit blanc, ce qu'il n'est pas, donc le rendement de Danone ne peut pas être un $\BBN$.
+\end{enumerate}
+
+
+\subsection{Séries linéaires}
+Représentation MA$(\infty)$ des séries :
+
+\begin{subequations} \label{portem.ex}
+\begin{eqnarray}
+y_t &= -0.7 y_{t-1} + z_t, \;\; \mbox{série \texttt{y1}}  \notag\\
+y_t &= -0.7 y_{t-12} + z_t, \;\; \mbox{série \texttt{y2}}\notag
+\end{eqnarray}
+\end{subequations}
+
+Par \code{ARMAtoMA()} :
+
+{\small
+<<>>=
+ARMAtoMA(-.7, 0, 10)
+ARMAtoMA(c(rep(0,11),-.7), 0, 25)
+@
+}
+
+Par \code{ImpulseCoefficientsARMA()} de \pkg{FitARMA} :
+
+{\small
+<<>>=
+require(FitARMA)
+ImpulseCoefficientsARMA(-.7,0,lag.max=10)
+ImpulseCoefficientsARMA(c(rep(0,11),-.7),0,lag.max=25)
+@
+}
+On appelle également fonction de réponse impulsionnelle la suite des $\psi_i$ dans la représentation MA$(\infty)$
+car $\psi_i$ est la réponse de $y_t$ à un choc de "1" sur le bruit en $t-i$.
+
+
+
+
+%\section{Construction d'un  ARMA ou d'un SARMA }
+%Dans la définition d'un ARMA on a précisé que les polynômes d'autorégression et de moyenne mobile ne doivent pas avoir de racine commune.
+%Illustrons les conséquences de la présence d'une telle racine. Pour ça nous simulons un ARMA(2,2) avec une racine commune et estimons le modèle sans précaution.
+%
+
+
+
+\subsection{Comparaison ACF et PACF théoriques et empiriques -- exemples}
+Dans ces   exemples   on simule des trajectoires de 200 observations   suivant des modèles particuliers.
+On trace l'ACF et la PACF théoriques, ainsi que  leurs versions empiriques pour la trajectoire simulée. La comparaison
+des versions théoriques et empiriques permet de
+se convaincre que l'identification d'un modèle par les ACF et PACF empiriques n'est pas toujours chose aisée.
+\\
+$ \blacktriangleright$ Modèle MA(2)
+Considérons le modèle
+\begin{eqnarray}
+y_t =  (1 - 0.3  \bm +0.6 \bm^2 )  z_t \hspace{1cm} z_t \sim \BBN(0,1.5). \label{traj.ma2}
+\end{eqnarray}
+D'une part, \code{ARMAacf()} permet de calculer les ACF et PACF théoriques de cette série.
+D'autre part, nous en simulons une trajectoire  par \code{arima.sim()} enfin
+ par \code{acf()} appliquée à la trajectoire simulée, nous calculons
+ des versions empiriques de l'ACF et de la PACF.
+Nous pouvons donc comparer les versions empiriques et théoriques obtenues.
+
+
+{\small
+<<label=prep_ma2,echo=TRUE>>=
+set.seed(951)
+ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+@
+}
+\noindent
+Les différents résultats sont organisés en liste pour la commodité de la représentation graphique des quatre fonctions.
+Les bandes autour de 0  sont d'ordonnées $ \pm 1.96/\sqrt{200}$ (fig. \ref{plot.ma2}).
+Les deux ACF sont très ressemblantes et typiques d'un MA(2). On voit sur la figure que l'ACF empirique prend des valeurs  non significativement différentes de 0 dès le retard 3 et, au  retard 11,
+la valeur semble un peu significative.
+Les PACF ne sont pas simples à interpréter ici, mais leur examen suffit à comprendre que le modèle n'est pas un AR pur.
+Les graphiques de ces quatre fonctions, sans marges entre eux, sont obtenus  par \code{plotacfthemp()} de \pkg{caschrono}.
+
+
+<<label=plot.ma2,fig=TRUE,echo=FALSE,eval=FALSE,height=6>>=
+<<prep_ma2>>
+titre= "MA(2)"
+plotacfthemp(ya, ma=c(-0.3, 0.6), lag.max=20)
+@
+\begin{figure}[htbp]
+\begin{center}
+<<results=tex,echo=FALSE>>=
+<<bfig4>>
+<<plot.ma2>>
+<<zfig2>>
+<<bfigps4>>
+<<plot.ma2>>
+<<zfig2>>
+<<zfiginclude>>
+@
+\end{center}
+\caption{Fonctions d'autocorrélation d'un MA(2).}
+\label{plot.ma2}
+\end{figure}
+Si l'on veut estimer un MA(2) sur la série \code{ya}, on écrit la commande
+
+{\small
+<<label=ma2.estim>>=
+(mod.ma2= Arima(ya,order=c(0,0,2), include.mean=FALSE))
+@
+}
+
+~\\
+$ \blacktriangleright$ Modèle AR(1) :
+\begin{eqnarray}
+y_t =  -10 + \frac{1}{1+0.8 \bm}  z_t \hspace{1cm} z_t \sim \BBN(0,1.5). \label{acf.ar1.a}
+\end{eqnarray}
+On en simule une trajectoire de 200 observations et on trace, fig. \ref{plot.acf.ar1}, les ACF et PACF théoriques et empiriques.
+
+
+{\small
+<<label=prep_ar1, echo=TRUE>>=
+set.seed(5419)
+n2 = 210
+yb = arima.sim(n=200, list(ar=-0.8), sd=sqrt(1.5))
+yb = yb-10
+@
+}
+
+<<label=plot.ar1,fig=TRUE,echo=FALSE,eval=FALSE>>=
+<<prep_ar1>>
+plotacfthemp(yb, ar=-0.8, lag.max=20)
+@
+\begin{figure}[htbp]
+\begin{center}
+<<results=tex,echo=FALSE>>=
+<<bfig>>
+<<plot.ar1>>
+<<zfig2>>
+<<bfigps>>
+<<plot.ar1>>
+<<zfig2>>
+<<zfiginclude>>
+@
+\end{center}
+\caption{Fonctions d'autocorrélation d'un AR(1).}
+\label{plot.acf.ar1}
+\end{figure}
+Les PACF théorique et empirique sont proches. Sur le graphique de l'ACF théorique on vérifie qu'aucune autocorrélation n'est non nulle, alors que
+sur le graphique de l'ACF empirique, si on ne dispose pas simultanément de celui de la PACF empirique, on ne sait pas si les valeurs  dans la bande autour de 0
+sont des estimations de 0 ou bien des estimations de quantités faibles mais non nulles. Dans la pratique, il faut donc  envisager les deux possibilités, estimation de 0 ou
+estimation de quantités faibles, tant que l'une ou l'autre de ces deux situations n'est pas très improbable.
+
+L'estimation de (\ref{acf.ar1.a}), par exemple sur \code{yb}, s'obtient par
+
+{\small
+<<label=estim.12>>=
+(mod12 = Arima(yb, order=c(1,0,0)))
+@
+}
+\noindent
+On voit que \code{Arima()} note \code{intercept}, ce qui est ici, la moyenne de la série. La notation est ambiguë ; nous y reviendrons au chapitre 5 et dans ses exercices.
+ 
+
+%
+
+\subsubsection{Fonction d'autocorrélation partielle}
+% ###################################################################
+\begin{Exercice}
+Simuler une trajectoire  de 200 valeurs d'un processus autorégressif obéissant à :
+\begin{equation} \label{ar2pacf}
+y_t = -0.7 y_{t-1} + 0.2 y_{t-2}+ z_t
+\end{equation}
+et calculer la PACF empirique jusqu'au retard 4. Comparer avec l'exemple précédent.
+\end{Exercice}
+
+
+
+
+
+
+
+
+\textbf{Réponse.} Il nous faut fixer la variance du bruit. Choisissons $\sigma^2_z = 2$.
+D'autre part nous effectuons \code{nsim} simulations pour comparer la précision de l'estimateur et nous superposons  valeur théorique
+et quantile empirique d'ordres .25 et .75 pour chaque retard :
+
+
+{\small
+<<label=simar2>>=
+require(FitARMA)
+set.seed(51)
+nsim=100
+nobs=200
+nsim=50
+nlag=20
+y.mat = matrix(0,nrow=nobs,ncol=nsim)
+facp.mat= matrix(0,nrow=nlag,ncol=nsim)
+y.mat = matrix(0,nrow=200,ncol=nsim)
+facp.mat= matrix(0,nrow=nlag,ncol=nsim)
+for (isim in 1:nsim)
+{
+# isim=2
+y.mat[,isim] = arima.sim(n=nobs,list(ar=c(-0.7, 0.2)),sd = sqrt(2))
+facp.mat[,isim] = pacf(y.mat[,isim], 20, plot=FALSE)$acf
+}
+aa=t(apply(facp.mat,1,'quantile',probs = c(0.25,.75)))
+#pacf theo
+theo =  TacvfARMA(phi=c(-.7,.2),lag.max=20)
+pacf.theo  = PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf
+# intervalle autour de 0 à 50%
+binf= qnorm(.25)/nobs^.5
+bsup=qnorm(.75)/nobs^.5
+aaa = cbind(aa,pacf.theo,binf,bsup)
+@
+}
+\code{binf} et \code{bsup} définissent la bande de confiance asymptotique, valable évidemment à partir du retard 3, voir la propriété 4.6, alors que les quantiles
+d'ordres .25 et .75, matrice \code{aa}, donnent les quantiles empiriques d'après les \Sexpr{nsim} simulations. 
+On obtient le graphique  
+(fig. \ref{matplot}) pour 50 simulations par
+
+{\small
+<<eval=FALSE>>=
+matplot(1:20,aaa,type='l',ylab="PACF",xlab="retard",col='black')
+legend("topright",paste("nombre de simulations : ",as.character(nsim)))
+@
+}
+
+Il est instructif de faire le graphique pour différents nombres de simulations ; on se fait ainsi une idée de la vitesse de convergence 
+vers la loi asymptotique de la propriété 4.6.
+
+
+<<label=matplot0,fig=TRUE,echo=FALSE,eval=FALSE,height=6>>=
+matplot(1:20,aaa,type='l',ylab="PACF",xlab="retard",col='black')
+legend("topright",paste("nombre de simulations : ",as.character(nsim)))
+@
+
+\begin{figure}[htbp]
+\begin{center}
+<<results=tex,echo=FALSE>>=
+<<bfig4>>
+<<matplot0>>
+<<zfig2>>
+<<bfigps4>>
+<<matplot0>>
+<<zfig2>>
+<<zfiginclude>>
+@
+\end{center}
+\caption{Estimations de PACF.}
+\label{matplot}
+\end{figure}
+
+
+
+% ###################################################################
+\begin{Exercice} Ajuster un MA$(1)$ à $y_t$ simulé suivant :
+
+\begin{subequations} \label{portem.ex}
+\begin{eqnarray}
+y_t &= -0.7 y_{t-1} + z_t, \;\; \mbox{série \texttt{y1}}  \label{portem.ex1}\\
+y_t &= -0.7 y_{t-12} + z_t, \;\; \mbox{série \texttt{y2}}\label{portem.ex2}
+\end{eqnarray}
+\end{subequations}
+où $z_t$ est un bruit blanc gaussien de variance 4,
+ {\ie} un modèle incorrect. Effectuer un test montrant que ce modèle ne convient pas.
+\end{Exercice}
+
+\textbf{Réponse.}
+Nous ajustons  un MA(1) à \code{y1} qui suit en réalité un AR(1).
+
+<<label=prep.y1, echo=FALSE>>=
+set.seed(123)
+y1 = arima.sim(n=100,list(ar=-.7), sd=sqrt(4))
+y2 = arima.sim(n=100,list(ar=c(rep(0,11),-.7)), sd=sqrt(4))
+@
+{\small
+<<label=estim.ma1>>=
+(mod2=Arima(y1,order=c(0,0,1), include.mean=FALSE))
+@
+}
+\noindent
+On n'observe rien de particulier, il n'y  a pas d'avertissement sur une éventuelle mauvaise convergence de l'algorithme d'estimation.
+Testons maintenant la blancheur du résidu.
+
+{\small
+<<label=test.ma1>>=
+aa=Box.test.2(residuals(mod2), nlag=c(3,6,9,12),type="Ljung-Box",
+decim=4,fitdf=1)
+colnames(aa)= c("Retard","p-val.")
+t(aa)
+@
+}
+\noindent
+On voit que le résidu de l'ajustement n'est pas un bruit blanc car, au moins  parmi les autocorrélations d'ordre 1 à 6 certaines ne peuvent être considérées comme nulles. L'ajustement est mauvais et il
+faut chercher autre chose. C'est l'examen de l'ACF et de la PACF  de la série
+qui guide vers un bon modèle. Cette démarche, appelée \textit{identification} de la série,  est détaillée à la section 4.6.
+
+
+
+
+
+% ###################################################################
+\begin{Exercice}[Modèle MA$(2)$] On considère le modèle MA$(2)$
+\begin{eqnarray}
+y_t =  (1 - 0.3  \bm +0.6 \bm^2 )  z_t \hspace{1cm} z_t \sim \BBN(0,1.5). \label{traj.ma2}
+\end{eqnarray}
+\begin{enumerate}
+  \item Calculer les ACF et PACF théoriques de cette série par \code{ARMAacf()}.
+  \item Simuler une trajectoire de 200 observations  de (\ref{traj.ma2})
+par \code{arima.sim()}.
+  \item Par \code{acf()} appliquée à la trajectoire simulée, calculer
+ des versions empiriques de l'ACF et de la PACF.
+\item  Comparer graphiquement les versions théorique et empirique de chaque fonction.
+\end{enumerate}
+\end{Exercice}
+
+\textbf{Réponse.}
+
+{\small
+<<>>=
+theo =  TacvfARMA(theta=c(.3,-.6),lag.max=20)
+(acf.theo = theo[-1]/theo[1])
+(pacf.theo  = PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf)
+set.seed(12)
+y=arima.sim(n=200,list(ma=c(-0.3, .6)),sd = sqrt(1.5))
+(acf.emp= acf(y, 20, plot=FALSE)$acf[-1])
+(pacf.emp= pacf(y, 20, plot=FALSE)$acf)
+@
+}
+\code{acf()} fournit les autocorrélations à partir du retard 0, tandis que \code{pacf()} fournit les autocorrélations partielles à partir du retard 1.
+Noter également les changements de convention pour les paramètres $\phi$ et $\theta$ entre \code{arima()} et les fonctions de \pkg{FitAR} ou \pkg{FitARMA}
+
+% ###################################################################
+\begin{Exercice}[Modèle AR$(1)$]
+On considère le modèle AR$(1)$ :
+\begin{eqnarray}
+y_t =  -10 + \frac{1}{1+0.8 \bm}  z_t \hspace{1cm} z_t \sim \BBN(0,1.5). \label{acf.ar1}
+\end{eqnarray}
+Répondre pour ce modèle, aux questions de l'exercice précédent.
+\end{Exercice}
+
+\textbf{Réponse.}
+
+{\small
+<<>>=
+theo =  TacvfARMA(phi=-.8,lag.max=20)
+(acf.theo = theo[-1]/theo[1])
+(pacf.theo  = PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf)
+set.seed(23)
+y=arima.sim(n=200,list(ar=-.8),
+sd = sqrt(1.5))-10
+(acf.emp= acf(y, 20, plot=FALSE)$acf[-1])
+(pacf.emp= pacf(y, 20, plot=FALSE)$acf)
+@
+}
+
+
+
+% ###################################################################
+\begin{Exercice}
+Simuler une trajectoire de 200 observations du modèle  ARMA$(1,2)$ combinant les composantes autorégressive et moyenne mobile des modèles précédents (\ref{acf.ar1} et \ref{traj.ma2} )
+et comparer les ACF et PACF théoriques et empiriques.
+\end{Exercice}
+\textbf{Réponse.} (Simuler une trajectoire de 200 ...)
+Le modèle à simuler est
+\begin{eqnarray}
+y_t = -10  + \frac{1 - 0.3  \bm +0.6 \bm^2 }{1+0.8  \bm}  z_t, \hspace{1cm} z_t \sim \BBN(0,1.5). \label{arma12.a}
+\end{eqnarray}
+La simulation ne pose pas de difficultés :
+
+{\small
+<<label=prep_arma1_21a, echo=TRUE>>=
+set.seed(4123)
+yc = arima.sim(n=200,list(ar=-0.8, ma= c(-0.3, 0.6)), sd = sqrt(1.5))-10
+@
+}
+On calcule d'autre part les ACF et PACF théroriques
+
+{\small
+<<label=prep_arma1_21a0, echo=TRUE>>=
+acf.th = ARMAacf(ar=-0.8, ma=c(-0.3, 0.6),lag.max=20, pacf=FALSE)
+pacf.th= ARMAacf(ar=-0.8, ma=c(-0.3, 0.6),lag.max=20, pacf=TRUE)
+@
+}
+\noindent
+Enfin on représente ces quatre fonctions sur un même graphique, fig. \ref{acf.arma12} :
+
+
+
+{\small
+<<label=plot.arma1,fig=TRUE,echo=TRUE,eval=FALSE>>=
+plotacfthemp(yc, ar=-0.8, ma=c(-0.3, 0.6), lag.max=20)
+@
+}
+\noindent
+\begin{figure}
+\begin{center}
+<<results=tex,echo=FALSE>>=
+<<bfig>>
+<<plot.arma1>>
+<<zfig2>>
+<<bfigps>>
+<<plot.arma1>>
+<<zfig2>>
+<<zfiginclude>>
+@
+\end{center}
+\caption{Fonctions d'autocorrélation d'un ARMA(1,2).}
+\label{acf.arma12}
+\end{figure}
+L'estimation de (\ref{arma12.a}), par exemple sur \code{yc}, s'obtient par
+
+{\small
+<<label=estim.12>>=
+(mod12 = Arima(yc, order=c(1,0,2)))
+@
+}
+\noindent
+On voit que \code{Arima()} note \code{intercept}, ce qui est ici, la moyenne de la série.
+
+
+
+% ###################################################################
+\begin{Exercice}
+\code{armasubsets()} de  \pkg{TSA} aide à l'identification des modèles ARMA suivant le même principe que \code{armaselect()} mais reconna\^{\i}t les trous (les plages de coefficients nuls)
+dans les ordres de régression.
+Utiliser \code{armasubsets()} pour identifier le modèle de \code{yd} simulé suivant 
+\begin{eqnarray}
+y_t = 4  + \frac{1 +0.6 \bm^2 }{(1+0.8  \bm)(1 - 0.7\bm^4)}  z_t, \hspace{1cm} z_t \sim \BBN(0,1.5). \label{ex.sarma}
+\end{eqnarray}
+
+\end{Exercice}
+
+\textbf{Réponse.}
+
+{\small
+<<label=prep_arma1_21b>>=
+require(TSA)
+require(polynom)
+set.seed(951)
+ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+set.seed(7392)
+autopol = polynomial(c(1,0.8))*polynomial(c(1,0,0,0,-0.7))
+yd=arima.sim(n=200,list(ar=-autopol[-1],ma=c(0,0.6)),sd=sqrt(1.5))
+yd=yd+4
+@
+}
+
+
+{\small
+<<label=id.saiso,fig=TRUE,echo=TRUE,eval=FALSE,height=6>>=
+res=armasubsets(y=yd,nar=10,nma=10,y.name='yd',ar.method='ols')
+plot(res)
+@
+}
+
+\begin{figure}[htbp]
+\begin{center}
+<<results=tex,echo=FALSE>>=
+<<bfig>>
+<<id.saiso>>
+<<zfig2>>
+<<bfigps>>
+<<id.saiso>>
+<<zfig2>>
+<<zfiginclude>>
+@
+\end{center}
+\caption{Identification de yd par armasubsets().}
+\label{id.saiso}
+\end{figure}
+
+Les zones  les plus sombres du graphique (fig. \ref{id.saiso}) suggèrent les ordres à retenir mais l'interprétation n'est pas simple.
+
+\end{document}
+
+
+
