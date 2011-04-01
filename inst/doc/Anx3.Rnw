@@ -450,8 +450,8 @@ c(skewness(xr),kurtosis(xr))
 
 <<label=plot.nor,fig=TRUE,echo=FALSE,eval=FALSE,height=6>>=
 op=par(mfrow=c(1,2),mar=c(4,3,2,0.5),lwd=2 )
-plot(density(x),main="",ylab="densité",xlab="x normale")
-plot(density(xr),main="",ylab="densité",xlab="xr log-normale")
+plot(density(x),main="",ylab="density",xlab="x normale")
+plot(density(xr),main="",ylab="density",xlab="xr log-normale")
 par(op)
 @
 \begin{figure}

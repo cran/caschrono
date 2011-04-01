@@ -224,9 +224,9 @@ de moyenne mobile, appel\'es aussi filtres de moyenne glissante (\textit{running
 
 {\small
 <<label=period>>=
-# s\'erie de 48 points
-# x1 et x2 sont les fonctions p\'eriodiques
-# et on v\'erifie que leurs diff\'erences saisonni\`eres sont nulles.
+# serie de 48 points
+# x1 et x2 sont les fonctions periodiques
+# et on verifie que leurs differences saisonnieres sont nulles.
 temps = 1:48
 x1 = cos(2*pi*temps/4)
 diff(x1,4)
@@ -341,7 +341,7 @@ On d\'efinit donc les trois polyn\^omes qui d\'efinissent l'autor\'egression
 <<label=simulate1>>=    
 (ar.1=polynomial(c(1,.8)))
 (ar.2 = polynomial(c(1,-1))*ar.1)
-# terme autor\'egressif complet jusqu'au retard 14
+# terme autoregressif complet jusqu'au retard 14
 (ar.14 =  polynomial(c(1,rep(0,11),-1))*ar.2)
 moy=5   
 (masaiso = polynomial(c(1,rep(0,11),.5)))
@@ -412,12 +412,12 @@ c=-.2
 y0=arima.sim(list(order=c(1,0,0),ar=.9),n=200)+c
 y1=diffinv(y0,4)[-(1:4)]
 lag.plot(rev(y1),4,layout=c(2,2),do.lines=FALSE,
-   main="D\'erive n\'egative",diag.col="red")
+   main="Derive negative",diag.col="red")
 c=.2
 y0=arima.sim(list(order=c(1,0,0),ar=.9),n=200)+c
 y1=diffinv(y0,4)[-(1:4)]
 lag.plot(rev(y1),4,layout=c(2,2),ask=NA,do.lines=FALSE,
-                     main="D\'erive positive",diag.col="red")
+                     main="Derive positive",diag.col="red")
 @
 }
 On observe dans la plupart des simulations qu'au retard 4 il y a plus de points au-dessus de la droite $y=x$
@@ -526,7 +526,7 @@ acf(resid)
 {\small
 <<label=spur2d,fig=TRUE,echo=TRUE,eval=FALSE,height=6>>=
 op <- par(mfrow=c(2,1), mar=c(4,3,1,0), oma=c(0,0,0,0))
-plot.ts(mod4$residuals, xlab='temps',ylab='résidu MCO')
+plot.ts(mod4$residuals, xlab='temps',ylab='residu MCO')
 abline(h=0)
 acf(mod4$residuals,main="")
 par(op)

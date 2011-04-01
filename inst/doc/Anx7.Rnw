@@ -224,7 +224,7 @@ y = arima.sim(list(order = c(12,0,1), ma=-.7, ar=c(rep(0,11),.9)),
   innov =innov1, n.start =50, n = 240) +50
 y.ts = ts(y,frequency=12, start=c(1920,1))
 ytr=cbind(y.ts,nottem)
-colnames(ytr)=c("série simulée","température")
+colnames(ytr)=c("serie simulee","temperature")
 @
 }
 
@@ -257,8 +257,6 @@ reformuler la simulation pour pouvoir utiliser \code{arima.sim()}.
    {\small
 <<label= autop>>=
 require(polynom)
-@
-
 autop=polynomial(c(1,-1/1.4))*polynomial(c(1,-1))*polynomial(c(1,-1/1.9))
 @
 }

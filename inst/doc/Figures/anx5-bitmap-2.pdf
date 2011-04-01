@@ -2,8 +2,8 @@
 %âãÏÓ\r
 1 0 obj
 <<
-/CreationDate (D:20110401180907)
-/ModDate (D:20110401180907)
+/CreationDate (D:20110402152613)
+/ModDate (D:20110402152613)
 /Title (R Graphics Output)
 /Producer (R 2.13.0)
 /Creator (R)
@@ -346,7 +346,7 @@ BT
 /F2 1 Tf 12.00 0.00 -0.00 12.00 257.26 254.88 Tm (temps) Tj
 ET
 BT
-/F2 1 Tf 0.00 12.00 -12.00 0.00 -2.88 367.60 Tm (résidu MCO) Tj
+/F2 1 Tf 0.00 12.00 -12.00 0.00 -2.88 367.60 Tm (residu MCO) Tj
 ET
 Q q
 /sRGB CS 0.000 0.000 0.000 SCN

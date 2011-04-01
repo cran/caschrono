@@ -2,8 +2,8 @@
 %âãÏÓ\r
 1 0 obj
 <<
-/CreationDate (D:20110401180852)
-/ModDate (D:20110401180852)
+/CreationDate (D:20110402152558)
+/ModDate (D:20110402152558)
 /Title (R Graphics Output)
 /Producer (R 2.13.0)
 /Creator (R)
@@ -611,7 +611,7 @@ BT
 /F2 1 Tf 10.00 0.00 -0.00 10.00 100.93 2.40 Tm [(x nor) -25 (male)] TJ
 ET
 BT
-/F2 1 Tf 0.00 10.00 -10.00 0.00 -2.40 211.88 Tm (densité) Tj
+/F2 1 Tf 0.00 10.00 -10.00 0.00 -2.40 212.16 Tm (density) Tj
 ET
 Q q 36.00 48.00 174.00 360.00 re W n
 /sRGB CS 0.745 0.745 0.745 SCN
@@ -1202,7 +1202,7 @@ BT
 /F2 1 Tf 10.00 0.00 -0.00 10.00 305.67 2.40 Tm [(xr log-nor) -25 (male)] TJ
 ET
 BT
-/F2 1 Tf 0.00 10.00 -10.00 0.00 213.60 211.88 Tm (densité) Tj
+/F2 1 Tf 0.00 10.00 -10.00 0.00 213.60 212.16 Tm (density) Tj
 ET
 Q q 252.00 48.00 174.00 360.00 re W n
 /sRGB CS 0.745 0.745 0.745 SCN

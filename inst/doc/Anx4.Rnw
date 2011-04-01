@@ -245,15 +245,15 @@ a1=Box.test.2(r.danone[1:600], nlag=c(3,6,9,12),
 a2=Box.test.2(rdt2[1:600], nlag=c(3,6,9,12), 
  type="Ljung-Box",decim=4)
 a12 = cbind(a0,a1[,2],a2[,2])
-colnames(a12)= c("Retard","p-val. série compl.",
- "p-val. 600 obs.", "p-val. rdt carr\'e")
+colnames(a12)= c("Retard","p-val. serie compl.",
+ "p-val. 600 obs.", "p-val. rdt carre")
 @
 }
 
 <<label=lb2.tex, results=tex>>=
 require(xtable)
 xtable(a12, caption="Table a12 : test de blancheur 
-du rendement de Danone et de son carr\'e.",label="danoblanc", 
+du rendement de Danone et de son carre.",label="danoblanc", 
 digits=4)
 @
 
