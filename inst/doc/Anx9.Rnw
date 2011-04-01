@@ -4,6 +4,7 @@
 %\VignettePackage{caschrono}
 \documentclass{article}
 \usepackage{Sweave}
+\usepackage[latin1]{inputenc}
 \usepackage{times}
 \usepackage{mathptm}
 \usepackage{hyperref}
@@ -31,7 +32,7 @@
 \def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
 \def\bm{\mbox{B}}
 \def\betg{\boldsymbol{\beta}}
-\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bar#1#2{\overline{#1}_{#2}} % surlign\'e indic\'e
 \def\bgr{\mbox{\bf b}}
 \def\bla{\mbox{~}}
 \def\blb{\mbox{~~}}
@@ -63,7 +64,7 @@
 
 \def\I{\mbox{\bf I}}
 \def\indic{\mathrm{I\mkern-8muI}}
-\def\ie{c'est-à-dire}
+\def\ie{c'est-\`a-dire}
 \def\iid{\sim_{\mbox{i.i.d.}}}
 \def\lm{\mbox{L}}
 
@@ -116,15 +117,15 @@
 \urlstyle{sf}
 \def\rmdefault{cmr}
 
-%%%% pour les chiffres des équations
+%%%% pour les chiffres des \'equations
 \makeatletter
 \renewcommand\theequation{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
 \makeatother
 
-\title{Température à Nottingham Castle (compléments du Chapitre 9)}
+\title{Temp\'erature \`a Nottingham Castle (compl\'ements du Chapitre 9)}
 \author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Université Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
 \setcounter{section}{9}
@@ -142,7 +143,7 @@ nom.fich = "./Figures/anx9-bitmap-"
 %
 \SweaveOpts{keep.source=TRUE}
 %
-% les différents types de graphiques
+% les diff\'erents types de graphiques
 %  ancien
 <<label=bfig,echo=FALSE,eval=FALSE>>=
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
@@ -199,16 +200,16 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 @
 
 \begin{Exercice}[Filtrage]
-Nous avons vu que les modèles SARIMA et ARMAX ont des variances résiduelles et des qualités prédictives intra-échantillon identiques.
-Pour comprendre cette proximité :
+Nous avons vu que les mod\`eles SARIMA et ARMAX ont des variances r\'esiduelles et des qualit\'es pr\'edictives intra-\'echantillon identiques.
+Pour comprendre cette proximit\'e :
 \begin{itemize}
-  \item calculer les différences saisonnières de chaque variable explicative (matrice xmat1a) et examiner quelques lignes de cette matrice de différences saisonnières ;
-  \item calculer   la moyenne et la variance de chaque série obtenue ;
-  \item calculer la différence saisonnière de \code{nott1}, la  moyenne et la variance de cette série filtrée. Expliquer.
+  \item calculer les diff\'erences saisonni\`eres de chaque variable explicative (matrice xmat1a) et examiner quelques lignes de cette matrice de diff\'erences saisonni\`eres ;
+  \item calculer   la moyenne et la variance de chaque s\'erie obtenue ;
+  \item calculer la diff\'erence saisonni\`ere de \code{nott1}, la  moyenne et la variance de cette s\'erie filtr\'ee. Expliquer.
 \end{itemize}
 \end{Exercice}
 
-Réponse.
+R\'eponse.
 
 {\small
 <<>>=
@@ -217,12 +218,12 @@ nott1 = window(nottem, end=c(1936,12))
 nott2 = window(nottem, start=c(1937,1))
 f = t(as.matrix(1:6))/12
 temps = as.matrix(1:length(nottem))
-# élimination de la colonne nulle
+# \'elimination de la colonne nulle
 xmat0 = cbind(cos(2*pi*temps%*%f), sin(2*pi*temps%*%f))[,-12]
 xmat0 = as.data.frame(xmat0)
 colnames(xmat0) = c('cos_1','cos_2','cos_3','cos_4','cos_5','cos_6',
                     'sin_1','sin_2','sin_3','sin_4','sin_5')
-# séparation des intervalles d'estimation et de prévision
+# s\'eparation des intervalles d'estimation et de pr\'evision
 xmat1 = xmat0[1:204,] ; xmat2 = xmat0[205:240,]
 attach(xmat1,warn.conflicts = FALSE)
 xmat1a = cbind(cos_1, sin_1,sin_2,sin_4)
@@ -234,7 +235,7 @@ xmat1a = cbind(cos_1, sin_1,sin_2,sin_4)
 @
 }
 
-Les séries transformées sont nulles.  Elles ont été absorbées par le filtre de différence saisonnière, ou encore, ``les fonctions
-$\cos(\omega t) $ et $ \sin(\omega t)$ de période 12 sont vecteurs propres associées à la valeur propre 0 pour ce filtre''.
+Les s\'eries transform\'ees sont nulles.  Elles ont \'et\'e absorb\'ees par le filtre de diff\'erence saisonni\`ere, ou encore, ``les fonctions
+$\cos(\omega t) $ et $ \sin(\omega t)$ de p\'eriode 12 sont vecteurs propres associ\'ees \`a la valeur propre 0 pour ce filtre''.
 
 \end{document}

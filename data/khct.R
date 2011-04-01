@@ -1,5 +1,0 @@
-aa = read.csv2(file= system.file("/import/conselec.csv",package="caschrono"))
-attach(aa)
-khct = ts(cbind(kwh, htdd,cldd), frequency = 12, start=c(1970,1))
-detach(aa)
-rm(aa)

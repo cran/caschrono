@@ -4,6 +4,7 @@
 %\VignettePackage{caschrono}
 \documentclass{article}
 \usepackage{Sweave}
+\usepackage[latin1]{inputenc}
 \usepackage{times}
 \usepackage{mathptm}
 \usepackage{hyperref}
@@ -31,7 +32,7 @@
 \def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
 \def\bm{\mbox{B}}
 \def\betg{\boldsymbol{\beta}}
-\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bar#1#2{\overline{#1}_{#2}} % surlign\'e indic\'e
 \def\bgr{\mbox{\bf b}}
 \def\bla{\mbox{~}}
 \def\blb{\mbox{~~}}
@@ -63,7 +64,7 @@
 
 \def\I{\mbox{\bf I}}
 \def\indic{\mathrm{I\mkern-8muI}}
-\def\ie{c'est-à-dire}
+\def\ie{c'est-\`a-dire}
 \def\iid{\sim_{\mbox{i.i.d.}}}
 \def\lm{\mbox{L}}
 
@@ -116,7 +117,7 @@
 \urlstyle{sf}
 \def\rmdefault{cmr}
 
-%%%% pour les chiffres des équations
+%%%% pour les chiffres des \'equations
 \makeatletter
 \renewcommand\theequation{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
@@ -124,9 +125,9 @@
 
 
 
-\title{\RR~pour les séries temporelles (compléments du Chapitre 2)}
+\title{\RR~pour les s\'eries temporelles (compl\'ements du Chapitre 2)}
 \author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Université Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
 \setcounter{section}{2}
@@ -146,7 +147,7 @@ nom.fich = "./Figures/anx2-bitmap-"
 %
 \SweaveOpts{keep.source=TRUE}
 %
-% les différents types de graphiques
+% les diff\'erents types de graphiques
 %  ancien
 <<label=bfig,echo=FALSE,eval=FALSE>>=
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
@@ -203,14 +204,14 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 @ 
 
 \subsection{Obtenir de l'aide sur \RR}
-Le moteur de recherche intégré à \RR~permet d'obtenir facilement de l'aide. On l'a indiqué dans l'introduction, \RR~comporte de nombreux packages, certains font partie
-de la distribution, d'autres doivent être \emph{installés} par l'utilisateur, généralement depuis un site miroir de CRAN. Mais il ne peut s'en servir que s'ils sont   \emph{chargés} et
+Le moteur de recherche int\'egr\'e \`a \RR~permet d'obtenir facilement de l'aide. On l'a indiqu\'e dans l'introduction, \RR~comporte de nombreux packages, certains font partie
+de la distribution, d'autres doivent \^etre \emph{install\'es} par l'utilisateur, g\'en\'eralement depuis un site miroir de CRAN. Mais il ne peut s'en servir que s'ils sont   \emph{charg\'es} et
 l'aide en ligne ne concerne que les fonctions
- des packages chargés.  Examinons quelques situations.
+ des packages charg\'es.  Examinons quelques situations.
 \begin{trivlist}
 
-  \item[\textbf{1}] Si l'on connaît le nom de la fonction sur laquelle on veut de l'aide et si elle fait partie d'un package chargé
-  sur la machine, on utilise indifféremment \code{?} ou \code{help()}, ainsi :
+  \item[\textbf{1}] Si l'on conna\^it le nom de la fonction sur laquelle on veut de l'aide et si elle fait partie d'un package charg\'e
+  sur la machine, on utilise indiff\'eremment \code{?} ou \code{help()}, ainsi :
 
 {\small
 <<eval=FALSE>>=
@@ -220,8 +221,8 @@ help(aggregate)
 }
 \noindent
 donnent l'un ou l'autre la syntaxe et des exemples de   \code{aggregate()} ainsi que des liens vers des questions connexes.
-Si une fonction appartient à un package non installé, il faut d'abord l'installer pour avoir de l'aide sur ses fonctions.
-  \item[\textbf{2}] Si on n'a pas de nom de fonction mais qu'on veut avoir la liste des fonctions s'intéressant à une certaine
+Si une fonction appartient \`a un package non install\'e, il faut d'abord l'installer pour avoir de l'aide sur ses fonctions.
+  \item[\textbf{2}] Si on n'a pas de nom de fonction mais qu'on veut avoir la liste des fonctions s'int\'eressant \`a une certaine
   notion, on utilise  \code{help.search()} ou \code{??}. Par exemple :
 
 {\small
@@ -232,10 +233,10 @@ help.search("date")
 @
 }
 \noindent
-donnent la liste de toutes les fonctions, classées par package, chargés ou seulement installés, où "date" apparaît.
+donnent la liste de toutes les fonctions, class\'ees par package, charg\'es ou seulement install\'es, o\`u "date" appara\^it.
 
 
-  \item[\textbf{3}] Enfin quand on ne sait pas s'il existe une fonction pour une tâche, on peut,  depuis \RR, se renseigner
+  \item[\textbf{3}] Enfin quand on ne sait pas s'il existe une fonction pour une t\^ache, on peut,  depuis \RR, se renseigner
   sur le site de \RR. Exemple :
 
 {\small
@@ -248,17 +249,17 @@ En dernier recours on peut chercher sur le Net. Ainsi en tapant  sur un moteur d
 \\
 \verb"CRAN R date month example",
 on obtient des renseignements pertinents sur la fa\c{c}on d'extraire le mois d'une date. Le mot \code{example} permet souvent de limiter les pages ;
-de même
+de m\^eme
 \\
 \verb"CRAN package inequality"
- donne, parmi beaucoup de choses sans intérêt,  la liste des packages traitant de mesures  d'inégalité.
+ donne, parmi beaucoup de choses sans int\'er\^et,  la liste des packages traitant de mesures  d'in\'egalit\'e.
 \end{trivlist}
-Il faut systématiquement examiner l'aide en ligne des fonctions rencontrées dans ce livre. Même si l'usage en paraît évident, la fonction a souvent des options fort utiles dans d'autres circonstances.
-De plus, les exemples contenus dans l'aide  sollicitent la réflexion du lecteur et sont très instructifs. On en tire le plus grand profit en les exécutant ligne à ligne.
+Il faut syst\'ematiquement examiner l'aide en ligne des fonctions rencontr\'ees dans ce livre. M\^eme si l'usage en para\^it \'evident, la fonction a souvent des options fort utiles dans d'autres circonstances.
+De plus, les exemples contenus dans l'aide  sollicitent la r\'eflexion du lecteur et sont tr\`es instructifs. On en tire le plus grand profit en les ex\'ecutant ligne \`a ligne.
 \\[.3cm]
 \textbf{Une erreur courante.}
-Un nom de fonction est toujours suivi de parenthèses \verb"(...)", et inversement, \textit{seul un nom de fonction est suivi de parenthèses}.
-Considérons le code suivant  :
+Un nom de fonction est toujours suivi de parenth\`eses \verb"(...)", et inversement, \textit{seul un nom de fonction est suivi de parenth\`eses}.
+Consid\'erons le code suivant  :
 
 {\small
 \begin{verbatim}
@@ -270,38 +271,38 @@ Erreur dans cat("temps collecte minimale : ", t.lait(num), "\n") :
 \end{verbatim}
 }
 \noindent
- Dans ce code, \code{lait} est une série temporelle étudiée au chapitre 11. On repère le numéro de l'observation où la  série   est minimum.
-Par \code{time()}, on  extrait le temps/date de cette série et on
-veut imprimer le temps du minimum, à savoir,  \code{t.lait[num]}. Par erreur on a tapé des \verb"( )" au lieu de \verb"[ ]", \RR~croit donc que \code{t.lait} est une fonction,
-qu'il ne  trouve évidemment pas. Le message d'erreur est donc clair.
+ Dans ce code, \code{lait} est une s\'erie temporelle \'etudi\'ee au chapitre 11. On rep\`ere le num\'ero de l'observation o\`u la  s\'erie   est minimum.
+Par \code{time()}, on  extrait le temps/date de cette s\'erie et on
+veut imprimer le temps du minimum, \`a savoir,  \code{t.lait[num]}. Par erreur on a tap\'e des \verb"( )" au lieu de \verb"[ ]", \RR~croit donc que \code{t.lait} est une fonction,
+qu'il ne  trouve \'evidemment pas. Le message d'erreur est donc clair.
 
 
 
 \subsection{Comprendre et changer la structure d'un objet\label{R:struct}}
-Dans \RR, les données multidimensionnelles sont stockées sous différentes formes : matrice, array,   dataframe... ou sous des combinaisons de tels objets. Un dataframe
-est une collection de vecteurs de même longueur qu'on peut imaginer comme une matrice dont les  colonnes peuvent être de types variés
+Dans \RR, les donn\'ees multidimensionnelles sont stock\'ees sous diff\'erentes formes : matrice, array,   dataframe... ou sous des combinaisons de tels objets. Un dataframe
+est une collection de vecteurs de m\^eme longueur qu'on peut imaginer comme une matrice dont les  colonnes peuvent \^etre de types vari\'es
  alors que les colonnes
-d'une matrice doivent être toutes de même type.
-Une liste est une structure plus générale qu'un dataframe. C'est un groupe d'objets reliés entre eux,
-qui peuvent être des vecteurs, des matrices, des listes... Pour savoir les noms des objets qui composent  une liste, on utilise \code{names()}.
+d'une matrice doivent \^etre toutes de m\^eme type.
+Une liste est une structure plus g\'en\'erale qu'un dataframe. C'est un groupe d'objets reli\'es entre eux,
+qui peuvent \^etre des vecteurs, des matrices, des listes... Pour savoir les noms des objets qui composent  une liste, on utilise \code{names()}.
 
-Les fonctions de \RR~construisent et manipulent des objets. Ils peuvent être assez simples comme une matrice, un vecteur,  ou  complexes.
-C'est le cas des objets  fabriqués par les fonctions statistiques telles que \code{lm()},  \code{ARIMA()}, qui effectuent un ajustement
-linéaire,  une modélisation ARIMA... Les objets en sortie de ces fonctions peuvent être des listes, par exemple la liste de tous les
-résultats d'un ajustement linéaire, ou des objets plus structurés appartenant  à    de grandes catégories appelées classes.
-\code{plot()},  \code{summary()},  \code{print()}, \code{coef()} sont des fonctions  génériques, elles adaptent
-leur action à la classe de l'objet auquel on les applique.
+Les fonctions de \RR~construisent et manipulent des objets. Ils peuvent \^etre assez simples comme une matrice, un vecteur,  ou  complexes.
+C'est le cas des objets  fabriqu\'es par les fonctions statistiques telles que \code{lm()},  \code{ARIMA()}, qui effectuent un ajustement
+lin\'eaire,  une mod\'elisation ARIMA... Les objets en sortie de ces fonctions peuvent \^etre des listes, par exemple la liste de tous les
+r\'esultats d'un ajustement lin\'eaire, ou des objets plus structur\'es appartenant  \`a    de grandes cat\'egories appel\'ees classes.
+\code{plot()},  \code{summary()},  \code{print()}, \code{coef()} sont des fonctions  g\'en\'eriques, elles adaptent
+leur action \`a la classe de l'objet auquel on les applique.
 \code{class(a)}
 donne la classe de l'objet \code{a}.
 Il est parfois utile d'abandonner la classe d'un objet. On utilise pour cela   \code{unclass()}. Nous avons
- très souvent recours
- à \verb"str()"\index{str()@\code{str()}}, pour voir comment \RR~a importé un fichier de données
- (les entiers sont-ils restés des entiers, comment les dates ont-elles été comprises....),
-pour trouver facilement les composantes d'une sortie d'un traitement statistique qui nous intéressent.
+ tr\`es souvent recours
+ \`a \verb"str()"\index{str()@\code{str()}}, pour voir comment \RR~a import\'e un fichier de donn\'ees
+ (les entiers sont-ils rest\'es des entiers, comment les dates ont-elles \'et\'e comprises....),
+pour trouver facilement les composantes d'une sortie d'un traitement statistique qui nous int\'eressent.
  \code{as.vector()}, \code{as.numeric()}, \code{as.Date()}... permettent de changer la structure d'un objet,
-\code{unlist()} permet d'abandonner la structure de liste d'un objet. Ces fonctions sont d'un usage fréquent.
-Par exemple, un vecteur et une matrice colonne ne sont généralement pas interchangeables et on aura parfois besoin de changer leur structure, et ce genre de code est d'un emploi
-fréquent. Dans le code ci-dessous,  \code{x} et \code{y} sont des vecteurs, et \code{xmat} une matrice colonne :
+\code{unlist()} permet d'abandonner la structure de liste d'un objet. Ces fonctions sont d'un usage fr\'equent.
+Par exemple, un vecteur et une matrice colonne ne sont g\'en\'eralement pas interchangeables et on aura parfois besoin de changer leur structure, et ce genre de code est d'un emploi
+fr\'equent. Dans le code ci-dessous,  \code{x} et \code{y} sont des vecteurs, et \code{xmat} une matrice colonne :
 
 {\small
 <<eval=FALSE>>=
@@ -312,27 +313,27 @@ y = as.vector(xmat[,1])
 }
 %%%%%%%%%%%%%%%%%%
 ~\\
-\textbf{Classes S3.} Une liste avec un attribut \verb"class" associé indiquant de quel type de liste il s'agit, est une classe S3.
- On accède aux éléments d'une classe S3 par \verb"$".
-Une classe S3 est une liste avec un attribut supplémentaire.
-Si un objet d'une certaine classe est passé comme argument à une fonction, \RR~cherche une fonction nommée de fa\c{c}on appropriée pour les objets de cette classe.
-Ainsi \code{summary()} est une fonction qui donne un résumé adapté aux sorties de différentes fonctions.
+\textbf{Classes S3.} Une liste avec un attribut \verb"class" associ\'e indiquant de quel type de liste il s'agit, est une classe S3.
+ On acc\`ede aux \'el\'ements d'une classe S3 par \verb"$".
+Une classe S3 est une liste avec un attribut suppl\'ementaire.
+Si un objet d'une certaine classe est pass\'e comme argument \`a une fonction, \RR~cherche une fonction nomm\'ee de fa\c{c}on appropri\'ee pour les objets de cette classe.
+Ainsi \code{summary()} est une fonction qui donne un r\'esum\'e adapt\'e aux sorties de diff\'erentes fonctions.
 ~\\
 \textbf{Classes S4.}
-Elles ont été ajoutées assez récemment à \RR.
-Ces classes contiennent généralement à la fois des données et des fonctions, comme les classes S3, mais elles ont quelques avantages techniques. Pour notre usage il nous suffit de savoir
-qu'on fait référence à leurs éléments par @ et non \verb"$".  Les données boursières 
-récupérées    à l'aide de \pkg{its} sont de classe S4. Nous examinons   leur structure à la section 2.2.
- Les séries temporelles de type \texttt{timeSeries} sont des objets de classe S4, on en verra un exemple notamment au chapitre 8, \textit{Trafic mensuel de l'aéroport de Toulouse-Blagnac}.
+Elles ont \'et\'e ajout\'ees assez r\'ecemment \`a \RR.
+Ces classes contiennent g\'en\'eralement \`a la fois des donn\'ees et des fonctions, comme les classes S3, mais elles ont quelques avantages techniques. Pour notre usage il nous suffit de savoir
+qu'on fait r\'ef\'erence \`a leurs \'el\'ements par @ et non \verb"$".  Les donn\'ees boursi\`eres 
+r\'ecup\'er\'ees    \`a l'aide de \pkg{its} sont de classe S4. Nous examinons   leur structure \`a la section 2.2.
+ Les s\'eries temporelles de type \texttt{timeSeries} sont des objets de classe S4, on en verra un exemple notamment au chapitre 8, \textit{Trafic mensuel de l'a\'eroport de Toulouse-Blagnac}.
 
 
 
 
 
 \subsection{Exemple}
-Nous nous intéresserons un peu plus loin aux structures de données temporelles. Examinons maintenant la structure d'une sortie d'ajustement
-d'un modèle combinant une tendance linéaire et une erreur qui a une dynamique autorégressive simple.
-Au chapitre 1, on a utilisé le code suivant :
+Nous nous int\'eresserons un peu plus loin aux structures de donn\'ees temporelles. Examinons maintenant la structure d'une sortie d'ajustement
+d'un mod\`ele combinant une tendance lin\'eaire et une erreur qui a une dynamique autor\'egressive simple.
+Au chapitre 1, on a utilis\'e le code suivant :
 
 {\small
 <<label=r_st.huron>>=
@@ -342,7 +343,7 @@ mod.lac=Arima(LakeHuron,order=c(1,0,0),xreg= temps,method='ML')
 @
 }
 \noindent
-pour estimer le modèle :
+pour estimer le mod\`ele :
 
  \begin{eqnarray}  
  y_t &=& \beta_0 + \beta_1 x_t + u_t, \;\; t=1,\cdots,T.
@@ -350,8 +351,8 @@ pour estimer le modèle :
  u_t &=& \phi u_{t-1} + z_t,\hspace{1cm} |\phi| < 1.
  \end{eqnarray}
 
- On obtient les résultats de l'estimation, valeur des coefficients notamment,
-par \code{summary(mod.lac)}, opération que nous ferons souvent ; mais ici examinons  la structure de
+ On obtient les r\'esultats de l'estimation, valeur des coefficients notamment,
+par \code{summary(mod.lac)}, op\'eration que nous ferons souvent ; mais ici examinons  la structure de
  l'objet \verb"mod.lac".
 
 {\small
@@ -360,11 +361,11 @@ str(mod.lac, width=60, strict.width="cut")
 @
 }
 \noindent
-\index{str()@\code{str()}}Les options \code{width=60, strict.width="cut"} limitent la largeur du texte imprimé ; elles ne sont là que pour les besoins de la mise en page du livre et
- ne sont généralement pas  utilisées dans la pratique.
-On voit que \code{mod.lac} est une liste de 15 objets dont    \verb"mod.lac$model" est lui-même une liste. On peut alors récupérer une composante
-de la liste,  le coefficient du temps dans la régression...
-On voit par exemple, que le nom de ce coefficient est \code{temps}, on peut donc, et c'est plus sûr que de repérer la position d'un terme dans un vecteur, le récupérer par son nom :
+\index{str()@\code{str()}}Les options \code{width=60, strict.width="cut"} limitent la largeur du texte imprim\'e ; elles ne sont l\`a que pour les besoins de la mise en page du livre et
+ ne sont g\'en\'eralement pas  utilis\'ees dans la pratique.
+On voit que \code{mod.lac} est une liste de 15 objets dont    \verb"mod.lac$model" est lui-m\^eme une liste. On peut alors r\'ecup\'erer une composante
+de la liste,  le coefficient du temps dans la r\'egression...
+On voit par exemple, que le nom de ce coefficient est \code{temps}, on peut donc, et c'est plus s\^ur que de rep\'erer la position d'un terme dans un vecteur, le r\'ecup\'erer par son nom :
 
 {\small
 <<label=r_st.huron.coef>>=
@@ -373,8 +374,8 @@ residus= mod.lac$residuals
 @
 }
 \noindent
- \code{fitted()}, \code{residuals()}, \code{coefficients()} sont des fonctions génériques qui permettent également  de récupérer certains résultats.
-Il arrive que les  sorties d'une fonction soient très abondantes et    dépassent la capacité de la console, si bien qu'on en perd le début. \code{sink()} permet d'orienter la sortie vers un fichier.
+ \code{fitted()}, \code{residuals()}, \code{coefficients()} sont des fonctions g\'en\'eriques qui permettent \'egalement  de r\'ecup\'erer certains r\'esultats.
+Il arrive que les  sorties d'une fonction soient tr\`es abondantes et    d\'epassent la capacit\'e de la console, si bien qu'on en perd le d\'ebut. \code{sink()} permet d'orienter la sortie vers un fichier.
 Par exemple  :
 
 {\small
@@ -385,7 +386,11 @@ sink()
 \end{Verbatim}
 }
 \noindent
-La première instruction  oriente la sortie vers le fichier texte \verb"outmod.txt" du répertoire \verb"D:", la deuxième écrit la structure de l'objet \verb"mod" dans ce fichier et la troisième, qu'il
+La premi\`ere instruction  oriente la sortie vers le fichier texte \verb"outmod.txt" du r\'epertoire \verb"D:", la deuxi\`eme \'ecrit la structure de l'objet \verb"mod" dans ce fichier et la troisi\`eme, qu'il
 ne faut pas oublier, redirige la sortie vers la console.
 
+
 \end{document}
+
+
+

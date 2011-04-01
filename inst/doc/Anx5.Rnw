@@ -4,6 +4,7 @@
 %\VignettePackage{caschrono}
 \documentclass{article}
 \usepackage{Sweave}
+\usepackage[latin1]{inputenc}
 \usepackage{times}
 \usepackage{mathptm}
 \usepackage{hyperref}
@@ -31,7 +32,7 @@
 \def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
 \def\bm{\mbox{B}}
 \def\betg{\boldsymbol{\beta}}
-\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bar#1#2{\overline{#1}_{#2}} % surlign\'e indic\'e
 \def\bgr{\mbox{\bf b}}
 \def\bla{\mbox{~}}
 \def\blb{\mbox{~~}}
@@ -63,7 +64,7 @@
 
 \def\I{\mbox{\bf I}}
 \def\indic{\mathrm{I\mkern-8muI}}
-\def\ie{c'est-à-dire}
+\def\ie{c'est-\`a-dire}
 \def\iid{\sim_{\mbox{i.i.d.}}}
 \def\lm{\mbox{L}}
 
@@ -116,15 +117,15 @@
 \urlstyle{sf}
 \def\rmdefault{cmr}
 
-%%%% pour les chiffres des équations
+%%%% pour les chiffres des \'equations
 \makeatletter
 \renewcommand\theequation{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
 \makeatother
 
-\title{Séries temporelles non stationnaires (compléments du Chapitre 5)}
+\title{S\'eries temporelles non stationnaires (compl\'ements du Chapitre 5)}
 \author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Université Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
 \setcounter{section}{5}
@@ -143,7 +144,7 @@ nom.fich = "./Figures/anx5-bitmap-"
 %
 \SweaveOpts{keep.source=TRUE}
 %
-% les différents types de graphiques
+% les diff\'erents types de graphiques
 %  ancien
 <<label=bfig,echo=FALSE,eval=FALSE>>=
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
@@ -200,32 +201,32 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 @
 
 
-\subsection{Séries intégrées - Modèles ARIMA et SARIMA \label{eth1:arisari}}
+\subsection{S\'eries int\'egr\'ees - Mod\`eles ARIMA et SARIMA \label{eth1:arisari}}
 
-\begin{exercice}[Différenciation  saisonnière]
-Vérifier empiriquement l'effet d'une différenciation saisonnière sur 
+\begin{exercice}[Diff\'erenciation  saisonni\`ere]
+V\'erifier empiriquement l'effet d'une diff\'erenciation saisonni\`ere sur 
 
 \begin{equation}\label{trend.saiso}
 y_t=  a + b \cos(2 \pi t/4 )+ c \sin( 2 \pi t/4) + u_t \mbox{~avec~~} u_t  =  \frac{1 }{1 -0.9\: \bm}z_t.
 \end{equation}
 
-Pour cela on pourra définir les séries 
- $\cos(2 \pi t/4 )$ et $ \sin( 2 \pi t/4)$, $t=1,\cdots,48$ et calculer leurs différences saisonnières.
+Pour cela on pourra d\'efinir les s\'eries 
+ $\cos(2 \pi t/4 )$ et $ \sin( 2 \pi t/4)$, $t=1,\cdots,48$ et calculer leurs diff\'erences saisonni\`eres.
  
-Pour des compléments théoriques on peut consulter  Gourieroux et Monfort (1995),  chap. 3,
-qui présentent les propriétés algébriques des 
+Pour des compl\'ements th\'eoriques on peut consulter  Gourieroux et Monfort (1995),  chap. 3,
+qui pr\'esentent les propri\'et\'es alg\'ebriques des 
  filtres
-de moyenne mobile, appelés aussi filtres de moyenne glissante (\textit{running mean}).  Ladiray et Quenneville (2000) expliquent en détail l'usage de ces filtres en macro-économie.
+de moyenne mobile, appel\'es aussi filtres de moyenne glissante (\textit{running mean}).  Ladiray et Quenneville (2000) expliquent en d\'etail l'usage de ces filtres en macro-\'economie.
 
 \end{exercice}
 
-\textbf{Réponse.}
+\textbf{R\'eponse.}
 
 {\small
 <<label=period>>=
-# série de 48 points
-# x1 et x2 sont les fonctions périodiques
-# et on vérifie que leurs différences saisonnières sont nulles.
+# s\'erie de 48 points
+# x1 et x2 sont les fonctions p\'eriodiques
+# et on v\'erifie que leurs diff\'erences saisonni\`eres sont nulles.
 temps = 1:48
 x1 = cos(2*pi*temps/4)
 diff(x1,4)
@@ -234,33 +235,33 @@ diff(x2,4)
 @
 }
 
-On voit que les différenciations saisonnières de \code{x1} et \code{x2} sont nulles.
+On voit que les diff\'erenciations saisonni\`eres de \code{x1} et \code{x2} sont nulles.
 
-\begin{exercice}[Estimation d'un SARIMA avec dérive]
-On a indiqué à la section 5.1, comment \proglang{R} estime les modèles intégrés. Ainsi, s'il y avait différenciation aux ordres 1 et 12, il faudrait introduire le
-régresseur $t^2$ (la constante et le régresseur $t$ sont éliminés dans les différenciations) :
+\begin{exercice}[Estimation d'un SARIMA avec d\'erive]
+On a indiqu\'e \`a la section 5.1, comment \proglang{R} estime les mod\`eles int\'egr\'es. Ainsi, s'il y avait diff\'erenciation aux ordres 1 et 12, il faudrait introduire le
+r\'egresseur $t^2$ (la constante et le r\'egresseur $t$ sont \'elimin\'es dans les diff\'erenciations) :
 \[
 Y_t = c \; t^2 + e_t.
 \]
-La différenciation aux ordres 1 et 12 donne
+La diff\'erenciation aux ordres 1 et 12 donne
 \[
   (1 - \bm)(1 - \bm^{12}) Y_t = 24 \;c    +  (1 - \bm)(1 - \bm^{12}) e_t,
 \]
  et \proglang{R} fournit donc une estimation de $c$ et non de $24 \;c$.
  
- Vérifier cette assertion en simulant un SARIMA$(1,1,0)(0,1,1)_{12}$ puis en l'estimant.
+ V\'erifier cette assertion en simulant un SARIMA$(1,1,0)(0,1,1)_{12}$ puis en l'estimant.
  
  \end{exercice}
  
-\textbf{ Réponse.}
- Il faut évidemment simuler un SARIMA avec dérive. Nous allons faire cette simulation de deux façons.
- D'abord, nous choisissons un modèle, un \\
-  SARIMA$(1,1,0)(0,1,1)_{12}$  avec dérive :
+\textbf{ R\'eponse.}
+ Il faut \'evidemment simuler un SARIMA avec d\'erive. Nous allons faire cette simulation de deux fa\c{c}ons.
+ D'abord, nous choisissons un mod\`ele, un \\
+  SARIMA$(1,1,0)(0,1,1)_{12}$  avec d\'erive :
  \[
  (1 - \bm)(1-\bm^{12} ) y_t  = \texttt{moy} +\frac{1 +0.5\: \bm^{12}}{1+0.8\: \bm} z_t,\;z_t \sim \BBN(0,1)
  \]
-\code{moy} est la moyenne du processus différencié aux ordres 1 et 12 et donne une dérive sur le processus $y_t$.
-Nous écrivons les différents polynômes qui seront utilisés.
+\code{moy} est la moyenne du processus diff\'erenci\'e aux ordres 1 et 12 et donne une d\'erive sur le processus $y_t$.
+Nous \'ecrivons les diff\'erents polyn\^omes qui seront utilis\'es.
 
 {\small
 <<>>=
@@ -290,10 +291,10 @@ include.mean=TRUE)
 @
 }
 
-Comme vérification, nous avons imprimé  la moyenne de la série simulée et estimé le modèle attendu.
-On intègre maintenant la série en deux étapes et à chacune, on estime le modèle de la série intégrée.
-On procède de deux façons, ou bien en utilisant l'option \code{include.drift=TRUE} ou bien en régressant sur la
-série $1, 2,\cdots$
+Comme v\'erification, nous avons imprim\'e  la moyenne de la s\'erie simul\'ee et estim\'e le mod\`ele attendu.
+On int\`egre maintenant la s\'erie en deux \'etapes et \`a chacune, on estime le mod\`ele de la s\'erie int\'egr\'ee.
+On proc\`ede de deux fa\c{c}ons, ou bien en utilisant l'option \code{include.drift=TRUE} ou bien en r\'egressant sur la
+s\'erie $1, 2,\cdots$
 
 {\small
 <<label=arimasim2>>=
@@ -307,8 +308,8 @@ seasonal=list(order=c(0,0,1), period=12),
 include.drift=TRUE)
 @
 }
-On obtient les mêmes résultats par les deux méthodes.
-Enfin pour simuler la série $y_t$, on intègre saisonnièrement \code{yd0}
+On obtient les m\^emes r\'esultats par les deux m\'ethodes.
+Enfin pour simuler la s\'erie $y_t$, on int\`egre saisonni\`erement \code{yd0}
 
 {\small
 <<label=arimasim3>>=
@@ -321,26 +322,26 @@ x2 = as.matrix(seq(1,length(yd0))^2)
        frequency=12),include.drift=TRUE))
 @
 }
-\code{m1} estime le coefficient de \code{x2} et la dérive 24 fois ce coefficient.
+\code{m1} estime le coefficient de \code{x2} et la d\'erive 24 fois ce coefficient.
 Dans l'estimation utilisant l'option \code{include.drift=TRUE}
-on note que la dérive n'est pas significative, alors qu'elle vaut 5 dans le modèle simulé.
+on note que la d\'erive n'est pas significative, alors qu'elle vaut 5 dans le mod\`ele simul\'e.
 
  
 
    
-   \item \textbf{Simulation par} \code{simulate} \\Il nous faut   développer le polynôme d'autorégression 
+   \item \textbf{Simulation par} \code{simulate} \\Il nous faut   d\'evelopper le polyn\^ome d'autor\'egression 
    dans
    \[
     (1 - \bm)(1-\bm^{12} ) (1+0.8 \:\bm) y_t= (1+0.8 \:\bm) \texttt{moy} + (1 +0.5\: \bm^{12}) z_t
    \]
 
-On définit donc les trois polynômes qui définissent l'autorégression
+On d\'efinit donc les trois polyn\^omes qui d\'efinissent l'autor\'egression
     
 {\small
 <<label=simulate1>>=    
 (ar.1=polynomial(c(1,.8)))
 (ar.2 = polynomial(c(1,-1))*ar.1)
-# terme autorégressif complet jusqu'au retard 14
+# terme autor\'egressif complet jusqu'au retard 14
 (ar.14 =  polynomial(c(1,rep(0,11),-1))*ar.2)
 moy=5   
 (masaiso = polynomial(c(1,rep(0,11),.5)))
@@ -356,14 +357,14 @@ y2 = simulate(modsarima,input=u.t,sampleT=nobs)$output
 @
 }
 
-Pour vérifier, on calcule la moyenne de la série différenciée une fois simplement et une fois saisonnièrement :
+Pour v\'erifier, on calcule la moyenne de la s\'erie diff\'erenci\'ee une fois simplement et une fois saisonni\`erement :
 
 {\small
 <<>>=
 mean(diff(diff(y2,1),12))
 @
 }
-puis estimons le modèle dont on a simulé une trajectoire :
+puis estimons le mod\`ele dont on a simul\'e une trajectoire :
 
 {\small
 <<>>=
@@ -380,29 +381,29 @@ seasonal=list(order=c(0,1,1),period=12),
 xreg=x2))
 @
 }
-On peut observer que l'estimation n'a pas fonctionné correctement aussi bien en introduisant le régresseur $1,2,\cdots$
+On peut observer que l'estimation n'a pas fonctionn\'e correctement aussi bien en introduisant le r\'egresseur $1,2,\cdots$
 <<echo=FALSE>>=
 cf3 = m3$coef
 @
-qu'une dérive. On peut enfin vérifier que 24 $\times$ \code{cf3["x2"]} = \Sexpr{round(24*cf3["x2"],digits=2)} qui est très proche de la moyenne empirique de la série différenciée deux fois.
+qu'une d\'erive. On peut enfin v\'erifier que 24 $\times$ \code{cf3["x2"]} = \Sexpr{round(24*cf3["x2"],digits=2)} qui est tr\`es proche de la moyenne empirique de la s\'erie diff\'erenci\'ee deux fois.
 
 
 \end{itemize}
 
 
-\begin{exercice}[Lag plot  d'une série avec dérive]
-Simuler des séries de 200 points suivant 
+\begin{exercice}[Lag plot  d'une s\'erie avec d\'erive]
+Simuler des s\'eries de 200 points suivant 
 \[
 y_t = c+ y_{t-4}+u_t,\mbox{~~avec~} u_t = \frac{1}{1 - 0.9 \:\bm }z_t
 \]
  avec $\sigma_z^2 = 1$ et 
-les valeurs initiales égales à 0. D'abord avec $c=-.2$ puis $c=.2$.
-Dessiner les lag plots de ces séries jusqu'au retard 6 et observer la dérive sur ces graphes. 
+les valeurs initiales \'egales \`a 0. D'abord avec $c=-.2$ puis $c=.2$.
+Dessiner les lag plots de ces s\'eries jusqu'au retard 6 et observer la d\'erive sur ces graphes. 
 Commenter.
 \end{exercice}
 
-\textbf{Réponse.}
-Le plus simple est de simuler l'ARMA de la série différenciée puis de l'intégrer.
+\textbf{R\'eponse.}
+Le plus simple est de simuler l'ARMA de la s\'erie diff\'erenci\'ee puis de l'int\'egrer.
 
 {\small
 <<label=derive,eval=FALSE>>=
@@ -411,25 +412,25 @@ c=-.2
 y0=arima.sim(list(order=c(1,0,0),ar=.9),n=200)+c
 y1=diffinv(y0,4)[-(1:4)]
 lag.plot(rev(y1),4,layout=c(2,2),do.lines=FALSE,
-   main="Dérive négative",diag.col="red")
+   main="D\'erive n\'egative",diag.col="red")
 c=.2
 y0=arima.sim(list(order=c(1,0,0),ar=.9),n=200)+c
 y1=diffinv(y0,4)[-(1:4)]
 lag.plot(rev(y1),4,layout=c(2,2),ask=NA,do.lines=FALSE,
-                     main="Dérive positive",diag.col="red")
+                     main="D\'erive positive",diag.col="red")
 @
 }
 On observe dans la plupart des simulations qu'au retard 4 il y a plus de points au-dessus de la droite $y=x$
-quand la dérive est positive et moins de points au-dessus de la droite $y=x$ quand elle est négative.
-L'écart vertical à la diagonale est de l'ordre de $c$.
+quand la d\'erive est positive et moins de points au-dessus de la droite $y=x$ quand elle est n\'egative.
+L'\'ecart vertical \`a la diagonale est de l'ordre de $c$.
 
 
 
 
 
-\begin{exercice}[Régression d'une marche aléatoire]
+\begin{exercice}[R\'egression d'une marche al\'eatoire]
 
-Simuler deux marches aléatoires \code{x} et \code{y} indépendantes, par exemple à l'aide du code :
+Simuler deux marches al\'eatoires \code{x} et \code{y} ind\'ependantes, par exemple \`a l'aide du code :
 
 {\small
 <<label=spur1>>=
@@ -443,16 +444,16 @@ x = diffinv(x0)
 
 \begin{enumerate}
   \item Dessiner le diagramme de dispersion de (\code{x},\code{y}). 
-  \item Superposer les chronogrammes des deux séries. 
-  \item Que suggèrent ces graphiques ?
-  \item Effectuer la régression linéaire de \code{y} sur \code{x}. 
-  \item Etudier la stationnarité du résidu  et conclure sur la pertinence de cette régression.
+  \item Superposer les chronogrammes des deux s\'eries. 
+  \item Que sugg\`erent ces graphiques ?
+  \item Effectuer la r\'egression lin\'eaire de \code{y} sur \code{x}. 
+  \item Etudier la stationnarit\'e du r\'esidu  et conclure sur la pertinence de cette r\'egression.
 \end{enumerate}
 
 \end{exercice}
 
 
-\textbf{Réponse}
+\textbf{R\'eponse}
 
 \begin{enumerate}
   \item 
@@ -471,10 +472,10 @@ legend("topleft",c("x","y"),lty=1:2)
 @
 }
 
-Le diagramme de dispersion (fig. \ref{spur1c}  haut) suggère 
+Le diagramme de dispersion (fig. \ref{spur1c}  haut) sugg\`ere 
 contre tout bon sens 
-une forte corrélation, et les chronogrammes (fig. \ref{spur1c}  bas)  évoluent parallèlement si on néglige le
-décrochement entre les deux séries.
+une forte corr\'elation, et les chronogrammes (fig. \ref{spur1c}  bas)  \'evoluent parall\`element si on n\'eglige le
+d\'ecrochement entre les deux s\'eries.
 
 
 
@@ -497,11 +498,11 @@ par(op)
 <<zfig2>>
 <<zfiginclude>>
 @
-\caption{Diagramme de dispersion (haut) et chronogrammes (bas) de deux marches aléatoires, \texttt{x} et \texttt{y}, indépendantes.}\label{spur1c}
+\caption{Diagramme de dispersion (haut) et chronogrammes (bas) de deux marches al\'eatoires, \texttt{x} et \texttt{y}, ind\'ependantes.}\label{spur1c}
 \end{center}
 \end{figure} 
-  \item Les graphiques suggèrent une évolution parallèle des deux séries.
-  \item Nous  régressons \code{y} sur \code{x}.
+  \item Les graphiques sugg\`erent une \'evolution parall\`ele des deux s\'eries.
+  \item Nous  r\'egressons \code{y} sur \code{x}.
 
 {\small
 <<label=spur1>>=
@@ -510,10 +511,10 @@ mod4 = lm(y~x)
 @
 }  
 
-Nous obtenons  \code{R2} $= \Sexpr{round(aa$r.squared,4)}$, valeur  élevée, et la régression semble très significative. Pour aller plus loin,
-nous dessinons le chronogramme du résidu et son ACF (fig. \ref{spur2d}). Le chronogramme du résidu montre de longues séries de valeurs de même signe ; typiquement,
-ce résidu n'est pas stationnaire. L'accumulation de valeurs consécutives de même signe entra\^{\i}ne une forte valeur de l'autocorrélation d'ordre 1. Evidemment, cette autocorrélation
-est purement numérique et n'est pas l'estimation d'une autocorrélation théorique, non définie dans cet exemple.
+Nous obtenons  \code{R2} $= \Sexpr{round(aa$r.squared,4)}$, valeur  \'elev\'ee, et la r\'egression semble tr\`es significative. Pour aller plus loin,
+nous dessinons le chronogramme du r\'esidu et son ACF (fig. \ref{spur2d}). Le chronogramme du r\'esidu montre de longues s\'eries de valeurs de m\^eme signe ; typiquement,
+ce r\'esidu n'est pas stationnaire. L'accumulation de valeurs cons\'ecutives de m\^eme signe entra\^{\i}ne une forte valeur de l'autocorr\'elation d'ordre 1. Evidemment, cette autocorr\'elation
+est purement num\'erique et n'est pas l'estimation d'une autocorr\'elation th\'eorique, non d\'efinie dans cet exemple.
   \item 
   
 {\small
@@ -543,7 +544,7 @@ par(op)
 <<zfig2>>
 <<zfiginclude>>
 @
-\caption{Résidu de la régression de y sur x - Chronogramme  et ACF.}\label{spur2.b}
+\caption{R\'esidu de la r\'egression de y sur x - Chronogramme  et ACF.}\label{spur2.b}
 \end{center}
 \end{figure}
 
@@ -557,32 +558,33 @@ par(op)
 \noindent
 
 
-Résumons. Cet exemple nous a conduit à effectuer une régression ayant une significativité illusoire : un R2 élevé et une 
-régression apparemment très significative, 
+R\'esumons. Cet exemple nous a conduit \`a effectuer une r\'egression ayant une significativit\'e illusoire : un R2 \'elev\'e et une 
+r\'egression apparemment tr\`es significative, 
 le diagramme de dispersion des
- deux séries est trompeur mais
+ deux s\'eries est trompeur mais
 les chronogrammes montrent l'absence de lien entre elles. 
  
 
-Pour compléter le traitement de cet exemple, voyons ce que suggère un test de racine unité. On sait que le résidu est de moyenne nulle,
-d'où, \code{type=none}, indiqué dans l'appel de \code{ur.df()}, ci-dessous.
- Des essais avec différentes valeurs de \code{lags} nous conduisent à \code{lags=0}
+Pour compl\'eter le traitement de cet exemple, voyons ce que sugg\`ere un test de racine unit\'e. On sait que le r\'esidu est de moyenne nulle,
+d'o\`u, \code{type=none}, indiqu\'e dans l'appel de \code{ur.df()}, ci-dessous.
+ Des essais avec diff\'erentes valeurs de \code{lags} nous conduisent \`a \code{lags=0}
 %http://en.wikibooks.org/wiki/LaTeX/Floats,_Figures_and_Captions
 
 {\small
-<<label=racu.xy>>=
+\begin{verbatim}
 require(urca)
 ur.mod4=ur.df(mod4$residuals, type = "none",lags = 0) 
 summary(ur.mod4)
-@
+\end{verbatim}
 }
+
 \noindent
-On obtient une p-value assez élevée, proche de 10\%. On conserve donc l'hypothèse nulle : la série du résidu est non stationnaire.
+On obtient une p-value assez \'elev\'ee, proche de 10\%. On conserve donc l'hypoth\`ese nulle : la s\'erie du r\'esidu est non stationnaire.
 
 \subsection*{Bibliographie}
-Gourieroux C. et Monfort A. (1995). Séries temporelles et modèles dynamiques.
+Gourieroux C. et Monfort A. (1995). S\'eries temporelles et mod\`eles dynamiques.
 Economica, 2 edn.. \newline
 
-Ladiray D. et Quenneville B. (2000). Désaisonnaliser avec la méthode x-11. Tech.
+Ladiray D. et Quenneville B. (2000). D\'esaisonnaliser avec la m\'ethode x-11. Tech.
 Rep.. \url{http://www.census.gov/ts/papers/x11french.pdf}.
 \end{document}

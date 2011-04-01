@@ -5,13 +5,15 @@ Description: Functions, data sets and exercises solutions for the book
         Springer, 2011). For all chapters, a vignette is available with
         some additional material and exercises solutions.
 Encoding: latin1
-Version: 1.0
-Date: 2011-02-21
+Version: 1.1
+Date: 2011-04-01
 Author: Yves Aragon
 Maintainer: Thibault Laurent <Thibault.Laurent@univ-tlse1.fr>
 Depends: forecast, Hmisc, its, timeSeries
-Suggests: dse, expsmooth, FitARMA, fGarch
+Suggests: dse, expsmooth, fBasics, fUtilities, FitARMA, fGarch,
+        polynom, TSA, xtable
 License: GPL (>= 2)
-Packaged: 2011-03-07 11:18:53 UTC; laurent
+URL: http://www.seriestemporelles.com
+Packaged: 2011-04-01 16:09:21 UTC; laurent
 Repository: CRAN
-Date/Publication: 2011-03-07 11:33:02
+Date/Publication: 2011-04-01 21:06:56

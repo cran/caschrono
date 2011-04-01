@@ -4,6 +4,7 @@
 %\VignettePackage{caschrono}
 \documentclass{article}
 \usepackage{Sweave}
+\usepackage[latin1]{inputenc}
 \usepackage{times}
 \usepackage{mathptm}
 \usepackage{hyperref}
@@ -31,7 +32,7 @@
 \def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
 \def\bm{\mbox{B}}
 \def\betg{\boldsymbol{\beta}}
-\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bar#1#2{\overline{#1}_{#2}} % surlign\'e indic\'e
 \def\bgr{\mbox{\bf b}}
 \def\bla{\mbox{~}}
 \def\blb{\mbox{~~}}
@@ -63,7 +64,7 @@
 
 \def\I{\mbox{\bf I}}
 \def\indic{\mathrm{I\mkern-8muI}}
-\def\ie{c'est-à-dire}
+\def\ie{c'est-\`a-dire}
 \def\iid{\sim_{\mbox{i.i.d.}}}
 \def\lm{\mbox{L}}
 
@@ -116,15 +117,15 @@
 \urlstyle{sf}
 \def\rmdefault{cmr}
 
-%%%% pour les chiffres des équations
+%%%% pour les chiffres des \'equations
 \makeatletter
 \renewcommand\theequation{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
 \makeatother
 
-\title{Lissage exponentiel (compléments du Chapitre 6)}
+\title{Lissage exponentiel (compl\'ements du Chapitre 6)}
 \author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Université Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
 \setcounter{section}{6}
@@ -137,7 +138,7 @@ options(width=60, continue="+ ","warn"=-1 )
 .PngNo <- 0
 nom.fich = "./Figures/anx6-bitmap-"
 @
-% les différents types de graphiques
+% les diff\'erents types de graphiques
 %  ancien
 <<label=bfig,echo=FALSE,eval=FALSE>>=
 .PngNo <- .PngNo + 1; file = paste(rep.ima,nom.fich, .PngNo, sep="")
@@ -200,7 +201,7 @@ La somme des poids
 \[
 c_i = \alpha (1 - \alpha)^i,\; i=0, 1,\cdots
 \]
-fait 1 si l'on va jusqu'à l'infini. Examinons la somme réelle des poids quand on arrête la somme à 10, 20, 30, 40 observations, pour alpha = .1, .2,.3..
+fait 1 si l'on va jusqu'\`a l'infini. Examinons la somme r\'eelle des poids quand on arr\^ete la somme \`a 10, 20, 30, 40 observations, pour alpha = .1, .2,.3..
 
 {\small
 <<label=alpha>>=
@@ -232,7 +233,7 @@ round(cumul,digits=2)
 On voit qu'on atteint 0.99 en 40 observations si  $\alpha = 0.1$,  en 20 observations si $\alpha = 0.2$
 et en moins de 20 observations si $\alpha = 0.3$. L'approximation est donc acceptable.
 
-\begin{Exercice}[Compléments sur \code{fmsales}]
+\begin{Exercice}[Compl\'ements sur \code{fmsales}]
  \begin{enumerate}
 
 \item Examinons la  sortie \verb"ets0".
@@ -248,19 +249,19 @@ str(ets0, width = 60, strict.width = "cut")
 @
 }
 \noindent
-C'est une liste qui contient entre autres : les résidus, \code{residuals(ets0)}, {\ie} les $ \widehat{\epsilon}_t$ et les valeurs ajustées
-\verb"ets0$fit", {\ie} les $\widehat{y}_t$, qui sont également les prédictions à l'horizon 1 sur la période d'observation, la série état,
+C'est une liste qui contient entre autres : les r\'esidus, \code{residuals(ets0)}, {\ie} les $ \widehat{\epsilon}_t$ et les valeurs ajust\'ees
+\verb"ets0$fit", {\ie} les $\widehat{y}_t$, qui sont \'egalement les pr\'edictions \`a l'horizon 1 sur la p\'eriode d'observation, la s\'erie \'etat,
 \verb"ets0$states".
 
-\item L'état initial est noté \code{l}, on le trouve en \verb"$fit$par[2]" et dans \verb"$states[1]".
+\item L'\'etat initial est not\'e \code{l}, on le trouve en \verb"$fit$par[2]" et dans \verb"$states[1]".
 
-\item   \verb"ets0$mse" = \verb"ets0$sigma2" car le prédicteur est sans biais et donc l'erreur quadratique moyenne se confond avec la variance de l'innovation.
+\item   \verb"ets0$mse" = \verb"ets0$sigma2" car le pr\'edicteur est sans biais et donc l'erreur quadratique moyenne se confond avec la variance de l'innovation.
 
-\item Les paramètres de ce modèle sont l'état initial et alpha.
+\item Les param\`etres de ce mod\`ele sont l'\'etat initial et alpha.
 
-\item Blancheur du résidu.
+\item Blancheur du r\'esidu.
 
-Si l'on veut examiner la blancheur du bruit après estimation, on peut exécuter :
+Si l'on veut examiner la blancheur du bruit apr\`es estimation, on peut ex\'ecuter :
 
 {\small
 <<label=testbl>>=
@@ -268,21 +269,21 @@ Box.test.2(residuals(ets0), nlag = c(3,6,9))
 @
 }
 \noindent
-Donc le modèle est satisfaisant.
+Donc le mod\`ele est satisfaisant.
 \end{enumerate}
 
 \end{Exercice}
 
 
-\begin{Exercice}[Lissage exponentiel simple par la méthode de  Holt-Winters]
+\begin{Exercice}[Lissage exponentiel simple par la m\'ethode de  Holt-Winters]
 
 \begin{enumerate}
-\item Faire la prévision de \code{fmsale} à l'horizon 4 à l'aide de la fonction \code{HoltWinters()} ;
-\item Comparer dans les deux approches, les valeurs du paramètre $\alpha$, les vecteurs donnant le niveau.
+\item Faire la pr\'evision de \code{fmsale} \`a l'horizon 4 \`a l'aide de la fonction \code{HoltWinters()} ;
+\item Comparer dans les deux approches, les valeurs du param\`etre $\alpha$, les vecteurs donnant le niveau.
 \end{enumerate}
 \end{Exercice}
 
-\textbf{Réponse.}
+\textbf{R\'eponse.}
 
 {\small
 <<>>=
@@ -301,24 +302,24 @@ plot(ets0.hw$fitted[,1], ets0$fitted[-1])
 }
 
 
-%\begin{Exercice}[Moyenne localement constante ou moyenne localement  linéaire]
-%On a vu, notamment par le test de blancheur du résidu,  que la série \code{fmsales} a une moyenne localement constante (mlc).
-%Le modèle à moyenne localement linéaire (mll) que nous venons  de lui ajuster est donc sans doute inutilement compliqué.
+%\begin{Exercice}[Moyenne localement constante ou moyenne localement  lin\'eaire]
+%On a vu, notamment par le test de blancheur du r\'esidu,  que la s\'erie \code{fmsales} a une moyenne localement constante (mlc).
+%Le mod\`ele \`a moyenne localement lin\'eaire (mll) que nous venons  de lui ajuster est donc sans doute inutilement compliqu\'e.
 %\begin{enumerate}
-%\item Comparer les critères d'information dans les deux modélisations.
-%\item Les mesures d'erreur intra-échantillon sont nécessairement plus faibles avec une mll qu'avec une mlc.
+%\item Comparer les crit\`eres d'information dans les deux mod\'elisations.
+%\item Les mesures d'erreur intra-\'echantillon sont n\'ecessairement plus faibles avec une mll qu'avec une mlc.
 %Calculer la variation relative de ces mesures.
-%\item Donner une mesure de la variabilité de la pente dans la mll. Commenter.
-%\item Quel modèle retenir pour cette série ?
+%\item Donner une mesure de la variabilit\'e de la pente dans la mll. Commenter.
+%\item Quel mod\`ele retenir pour cette s\'erie ?
 %\end{enumerate}
 %\end{Exercice}
 %
-%Réponse.
+%R\'eponse.
 %
-%Notons que maintenant l'état est bien un vecteur à deux composantes notées  \code{l} et \code{b}.
+%Notons que maintenant l'\'etat est bien un vecteur \`a deux composantes not\'ees  \code{l} et \code{b}.
 %
 %
-%Les critères d'information pour le SES sont :
+%Les crit\`eres d'information pour le SES sont :
 %
 %{\small
 % \begin{verbatim}
@@ -327,11 +328,11 @@ plot(ets0.hw$fitted[,1], ets0$fitted[-1])
 % \end{verbatim}
 %}
 %\noindent
-% chacun est inférieur à son correspondant pour le lissage exponentiel double.
-%De plus le paramètre de mise à jour de la pente (\verb"beta  = 0.0001") est très faible, ainsi que la pente  initiale.
+% chacun est inf\'erieur \`a son correspondant pour le lissage exponentiel double.
+%De plus le param\`etre de mise \`a jour de la pente (\verb"beta  = 0.0001") est tr\`es faible, ainsi que la pente  initiale.
 %
 %
-%Calculons la variabilité des composantes.
+%Calculons la variabilit\'e des composantes.
 %
 %{\small
 %<<label=fmsales.vari, echo=TRUE,eval=TRUE, results=verbatim>>=
@@ -339,8 +340,8 @@ plot(ets0.hw$fitted[,1], ets0$fitted[-1])
 %@
 %}
 %\noindent
-%On voit que la pente est pratiquement constante et très faible.
+%On voit que la pente est pratiquement constante et tr\`es faible.
 %La structure de l'objet en sortie  donne notamment une estimation
-%du vecteur état. Sa première composante correspond au niveau local et la deuxième à la pente.
+%du vecteur \'etat. Sa premi\`ere composante correspond au niveau local et la deuxi\`eme \`a la pente.
 
 \end{document}

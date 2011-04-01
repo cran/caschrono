@@ -4,6 +4,7 @@
 %\VignettePackage{caschrono}
 \documentclass{article}
 \usepackage{Sweave}
+\usepackage[latin1]{inputenc}
 \usepackage{times}
 \usepackage{mathptm}
 \usepackage{hyperref}
@@ -31,7 +32,7 @@
 \def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
 \def\bm{\mbox{B}}
 \def\betg{\boldsymbol{\beta}}
-\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bar#1#2{\overline{#1}_{#2}} % surlign\'e indic\'e
 \def\bgr{\mbox{\bf b}}
 \def\bla{\mbox{~}}
 \def\blb{\mbox{~~}}
@@ -63,7 +64,7 @@
 
 \def\I{\mbox{\bf I}}
 \def\indic{\mathrm{I\mkern-8muI}}
-\def\ie{c'est-à-dire}
+\def\ie{c'est-\`a-dire}
 \def\iid{\sim_{\mbox{i.i.d.}}}
 \def\lm{\mbox{L}}
 
@@ -116,15 +117,15 @@
 \urlstyle{sf}
 \def\rmdefault{cmr}
 
-%%%% pour les chiffres des équations
+%%%% pour les chiffres des \'equations
 \makeatletter
 \renewcommand\theequation{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
 \makeatother
 
-\title{Simulation (compléments du Chapitre 7)}
+\title{Simulation (compl\'ements du Chapitre 7)}
 \author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Université Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
 \setcounter{section}{7}
@@ -142,7 +143,7 @@ nom.fich = "./Figures/annexe_simul-bitmap-"
 %
 \SweaveOpts{keep.source=TRUE}
 %
-% les différents types de graphiques
+% les diff\'erents types de graphiques
 %  ancien
 <<label=bfig,echo=FALSE,eval=FALSE>>=
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
@@ -201,18 +202,18 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 \subsection{Exercices}
 
 \begin{Exercice}[Simulation d'un SARMA]
-On veut simuler une série obéissant à  (1.2).
+On veut simuler une s\'erie ob\'eissant \`a  (1.2).
 
 \begin{itemize}
   \item Tirer d'abord 290 observations i.i.d.   suivant la loi de $z_t$.
-  \item Simuler d'après cette série, une série de 240 valeurs obéissant à (1.2) 
+  \item Simuler d'apr\`es cette s\'erie, une s\'erie de 240 valeurs ob\'eissant \`a (1.2) 
 \end{itemize}
 
 \end{Exercice}
 
-\textbf{Réponse. }
+\textbf{R\'eponse. }
 
-Cette simulation est effectuée par 
+Cette simulation est effectu\'ee par 
 
 {\small
 <<label=simusar.ini>>=
@@ -227,31 +228,31 @@ colnames(ytr)=c("série simulée","température")
 @
 }
 
-Notons simplement que \code{innov1} correspond à $z_t$, \code{y} à $y_t - 50$ et qu'on a dû expliciter que
-les coefficients de la régression de $y_t$ sur ses valeurs passées jusqu'en $t-11$, sont nuls.
+Notons simplement que \code{innov1} correspond \`a $z_t$, \code{y} \`a $y_t - 50$ et qu'on a d\^u expliciter que
+les coefficients de la r\'egression de $y_t$ sur ses valeurs pass\'ees jusqu'en $t-11$, sont nuls.
 
 
 
 \begin{Exercice}[ARIMA]
-On veut simuler une série de 200 valeurs d'une autorégression dont le polynôme a deux racines strictement supérieurs à 1 et une racine égale à 1 :
+On veut simuler une s\'erie de 200 valeurs d'une autor\'egression dont le polyn\^ome a deux racines strictement sup\'erieurs \`a 1 et une racine \'egale \`a 1 :
 \[
 (1 - \frac{\bm}{1.4}) (1  - \bm)(1 - \frac{\bm}{1.9}).
 \]
-et la  variance du bruit est égale à 1. 
+et la  variance du bruit est \'egale \`a 1. 
 \begin{itemize}
-   \item Calculer le polynôme d'autorégression.
-   \item Si on essaie de simuler cette série directement  à l'aide de \code{arima.sim()}, qu'observe-t-on ?
-La série obéit à un ARIMA$(2,1,0)$.   Après avoir consulté l'aide en ligne de  cette fonction,
+   \item Calculer le polyn\^ome d'autor\'egression.
+   \item Si on essaie de simuler cette s\'erie directement  \`a l'aide de \code{arima.sim()}, qu'observe-t-on ?
+La s\'erie ob\'eit \`a un ARIMA$(2,1,0)$.   Apr\`es avoir consult\'e l'aide en ligne de  cette fonction,
 reformuler la simulation pour pouvoir utiliser \code{arima.sim()}.
  
-  \item Simuler la série à l'aide de \code{simulate()}.
+  \item Simuler la s\'erie \`a l'aide de \code{simulate()}.
 \end{itemize}
 \end{Exercice}
 
-\textbf{Réponse.}
+\textbf{R\'eponse.}
 
 \begin{itemize}
-   \item Calcul du polynôme d'autorégression.
+   \item Calcul du polyn\^ome d'autor\'egression.
 
    {\small
 <<label= autop>>=
@@ -266,7 +267,7 @@ autop=polynomial(c(1,-1/1.4))*polynomial(c(1,-1))*polynomial(c(1,-1/1.9))
    \item
 Simulation directe.
 On obtient une erreur car
-  la partie autorégressive du modèle n'est pas stationnaire. Le processus à simuler étant un ARIMA(2,1,0), on peut exprimer
+  la partie autor\'egressive du mod\`ele n'est pas stationnaire. Le processus \`a simuler \'etant un ARIMA(2,1,0), on peut exprimer
 le facteur du terme en $(1 - \bm)$ : $(1 - \bm/1.4) (1 - \bm/1.9)$ et simuler l'ARIMA :
 
 <<label= autop2>>=
@@ -277,7 +278,7 @@ order=c(2,1,0)))
 
 
 
-\item  Pour simuler la série à l'aide de \code{simulate()}, on construit le modèle via \code{ARMA()}
+\item  Pour simuler la s\'erie \`a l'aide de \code{simulate()}, on construit le mod\`ele via \code{ARMA()}
  puis on le simule
 
 {\small
@@ -290,7 +291,7 @@ asim8c= simulate(mod2,sampleT=60, sd=1.5)
 @
 }
 \noindent
-ainsi, alors que \code{arima.sim()} ne peut simuler que des ARMA ou des ARIMA explicites, \code{simulate()}, comme \code{filter()} peut  simuler toute autorégression.
+ainsi, alors que \code{arima.sim()} ne peut simuler que des ARMA ou des ARIMA explicites, \code{simulate()}, comme \code{filter()} peut  simuler toute autor\'egression.
 \end{itemize}
 
 
@@ -298,30 +299,30 @@ ainsi, alors que \code{arima.sim()} ne peut simuler que des ARMA ou des ARIMA ex
 \subsection{Intervention}
 
 \begin{Exercice}
-On dispose d'une série de 100 observations. On sait qu'à la date $t1 = 10$, une intervention a provoqué une hausse brutale du
-niveau moyen de la série qui est progressivement revenue à son niveau antérieur à la date t1. D'autre part, en t2 = 25, une autre intervention
-a provoqué une baisse progressive, avec des oscillations, du niveau moyen vers un niveau durablement inférieur.
+On dispose d'une s\'erie de 100 observations. On sait qu'\`a la date $t1 = 10$, une intervention a provoqu\'e une hausse brutale du
+niveau moyen de la s\'erie qui est progressivement revenue \`a son niveau ant\'erieur \`a la date t1. D'autre part, en t2 = 25, une autre intervention
+a provoqu\'e une baisse progressive, avec des oscillations, du niveau moyen vers un niveau durablement inf\'erieur.
 \begin{enumerate}
-  \item Ecrire formellement ce mécanisme. On notera $\omega_i,\: \delta_i, \;i=1,2$ les paramètres des deux interventions.
-  \item Ecrire le code \proglang{R} pour calculer cet effet. Choisir des valeurs sensées pour les paramètres.
+  \item Ecrire formellement ce m\'ecanisme. On notera $\omega_i,\: \delta_i, \;i=1,2$ les param\`etres des deux interventions.
+  \item Ecrire le code \proglang{R} pour calculer cet effet. Choisir des valeurs sens\'ees pour les param\`etres.
 \end{enumerate}
 \end{Exercice}
 
 
-\textbf{Réponse.}
+\textbf{R\'eponse.}
 
-L'intervention en $t1$ est associée à une impulsion $P_t^{t1}$ et un amortissement du type
+L'intervention en $t1$ est associ\'ee \`a une impulsion $P_t^{t1}$ et un amortissement du type
 \[
 \frac{\omega_1}{1 - \delta_1 \bm},\hspace{1cm} \omega_1,\; \delta_1 > 0
 \]
- et celle en $t2$, qui dure, est associée à un échelon $S_t^{t2}$ et l'amortissement est du même type avec maintenant
+ et celle en $t2$, qui dure, est associ\'ee \`a un \'echelon $S_t^{t2}$ et l'amortissement est du m\^eme type avec maintenant
  $ \omega_2 >0,\; \delta_2 <0$.
- Sans autres précisions, l'intervention en $t2$ va provoquer un saut de $\omega_2$. On peut l'atténuer en introduisant une intervention ponctuelle
+ Sans autres pr\'ecisions, l'intervention en $t2$ va provoquer un saut de $\omega_2$. On peut l'att\'enuer en introduisant une intervention ponctuelle
  $P_t^{t2}$
  de coefficient $\omega_3 < 0$.
   
  
-A la date $t2$ la série est nécessairement en train de revenir à son niveau moyen initial quand survient l'événement.
+A la date $t2$ la s\'erie est n\'ecessairement en train de revenir \`a son niveau moyen initial quand survient l'\'ev\'enement.
 
 
 %require(Hmisc) # pour la fonction Lag

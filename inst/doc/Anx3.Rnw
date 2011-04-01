@@ -4,6 +4,7 @@
 %\VignettePackage{caschrono}
 \documentclass{article}
 \usepackage{Sweave}
+\usepackage[latin1]{inputenc}
 \usepackage{times}
 \usepackage{enumerate}
 \usepackage{mathptm}
@@ -32,7 +33,7 @@
 \def\BB#1{\mbox{BB}(0,\sigma_{#1}^2)}
 \def\bm{\mbox{B}}
 \def\betg{\boldsymbol{\beta}}
-\def\bar#1#2{\overline{#1}_{#2}} % surligné indicé
+\def\bar#1#2{\overline{#1}_{#2}} % surlign\'e indic\'e
 \def\bgr{\mbox{\bf b}}
 \def\bla{\mbox{~}}
 \def\blb{\mbox{~~}}
@@ -64,7 +65,7 @@
 
 \def\I{\mbox{\bf I}}
 \def\indic{\mathrm{I\mkern-8muI}}
-\def\ie{c'est-à-dire}
+\def\ie{c'est-\`a-dire}
 \def\iid{\sim_{\mbox{i.i.d.}}}
 \def\lm{\mbox{L}}
 
@@ -117,15 +118,15 @@
 \urlstyle{sf}
 \def\rmdefault{cmr}
 
-%%%% pour les chiffres des équations
+%%%% pour les chiffres des \'equations
 \makeatletter
 \renewcommand\theequation{\thesection.\arabic{equation}}
 \@addtoreset{equation}{section}
 \makeatother
 
-\title{Rappels de statistique mathématique (compléments du Chapitre 3)}
+\title{Rappels de statistique math\'ematique (compl\'ements du Chapitre 3)}
 \author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Université Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
 \renewcommand{\thefootnote}{\arabic{footnote}}
@@ -145,7 +146,7 @@ nom.fich = "./Figures/anx3-bitmap-"
 %
 \SweaveOpts{keep.source=TRUE}
 %
-% les différents types de graphiques
+% les diff\'erents types de graphiques
 %  ancien
 <<label=bfig,echo=FALSE,eval=FALSE>>=
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
@@ -205,73 +206,73 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
 \subsection*{Introduction}
 \addcontentsline{toc}{subsection}{Introduction}
-On a  rassemblé ici des notions élémentaires de statistique mathématique constamment utilisées dans l'analyse des séries temporelles :
-les propriétés de base de la loi normale et un rappel sur les tests d'hypothèse paramétrique.
+On a  rassembl\'e ici des notions \'el\'ementaires de statistique math\'ematique constamment utilis\'ees dans l'analyse des s\'eries temporelles :
+les propri\'et\'es de base de la loi normale et un rappel sur les tests d'hypoth\`ese param\'etrique.
 
 
 
 
 \subsection{Loi normale et loi de $\chi^2$}
 \noindent
-\textbf{Loi normale.}\index{normale (loi)} Soit $\X = [X_1,\cdots,X_n]\prim$ un vecteur aléatoire (v.a.)\index{v.a.}.
- $\X$ a une distribution normale multidimensionnelle (ou multivariée) de paramètres $\mu,\; n \times 1$ et
- $\Sigma= \sig{\X}{\X}\;  n \times  n$,  définie positive,
- et on écrit $\X \sim \nor(\mu,\Sigma)$, si la densité
-de probabilité du vecteur $\X$ est :
+\textbf{Loi normale.}\index{normale (loi)} Soit $\X = [X_1,\cdots,X_n]\prim$ un vecteur al\'eatoire (v.a.)\index{v.a.}.
+ $\X$ a une distribution normale multidimensionnelle (ou multivari\'ee) de param\`etres $\mu,\; n \times 1$ et
+ $\Sigma= \sig{\X}{\X}\;  n \times  n$,  d\'efinie positive,
+ et on \'ecrit $\X \sim \nor(\mu,\Sigma)$, si la densit\'e
+de probabilit\'e du vecteur $\X$ est :
 \begin{equation} \label{Nms}
 f_{\X}(\x) = (2 \pi) ^{-n/2} \det (\Sigma)^{-1/2} \exp[- \frac{1}{2} (\x - \mu)\prim \Sigma^{-1}  (\x - \mu)]
 \end{equation}
 On montre que $\esp(\X) = \mu$ et que la matrice des covariances de $\X$ est $\cov(\X) = \Sigma$.
 \\
-\textbf{Loi de $\chi^2$.} La loi de $\chi^2$\index{khi-carré} est une loi à un paramètre, pas nécessairement entier, et qui
-admet une densité de probabilité. On a les   propriétés suivantes.
+\textbf{Loi de $\chi^2$.} La loi de $\chi^2$\index{khi-carr\'e} est une loi \`a un param\`etre, pas n\'ecessairement entier, et qui
+admet une densit\'e de probabilit\'e. On a les   propri\'et\'es suivantes.
 \begin{propriete} \label{prop.chi.1}
-(1) La somme des carrés de $k$
-v.a. i.i.d.\index{i.i.d.} $\nor(0,1)$ suit une loi de  $\chi^2$ à $k$ degré de liberté (ddl), on la note $\chi^2(k)$.
+(1) La somme des carr\'es de $k$
+v.a. i.i.d.\index{i.i.d.} $\nor(0,1)$ suit une loi de  $\chi^2$ \`a $k$ degr\'e de libert\'e (ddl), on la note $\chi^2(k)$.
 \\
-(2) La somme de deux variables aléatoires  indépendantes, distribuées  respectivement suivant des lois $\chi^2(k_1)$ et $\chi^2(k_2)$ est distribuée suivant une loi de $\chi^2(k_1 + k_2)$.
+(2) La somme de deux variables al\'eatoires  ind\'ependantes, distribu\'ees  respectivement suivant des lois $\chi^2(k_1)$ et $\chi^2(k_2)$ est distribu\'ee suivant une loi de $\chi^2(k_1 + k_2)$.
 \end{propriete}
 
-\paragraph{Propriétés de la loi normale.}
+\paragraph{Propri\'et\'es de la loi normale.}
 \begin{propriete} \label{prop.nor.1}
-Si $\X \sim \nor(\mu,\Sigma)$, $\B$ est une matrice $m \times n$, de rang $m$, et $\agra$ un vecteur réel $m \times 1$, alors le vecteur
-aléatoire
+Si $\X \sim \nor(\mu,\Sigma)$, $\B$ est une matrice $m \times n$, de rang $m$, et $\agra$ un vecteur r\'eel $m \times 1$, alors le vecteur
+al\'eatoire
 \[
 \Y = \agra + \B \X
 \]
 suit une loi normale. Sa moyenne est $ \agra + \B \mu$ et sa matrice des covariances : $\B \Sigma \B\prim$.
 \end{propriete}
 \begin{propriete} \label{prop.nor.2}
-$\Sigma$  étant définie positive, sa factorisation de Choleski  est définie : $\Sigma = \Sigma^{1/2} (\Sigma^{1/2})\prim$ où $\Sigma^{1/2}$ est une matrice
-triangulaire inférieure. Alors la variable : $ \Z = [Z_1,\cdots,Z_n] = \Sigma^{-1/2}(\X - \mu)$ est de moyenne $0$, de matrice des covariances,
+$\Sigma$  \'etant d\'efinie positive, sa factorisation de Choleski  est d\'efinie : $\Sigma = \Sigma^{1/2} (\Sigma^{1/2})\prim$ o\`u $\Sigma^{1/2}$ est une matrice
+triangulaire inf\'erieure. Alors la variable : $ \Z = [Z_1,\cdots,Z_n] = \Sigma^{-1/2}(\X - \mu)$ est de moyenne $0$, de matrice des covariances,
 $ \Sigma^{-1/2}  \Sigma (\Sigma^{-1/2})\prim = \indic_n$,
-$ \Z \sim \nor(0_{n,1},\indic_n)$. On appelle cette loi, \textit{loi normale mulivariée standardisée}. La densité de $\Z$ est
+$ \Z \sim \nor(0_{n,1},\indic_n)$. On appelle cette loi, \textit{loi normale mulivari\'ee standardis\'ee}. La densit\'e de $\Z$ est
 \begin{equation}\label{N01}
 f_{\Z}(\z) = (2 \pi) ^{-n/2}  \exp[- \frac{1}{2} \z\prim \z ] =
 \{ (2 ~\pi)^{-1/2} \exp[- \frac{1}{2} z_1^2]\}  \cdots  \{ (2 \pi)^{-1/2} \exp[- \frac{1}{2} z_n^2] \}
 \end{equation}
-On reconnaît le produit des densités de  $n$ v.a. i.i.d. $\nor(0,1)$.
+On reconna\^it le produit des densit\'es de  $n$ v.a. i.i.d. $\nor(0,1)$.
 \end{propriete}
 \begin{propriete} \label{prop.nor.3}
 De  (\ref{N01}), on voit que  $\Z\prim  \Z  \sim\chi^2(n)$ , mais
 \begin{equation}\label{chi2}
   \Z\prim  \Z = (\Sigma^{-1/2}(\X - \mu))\prim  \Sigma^{-1/2}(\X - \mu)= (\X - \mu)\prim \Sigma^{-1} (\X - \mu)
 \end{equation}
- qui n'est autre que l'exposant de la densité de la loi normale (\ref{Nms}) où les valeurs $\x$ du vecteur  ont été remplacées par le v.a. $\X$. On énonce parfois ce résultat ainsi :
-  \emph{l'exposant de la densité d'une v.a. normale $\nor(\mu, \Sigma)$ suit une loi}
+ qui n'est autre que l'exposant de la densit\'e de la loi normale (\ref{Nms}) o\`u les valeurs $\x$ du vecteur  ont \'et\'e remplac\'ees par le v.a. $\X$. On \'enonce parfois ce r\'esultat ainsi :
+  \emph{l'exposant de la densit\'e d'une v.a. normale $\nor(\mu, \Sigma)$ suit une loi}
   $\chi^2(\mbox{rang}(\Sigma))$.
 \end{propriete}
 \textbf{Notes.}
 \begin{enumerate}[{Nor}-1.]
- \item Dans ce livre, v.a.\index{v.a.} est une abréviation de "variable aléatoire" comme de "vecteur aléatoire".
- \item $A\prim$ désigne la matrice transposée de la matrice $A$.
+ \item Dans ce livre, v.a.\index{v.a.} est une abr\'eviation de "variable al\'eatoire" comme de "vecteur al\'eatoire".
+ \item $A\prim$ d\'esigne la matrice transpos\'ee de la matrice $A$.
 
 
-   \item On peut définir une loi normale même si la matrice des covariances n'est pas inversible, mais seulement semi-définie positive. On dit alors que la loi est \emph{dégénérée}.
+   \item On peut d\'efinir une loi normale m\^eme si la matrice des covariances n'est pas inversible, mais seulement semi-d\'efinie positive. On dit alors que la loi est \emph{d\'eg\'en\'er\'ee}.
 \end{enumerate}
 
 \paragraph{Loi normale conditionnelle}
-Considérons un vecteur normal $\X$, une partition de ses composantes et les partitions associées des moyenne et matrice de covariance :
+Consid\'erons un vecteur normal $\X$, une partition de ses composantes et les partitions associ\'ees des moyenne et matrice de covariance :
 \[
 \X =
 \begin{bmatrix}
@@ -289,10 +290,10 @@ Considérons un vecteur normal $\X$, une partition de ses composantes et les part
 \Sigma_{2  1} & \Sigma_{2 2}
 \end{bmatrix}
 \]
-La proposition suivante est souvent utilisée :
+La proposition suivante est souvent utilis\'ee :
 \begin{propriete}
 \begin{description}
-  \item[1] $\X^{(1)}$ et $\X^{(2)}$ sont indépendants si et seulement si $ \Sigma_{2 1}=0 $
+  \item[1] $\X^{(1)}$ et $\X^{(2)}$ sont ind\'ependants si et seulement si $ \Sigma_{2 1}=0 $
   \item[2] La distribution conditionnelle de $\X^{(1)} $ sachant que $ \X^{(2)}= \x^{(2)}$ est
 \begin{equation}\label{ncondi}
 \nor(\mu^{(1)}+
@@ -303,19 +304,19 @@ La proposition suivante est souvent utilisée :
 \end{propriete}
 
 
-\subsection{Test d'une hypothèse paramétrique \label{test.reg}}
+\subsection{Test d'une hypoth\`ese param\'etrique \label{test.reg}}
 
 
 \paragraph{Situation pratique courante.}
-Soit $X$ une v.a.. On s'intéresse à une
-caractéristique de la loi de probabilité de $X$ : moyenne, 1{\ier}
-quartile, variance... Notons $\theta$ cette caractéristique.
-C'est un nombre (ou un vecteur) non aléatoire inconnu.
-On dispose d'autre part d'un échantillon d'observations \footnote{Ces observations sont indépendantes en statistique classique,
-mais dépendantes en statistique des séries temporelles.}
-$x_1,\cdots,x_T$  de $X$, d'où on tire un estimateur de
+Soit $X$ une v.a.. On s'int\'eresse \`a une
+caract\'eristique de la loi de probabilit\'e de $X$ : moyenne, 1{\ier}
+quartile, variance... Notons $\theta$ cette caract\'eristique.
+C'est un nombre (ou un vecteur) non al\'eatoire inconnu.
+On dispose d'autre part d'un \'echantillon d'observations \footnote{Ces observations sont ind\'ependantes en statistique classique,
+mais d\'ependantes en statistique des s\'eries temporelles.}
+$x_1,\cdots,x_T$  de $X$, d'o\`u on tire un estimateur de
 $\theta$,
-$\widehat{\theta}_T$. Dans beaucoup de situations,  on sait par le théorème central limite, que si
+$\widehat{\theta}_T$. Dans beaucoup de situations,  on sait par le th\'eor\`eme central limite, que si
 le nombre d'observations $T$ est suffisamment grand, on a
 \begin{equation} \label{an.0}
 \begin{gathered}
@@ -327,87 +328,87 @@ $AN$\index{AN} signifiant "approximativement normal",\index{AN (approximativemen
  et enfin on dispose d'une estimation
 $\widehat{\var}(\widehat{\theta}_T)$ de $\var(\widehat{\theta}_T)$.
 
-\paragraph{Test sur un paramètre unidimensionnel}
-On veut tester une hypothèse     sur $\theta$ du genre
+\paragraph{Test sur un param\`etre unidimensionnel}
+On veut tester une hypoth\`ese     sur $\theta$ du genre
 \begin{equation} \label{h0h1}
  H_0 : \theta = \theta_0, \mbox{~contre, par exemple, ~} H_1 : \theta < \theta_0,
 \end{equation}
-$H_0$ est l'hypothèse nulle et $H_1$ l'hypothèse alternative,
- $\theta_0$ est une valeur particulière de $\theta$.
+$H_0$ est l'hypoth\`ese nulle et $H_1$ l'hypoth\`ese alternative,
+ $\theta_0$ est une valeur particuli\`ere de $\theta$.
 Dans la situation (\ref{an.0}),  si $H_0$ est vraie, la statistique de test
 \begin{eqnarray} \label{test.uni}
 Z =
 \frac{\widehat{\theta}_T-\theta_0}{s_{\widehat{\theta}_T}},
 \end{eqnarray}
-où $s_{\widehat{\theta}_T} = \widehat{\var}(\widehat{\theta}_T)^{0.5}$, suit approximativement une loi $\nor(0,1)$, $Z \sim AN(0,1)$.
+o\`u $s_{\widehat{\theta}_T} = \widehat{\var}(\widehat{\theta}_T)^{0.5}$, suit approximativement une loi $\nor(0,1)$, $Z \sim AN(0,1)$.
 Si $Z$ prend une
-valeur exceptionnellement faible  pour une variable $\nor(0,1)$, par exemple inférieure à -2.5, $\widehat{\theta}$ prenant des valeurs proches de la vraie valeur de $\theta$,
-on conclut que la valeur $\theta_0$ qu'on a retranchée est plus élevée que la vraie valeur,
+valeur exceptionnellement faible  pour une variable $\nor(0,1)$, par exemple inf\'erieure \`a -2.5, $\widehat{\theta}$ prenant des valeurs proches de la vraie valeur de $\theta$,
+on conclut que la valeur $\theta_0$ qu'on a retranch\'ee est plus \'elev\'ee que la vraie valeur,
  et  donc on doit alors rejeter $H_0$ au profit de $H_1$ dans  (\ref{h0h1}). La zone de
-rejet\index{zone de rejet|see{région critique}} ou
-région critique\index{région critique} (RC)\index{RC|see{région critique}} \footnote{La RC est l'ensemble des valeurs de la statistique de
-test pour lesquelles on rejette l'hypothèse nulle.}  est donc, pour le couple (\ref{h0h1}), de la forme
+rejet\index{zone de rejet|see{r\'egion critique}} ou
+r\'egion critique\index{r\'egion critique} (RC)\index{RC|see{r\'egion critique}} \footnote{La RC est l'ensemble des valeurs de la statistique de
+test pour lesquelles on rejette l'hypoth\`ese nulle.}  est donc, pour le couple (\ref{h0h1}), de la forme
 \[ Z < z_0.\]
 Si on prend comme valeur $z_0$, la valeur $z_{\mbox{\small obs}}$
-observée pour $Z$ sur l'échantillon, la probabilité de rejeter
-l'hypothèse nulle alors qu'elle est vraie, est approximativement   $Pr(Z
-< z_{ \mbox{\small obs}}| Z \sim \nor(0,1))$. On appelle cette probabilité  \textit{niveau de signification
+observ\'ee pour $Z$ sur l'\'echantillon, la probabilit\'e de rejeter
+l'hypoth\`ese nulle alors qu'elle est vraie, est approximativement   $Pr(Z
+< z_{ \mbox{\small obs}}| Z \sim \nor(0,1))$. On appelle cette probabilit\'e  \textit{niveau de signification
 empirique}\index{niveau de signification
-empirique} ou \textit{p-value}\index{p-value|see{niveau de signification empirique}}. La statistique $Z$ est appelée t-statistique\index{t-statistique} quand on choisit $ \theta_0=0$
+empirique} ou \textit{p-value}\index{p-value|see{niveau de signification empirique}}. La statistique $Z$ est appel\'ee t-statistique\index{t-statistique} quand on choisit $ \theta_0=0$
 dans $H_0$.
 
-\paragraph{Test sur un paramètre multidimensionnel.}
-Parfois le test porte sur un paramètre à plusieurs composantes, c'est le cas  dans le test du portemanteau
- où
-l'on veut tester qu'un vecteur dont la loi est approximativement normale, est de moyenne nulle. C'est également le cas en régression, quand on
-teste qu'un vecteur de paramètres prend une certaine valeur. On s'en sert  au chapitre 12, \textit{Hétéroscédasticité conditionnelle}.
+\paragraph{Test sur un param\`etre multidimensionnel.}
+Parfois le test porte sur un param\`etre \`a plusieurs composantes, c'est le cas  dans le test du portemanteau
+ o\`u
+l'on veut tester qu'un vecteur dont la loi est approximativement normale, est de moyenne nulle. C'est \'egalement le cas en r\'egression, quand on
+teste qu'un vecteur de param\`etres prend une certaine valeur. On s'en sert  au chapitre 12, \textit{H\'et\'erosc\'edasticit\'e conditionnelle}.
 
-Appelons $\underset{k \times 1}{\theta}$ le paramètre pour lequel on dispose d'un estimateur approximativement normal et sans biais :
+Appelons $\underset{k \times 1}{\theta}$ le param\`etre pour lequel on dispose d'un estimateur approximativement normal et sans biais :
 \[
 \widehat{\theta}_T \sim AN(\theta, \Sigma_{\widehat{\theta}_T}), \;\;  \Sigma_{\widehat{\theta}_T} \xrightarrow[T \rightarrow \infty]{} 0
 \]
-L'hypothèse nulle est :
+L'hypoth\`ese nulle est :
 \[ H_0 : \theta = \theta_0 \]
-et l'hypothèse alternative :
+et l'hypoth\`ese alternative :
 \[ H_1 : \theta
 \neq  \theta_0.\]
-Autrement dit, sous l'hypothèse nulle, $\widehat{\theta}_T$  est de  moyenne $ \theta_0$. On peut tester cette hypothèse à l'aide de
+Autrement dit, sous l'hypoth\`ese nulle, $\widehat{\theta}_T$  est de  moyenne $ \theta_0$. On peut tester cette hypoth\`ese \`a l'aide de
 la statistique de test
 \begin{equation} \label{dist.chi}
 (\widehat{\theta}_T - \theta_0)\prim \Sigma_{\widehat{\theta}_T}^{-1} (\widehat{\theta}_T - \theta_0)
 \end{equation}
-qui suit approximativement, sous $H_0$, vu (\ref{chi2}),  une loi de $\chi^2(k)$. On rejette l'hypothèse nulle pour de grandes valeurs de la statistique de test.
-On appelle souvent (\ref{dist.chi}),  \emph{distance du }$\chi^2$\index{distance du $\chi^2$} entre l'estimation et la valeur théorique du paramètre. On peut la
+qui suit approximativement, sous $H_0$, vu (\ref{chi2}),  une loi de $\chi^2(k)$. On rejette l'hypoth\`ese nulle pour de grandes valeurs de la statistique de test.
+On appelle souvent (\ref{dist.chi}),  \emph{distance du }$\chi^2$\index{distance du $\chi^2$} entre l'estimation et la valeur th\'eorique du param\`etre. On peut la
 voir comme  une
-distance euclidienne pondérée.
-La distance du $\chi^2$ est définie également si la loi est dégénérée ; la matrice des covariances n'étant alors pas inversible,
- on en prend  une inverse généralisée
+distance euclidienne pond\'er\'ee.
+La distance du $\chi^2$ est d\'efinie \'egalement si la loi est d\'eg\'en\'er\'ee ; la matrice des covariances n'\'etant alors pas inversible,
+ on en prend  une inverse g\'en\'eralis\'ee
 qui remplace $\Sigma_{\widehat{\theta}_T}^{-1}$ dans (\ref{dist.chi}),
-et le nombre de ddl est le rang de la matrice des covariances $\Sigma_{\widehat{\theta}_T}$, comme on l'a noté après (\ref{chi2}).
+et le nombre de ddl est le rang de la matrice des covariances $\Sigma_{\widehat{\theta}_T}$, comme on l'a not\'e apr\`es (\ref{chi2}).
 
-Il existe d'autres tests d'hypothèse sur un paramètre multidimensionnel qui prennent  en compte le fait que la matrice des covariances est estimée.
+Il existe d'autres tests d'hypoth\`ese sur un param\`etre multidimensionnel qui prennent  en compte le fait que la matrice des covariances est estim\'ee.
 
 
-\subsection{Mesures et tests de normalité \label{sec:mesnor}}
- Rappelons d'abord les notions d'aplatissement et d'asymétrie.
+\subsection{Mesures et tests de normalit\'e \label{sec:mesnor}}
+ Rappelons d'abord les notions d'aplatissement et d'asym\'etrie.
 
-\paragraph{Asymétrie.}
+\paragraph{Asym\'etrie.}
 ~\noindent
-L'\textit{asymétrie}\index{asymétrie} (skewness)\index{skewness|see{asymétrie}} d'une distribution de probabilité est mesurée par
-le coefficient d'asymétrie  :
+L'\textit{asym\'etrie}\index{asym\'etrie} (skewness)\index{skewness|see{asym\'etrie}} d'une distribution de probabilit\'e est mesur\'ee par
+le coefficient d'asym\'etrie  :
  \[
 S = \frac{\mu_3}{\mu_2^{3/2}},
  \]
-où $ \mu_k = \esp((X- \esp(X))^k)$ est le moment centré d'ordre $k$. $S$ est sans dimension, nul  pour une distribution symétrique, comme c'est le cas de la loi normale.
- Un coefficient positif indique une distribution peu dispersée vers la gauche avec  une queue de distribution
- étalée vers la droite : on dit que la distribution est
-\textit{positivement asymétrique }
-(\textit{positively skewed}),  c'est le cas de la loi log-normale. Dans une distribution positivement asymétrique, des valeurs supérieures à la moyenne ont plus de chances
-d'appara\^{\i}tre que des valeurs inférieures à la moyenne.
+o\`u $ \mu_k = \esp((X- \esp(X))^k)$ est le moment centr\'e d'ordre $k$. $S$ est sans dimension, nul  pour une distribution sym\'etrique, comme c'est le cas de la loi normale.
+ Un coefficient positif indique une distribution peu dispers\'ee vers la gauche avec  une queue de distribution
+ \'etal\'ee vers la droite : on dit que la distribution est
+\textit{positivement asym\'etrique }
+(\textit{positively skewed}),  c'est le cas de la loi log-normale. Dans une distribution positivement asym\'etrique, des valeurs sup\'erieures \`a la moyenne ont plus de chances
+d'appara\^{\i}tre que des valeurs inf\'erieures \`a la moyenne.
 \noindent
 \paragraph{Aplatissement.}
 ~\noindent
-L'\textit{aplatissement} (\textit{kurtose} ou \textit{kurtosis}\index{kurtosis|see{aplatissement}}) d'une distribution est mesuréS
+L'\textit{aplatissement} (\textit{kurtose} ou \textit{kurtosis}\index{kurtosis|see{aplatissement}}) d'une distribution est mesur\'eS
 par le coefficient d'aplatissement :
 \[
 K = \frac{\mu_4}{\mu_2^2}.
@@ -415,24 +416,24 @@ K = \frac{\mu_4}{\mu_2^2}.
  $K$ est positif et sans dimension.  Il vaut 3 pour une distribution
 normale, et 1.8 pour une
 distribution uniforme continue.
-Un coefficient d'aplatissement élevé indique que la distribution est plutôt pointue à sa moyenne, avec nécessairement
-des queues de distribution épaisses (\textit{fat tails}).
-En effet, comme l'intégrale sous la densité vaut toujours 1, plus  la distribution est pointue près de la moyenne plus les queues de la distribution
-sont chargées, et donc plus le moment d'ordre 4 est important par rapport au carré du moment d'ordre 2.
-La distribution normale servant de référence, on a introduit l'excès de kurtosis : $ K - 3$.
+Un coefficient d'aplatissement \'elev\'e indique que la distribution est plut\^ot pointue \`a sa moyenne, avec n\'ecessairement
+des queues de distribution \'epaisses (\textit{fat tails}).
+En effet, comme l'int\'egrale sous la densit\'e vaut toujours 1, plus  la distribution est pointue pr\`es de la moyenne plus les queues de la distribution
+sont charg\'ees, et donc plus le moment d'ordre 4 est important par rapport au carr\'e du moment d'ordre 2.
+La distribution normale servant de r\'ef\'erence, on a introduit l'exc\`es de kurtosis : $ K - 3$.
 Une distribution plus pointue que la normale est dite \textit{platykurtique}\index{platykurtique|see{aplatissement}}
 et une distribution moins pointue est dite \textit{leptokurtique}\index{leptokurtique|see{aplatissement}}.
 
-Etant donné un échantillon de taille $n$ d'une distribution, on fabrique les estimations $\widehat{S}$ et $\widehat{K}$ de $S$ et $K$ en rempla\c{c}ant dans leur expression,
-les moments théoriques $ \mu_k $ par les moments
+Etant donn\'e un \'echantillon de taille $n$ d'une distribution, on fabrique les estimations $\widehat{S}$ et $\widehat{K}$ de $S$ et $K$ en rempla\c{c}ant dans leur expression,
+les moments th\'eoriques $ \mu_k $ par les moments
 empiriques
 \[
 m_k = \frac{1}{n} \sum_{i=1}^n (x_i - \overline{x})^k.
 \]
 \\
 \textbf{Illustration.}
-Simulons un vecteur $x$ de 1000 observations i.i.d. $\nor(0,1)$ et calculons le coefficient d'asymétrie et l'excès d'aplatissement   de $x$ et de $\log(x)$
-(échantillon tiré suivant la  loi log-normale). 
+Simulons un vecteur $x$ de 1000 observations i.i.d. $\nor(0,1)$ et calculons le coefficient d'asym\'etrie et l'exc\`es d'aplatissement   de $x$ et de $\log(x)$
+(\'echantillon tir\'e suivant la  loi log-normale). 
 
 {\small
 <<sim.nor>>=
@@ -465,113 +466,113 @@ par(op)
 <<zfiginclude>>
 @
 \end{center}
-\caption{Densités d'échantillons tirés dans une loi normale (gauche) et dans une loi log-normale (droite).}\label{plot.nor}
+\caption{Densit\'es d'\'echantillons tir\'es dans une loi normale (gauche) et dans une loi log-normale (droite).}\label{plot.nor}
 \end{figure}
 
-On obtient, comme on s'y attendait, des valeurs assez proches de 0 pour l'échantillon d'une variable normale, et, pour l'échantillon
-d'une v.a. log-normale, une asymétrie très positive et un aplatissement très élevé. L'examen des estimations non-paramétriques des densités des deux échantillons
- portées (fig. \ref{plot.nor}), permet d'associer une forme de distribution aux ordres de grandeur de ces coefficients.
+On obtient, comme on s'y attendait, des valeurs assez proches de 0 pour l'\'echantillon d'une variable normale, et, pour l'\'echantillon
+d'une v.a. log-normale, une asym\'etrie tr\`es positive et un aplatissement tr\`es \'elev\'e. L'examen des estimations non-param\'etriques des densit\'es des deux \'echantillons
+ port\'ees (fig. \ref{plot.nor}), permet d'associer une forme de distribution aux ordres de grandeur de ces coefficients.
 
-\paragraph{Tests de normalité d'une distribution.}
-Il existe de nombreux tests de normalité basés par exemple sur l'écart entre la distribution empirique de l'échantillon et une distribution
- normale, ou entre  des caractéristiques de la
-distribution empirique de l'échantillon et les caractéristiques théoriques correspondantes de la distribution normale.
-Leurs puissances \footnote{La puissance d'un test est  la probabilité de rejeter l'hypothèse nulle
+\paragraph{Tests de normalit\'e d'une distribution.}
+Il existe de nombreux tests de normalit\'e bas\'es par exemple sur l'\'ecart entre la distribution empirique de l'\'echantillon et une distribution
+ normale, ou entre  des caract\'eristiques de la
+distribution empirique de l'\'echantillon et les caract\'eristiques th\'eoriques correspondantes de la distribution normale.
+Leurs puissances \footnote{La puissance d'un test est  la probabilit\'e de rejeter l'hypoth\`ese nulle
 alors qu'elle est fausse.}
-dépendent  de ce qu'est la vraie distribution et de la taille de l'échantillon.  D'Agostino et Stephens (1986) en contient un exposé détaillé.
-Dans \RR~on trouve des tests de normalité dans
+d\'ependent  de ce qu'est la vraie distribution et de la taille de l'\'echantillon.  D'Agostino et Stephens (1986) en contient un expos\'e d\'etaill\'e.
+Dans \RR~on trouve des tests de normalit\'e dans
 \pkg{fBasics}, \pkg{nortest} et \pkg{stats} notamment.
-Nous allons examiner deux tests,   basés sur l'écart  du couple   $(\widehat{S}, \widehat{K})$  d'une distribution empirique,  à la valeur
-théorique de ce couple pour une distribution normale. Mais d'abord, nous considérons  une évaluation graphique de la normalité :
- le QQ-plot de normalité.
+Nous allons examiner deux tests,   bas\'es sur l'\'ecart  du couple   $(\widehat{S}, \widehat{K})$  d'une distribution empirique,  \`a la valeur
+th\'eorique de ce couple pour une distribution normale. Mais d'abord, nous consid\'erons  une \'evaluation graphique de la normalit\'e :
+ le QQ-plot de normalit\'e.
 
-\subparagraph{QQ-plot de normalité.}
-On se sert d'un  Q-Q plot\index{Q-Q plot}, littéralement diagramme quantile-quantile, pour vérifer visuellement si un
-échantillon $x_1, x_2, \cdots,x_n$ provient d'une distribution théorique supposée.
+\subparagraph{QQ-plot de normalit\'e.}
+On se sert d'un  Q-Q plot\index{Q-Q plot}, litt\'eralement diagramme quantile-quantile, pour v\'erifer visuellement si un
+\'echantillon $x_1, x_2, \cdots,x_n$ provient d'une distribution th\'eorique suppos\'ee.
 \\
-\textbf{Principe.} La plus petite observation de l'échantillon est le quantile empirique d'ordre $1/n$,
-la deuxième plus petite est le quantile d'ordre $2/n$, $\cdots$,
+\textbf{Principe.} La plus petite observation de l'\'echantillon est le quantile empirique d'ordre $1/n$,
+la deuxi\`eme plus petite est le quantile d'ordre $2/n$, $\cdots$,
 la plus grande est le quantile d'ordre
-$1$.  (On corrige parfois ces ordres pour ne pas avoir, pour l'ordre 1, un quantile empirique fini  correspondant à un quantile théorique infini,
+$1$.  (On corrige parfois ces ordres pour ne pas avoir, pour l'ordre 1, un quantile empirique fini  correspondant \`a un quantile th\'eorique infini,
 comme ce serait le cas pour la loi normale.)
-La distribution théorique supposée donne les quantiles théoriques en ces mêmes ordres. On construit un diagramme de dispersion
+La distribution th\'eorique suppos\'ee donne les quantiles th\'eoriques en ces m\^emes ordres. On construit un diagramme de dispersion
 de $n$ points, un point par ordre quantile.
-Un point a  pour abscisse le quantile théorique
-sous la loi supposée, et pour ordonnée le quantile empirique de même ordre.
-Plus les points d'un Q-Q plot sont alignés, plus la distribution supposée co\"{\i}ncide avec la distribution empirique de l'échantillon.   Si la
- distribution supposée est normale,
-on parle de Q-Q-plot de normalité. Le coefficient de corrélation des points du Q-Q plot  fournit une mesure empirique
-de la normalité de l'échantillon.
+Un point a  pour abscisse le quantile th\'eorique
+sous la loi suppos\'ee, et pour ordonn\'ee le quantile empirique de m\^eme ordre.
+Plus les points d'un Q-Q plot sont align\'es, plus la distribution suppos\'ee co\"{\i}ncide avec la distribution empirique de l'\'echantillon.   Si la
+ distribution suppos\'ee est normale,
+on parle de Q-Q-plot de normalit\'e. Le coefficient de corr\'elation des points du Q-Q plot  fournit une mesure empirique
+de la normalit\'e de l'\'echantillon.
 
-Le choix de la distribution  supposée n'est pas restreint à la loi normale. Si nécessaire, on estime d'après l'échantillon  les paramètres de la loi supposée. L'usage des Q-Q plots est intuitif.
-On se forge cette intuition en examinant des Q-Q plots d'échantillons simulés qu'on construit sous différentes distributions hypothétiques.
-On comprend ainsi ce qu'indique leur déformation par
-rapport à l'alignement. Les exemples de \code{qqnorm()} et de \code{qq.plot()} de \pkg{car} sont instructifs. La fonction  \code{qreference()} de \pkg{DAAG} tire un certain nombre d'échantillons,
+Le choix de la distribution  suppos\'ee n'est pas restreint \`a la loi normale. Si n\'ecessaire, on estime d'apr\`es l'\'echantillon  les param\`etres de la loi suppos\'ee. L'usage des Q-Q plots est intuitif.
+On se forge cette intuition en examinant des Q-Q plots d'\'echantillons simul\'es qu'on construit sous diff\'erentes distributions hypoth\'etiques.
+On comprend ainsi ce qu'indique leur d\'eformation par
+rapport \`a l'alignement. Les exemples de \code{qqnorm()} et de \code{qq.plot()} de \pkg{car} sont instructifs. La fonction  \code{qreference()} de \pkg{DAAG} tire un certain nombre d'\'echantillons,
 5 par
-défaut, dans la loi normale, de même moyenne
-et variance que l'échantillon, et  dessine les Q-Q plots de normalité (\sitst).
+d\'efaut, dans la loi normale, de m\^eme moyenne
+et variance que l'\'echantillon, et  dessine les Q-Q plots de normalit\'e (\sitst).
 
 
 
-\subparagraph{Tests basés sur l'excès de kurtosis et sur le coefficient d'applatissement}
+\subparagraph{Tests bas\'es sur l'exc\`es de kurtosis et sur le coefficient d'applatissement}
 ~
 \\
 \textbf{Test dit de "Jarque-Bera".}\index{Jarque-Bera (test de)}
-Sous l'hypothèse que l'échantillon, de taille $T$, est tiré d'une distribution normale,   on peut montrer que
+Sous l'hypoth\`ese que l'\'echantillon, de taille $T$, est tir\'e d'une distribution normale,   on peut montrer que
 \[
 JB = \frac{T}{6} ( \widehat{S}^2 + \frac{(\widehat{K}-3)^2}{4})
 \]
  suit approximativement une loi de $ \chi^2(2) $.
- On rejette l'hypothèse nulle de normalité, pour de grandes valeurs de $JB$.
- Ce test est connu sous le nom de  test de Jarque-Bera, Jarque et Bera (1980), mais D'Agostino dans D'Agostino et Stephens (1986) indique qu'il a été examiné  par
+ On rejette l'hypoth\`ese nulle de normalit\'e, pour de grandes valeurs de $JB$.
+ Ce test est connu sous le nom de  test de Jarque-Bera, Jarque et Bera (1980), mais D'Agostino dans D'Agostino et Stephens (1986) indique qu'il a \'et\'e examin\'e  par
  Bowman et Shenton en 1975. Ceux-ci,
-    remarquant  la lenteur de la convergence de $\widehat{S}$ vers la normalité, en déconseillent l'emploi. C'est un
-    test \textit{omnibus} : il rejette la normalité
- sans distinguer si ce rejet est dû à
- l'asymétrie ou à l'aplatissement.
+    remarquant  la lenteur de la convergence de $\widehat{S}$ vers la normalit\'e, en d\'econseillent l'emploi. C'est un
+    test \textit{omnibus} : il rejette la normalit\'e
+ sans distinguer si ce rejet est d\^u \`a
+ l'asym\'etrie ou \`a l'aplatissement.
 
  \noindent
 \textbf{Test de D'Agostino.}
- Le test de normalité de D'Agostino\index{D'Agostino (test de)}  est  basé sur des transformations des coefficients d'asymétrie et d'aplatissement.
- Il  évalue trois causes d'écart à la normalité : par l'aplatissement, par l'asymétrie ou la réunion des deux, dans ce cas le test est  omnibus.
+ Le test de normalit\'e de D'Agostino\index{D'Agostino (test de)}  est  bas\'e sur des transformations des coefficients d'asym\'etrie et d'aplatissement.
+ Il  \'evalue trois causes d'\'ecart \`a la normalit\'e : par l'aplatissement, par l'asym\'etrie ou la r\'eunion des deux, dans ce cas le test est  omnibus.
 
 
-Nous  utilisons ces tests, notamment au  chapitre 12 à propos de  la modélisation des rendements d'actions.
- Wikipedia (2010) présente un bon panorama  critique des
- tests de normalité.
+Nous  utilisons ces tests, notamment au  chapitre 12 \`a propos de  la mod\'elisation des rendements d'actions.
+ Wikipedia (2010) pr\'esente un bon panorama  critique des
+ tests de normalit\'e.
 
 
 
 
-\subsubsection{Transformation préalable des données}
+\subsubsection{Transformation pr\'ealable des donn\'ees}
 
 
 \paragraph{Transformation de Box-Cox.}
-La transformation de Box-Cox est une   technique pour obtenir des données plus normales que les données initiales.  Elle est définie pour une variable positive par :
+La transformation de Box-Cox est une   technique pour obtenir des donn\'ees plus normales que les donn\'ees initiales.  Elle est d\'efinie pour une variable positive par :
 \[
 y_t(\lambda) = \frac{y_t^\lambda - 1}{\lambda},
 \]
-où $\lambda$ est un paramètre $ > 0$.
+o\`u $\lambda$ est un param\`etre $ > 0$.
 \\
-On peut choisir  $\lambda$ à l'aide d'un \emph{graphique de normalité de  Box-Cox} : on porte en abscisse une grille de valeurs de $\lambda$ et en ordonnée  le coefficient de corrélation
-du Q-Q-plot de normalité pour la série transformée par les $\lambda$ correspondants ; on choisit le $\lambda$ qui correspond au maximum. Notons que si $\lambda \rightarrow  0$,  la transformation
+On peut choisir  $\lambda$ \`a l'aide d'un \emph{graphique de normalit\'e de  Box-Cox} : on porte en abscisse une grille de valeurs de $\lambda$ et en ordonn\'ee  le coefficient de corr\'elation
+du Q-Q-plot de normalit\'e pour la s\'erie transform\'ee par les $\lambda$ correspondants ; on choisit le $\lambda$ qui correspond au maximum. Notons que si $\lambda \rightarrow  0$,  la transformation
 de Box-Cox tend vers la transformation $\log(.)$.
 
-De fa\c{c}on moins sophistiquée, on peut chercher, en cas de non-normalité, parmi des transformations comme : $\log(.)$, $\sqrt{.}$, une transformation qui, à vue,  améliore la normalité.
+De fa\c{c}on moins sophistiqu\'ee, on peut chercher, en cas de non-normalit\'e, parmi des transformations comme : $\log(.)$, $\sqrt{.}$, une transformation qui, \`a vue,  am\'eliore la normalit\'e.
 
 
 \paragraph{Stabilisation de la variance.}
-Le chronogramme des  séries temporelles montre souvent une évolution en entonnoir : la série est croissante et les fluctuations ont de plus en plus d'ampleur au cours du temps.
-Schématiquement, on a affaire à une  série $\{Y_t\}$ dont la moyenne, $\mu_t$, varie avec le
-temps de fa\c{c}on déterministe  et dont  la variance   dépend du niveau moyen :
+Le chronogramme des  s\'eries temporelles montre souvent une \'evolution en entonnoir : la s\'erie est croissante et les fluctuations ont de plus en plus d'ampleur au cours du temps.
+Sch\'ematiquement, on a affaire \`a une  s\'erie $\{Y_t\}$ dont la moyenne, $\mu_t$, varie avec le
+temps de fa\c{c}on d\'eterministe  et dont  la variance   d\'epend du niveau moyen :
 \[
 Y_t = \mu_t + U_t
 \]
-avec $\var(U_t) = h^2(\mu_t) \sigma^2$ pour une certaine fonction $h$, c'est une forme d'hétéroscédasticité. Pour traiter cette situation
+avec $\var(U_t) = h^2(\mu_t) \sigma^2$ pour une certaine fonction $h$, c'est une forme d'h\'et\'erosc\'edasticit\'e. Pour traiter cette situation
 on cherche une transformation $g()$ telle que $\var(g(Y_t)) \simeq \texttt{constante}$. C'est la technique dite
 de \textit{stabilisation de la variance}\index{stabilisation de la variance}.
 \\
-Par linéarisation, {\ie} par un développement de Taylor à l'ordre 1 au voisinage de la moyenne de $Y_t$, et sous certaines conditions, on a :
+Par lin\'earisation, {\ie} par un d\'eveloppement de Taylor \`a l'ordre 1 au voisinage de la moyenne de $Y_t$, et sous certaines conditions, on a :
 \[
  g(Y_t) \simeq g(\mu_t) + (Y_t - \mu_t) g\prim(\mu_t)
 \]
@@ -580,17 +581,21 @@ et
 \var( g(Y_t)) \simeq  [g\prim(\mu_t)]^2  \var(Y_t)
 \]
 On cherche donc $g()$ telle que $  g\prim(x) = 1/ h(x)$. Par exemple, pour $h(x) = x,\;\ g\prim(x)=1/x$ et donc $g(x) = \log(x)$, pour $h(x) = \sqrt{x},\ g\prim(x)=1/\sqrt{x}$ et donc $g(x) =
-\sqrt{x}$. Notons qu'ici l'aspect temporel joue un rôle mineur, le seul
-aspect important est la dépendance de la variance par rapport à la moyenne. On choisit $h(.)$  d'après le chronogramme de la série.
+\sqrt{x}$. Notons qu'ici l'aspect temporel joue un r\^ole mineur, le seul
+aspect important est la d\'ependance de la variance par rapport \`a la moyenne. On choisit $h(.)$  d'apr\`es le chronogramme de la s\'erie.
 
 Observons que
-ces transformations, Box-Cox ou autres,  ne sont pas linéaires et donc la moyenne de la série transformée n'est pas la transformée de la moyenne de la série initiale. Ce point sera repris dans le traitement
-de la série \code{log(kwh)}, au chapitre 10, \textit{Consommation d'électricité}.
+ces transformations, Box-Cox ou autres,  ne sont pas lin\'eaires et donc la moyenne de la s\'erie transform\'ee n'est pas la transform\'ee de la moyenne de la s\'erie initiale. Ce point sera repris dans le traitement
+de la s\'erie \code{log(kwh)}, au chapitre 10, \textit{Consommation d'\'electricit\'e}.
 
 \subsection*{Bibliographie}
-Jarque C.M. et Bera A.K. (1980). Ecient tests for normality, homoscedasticity
-and serial independence of regression residuals. Economics Letters, 6, 255  259. \newline
+Jarque C.M. et Bera A.K. (1980). Efficient tests for normality, homoscedasticity
+and serial independence of regression residuals. Economics Letters, 6, 255-259. \newline
 
 D'Agostino R.B. et Stephens M., (Eds.) (1986). Goodness-of-Fit Techniques. Marcel
 Dekker.
+
 \end{document}
+
+
+
