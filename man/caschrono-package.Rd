@@ -13,8 +13,8 @@ Springer, 2011). For all chapters, a vignette is available with some additional 
 \tabular{ll}{
 Package: \tab caschrono\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2011-02-21\cr
+Version: \tab 1.3\cr
+Date: \tab 2011-11-22\cr
 License: \tab GPL2\cr
 LazyLoad: \tab yes\cr
 }

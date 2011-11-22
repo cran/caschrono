@@ -437,7 +437,7 @@ Simulons un vecteur $x$ de 1000 observations i.i.d. $\nor(0,1)$ et calculons le 
 
 {\small
 <<sim.nor>>=
-require(fUtilities)
+require(e1071)
 set.seed(5923)
 x= rnorm(1000)
 xr = exp(x)
