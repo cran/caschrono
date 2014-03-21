@@ -135,25 +135,73 @@
 
 
 
-
+\SweaveOpts{keep.source=TRUE}
+<<echo=FALSE>>=
+owidth <- getOption("width") # largeur des sorties
+options(width=60, continue="+ ","warn"=-1 )
+.PngNo <- 0
+nom.fich = "./Figures/anx1-bitmap-"
+@
 %
+@
 %
-
+\SweaveOpts{keep.source=TRUE}
 %
 % les diff\'erents types de graphiques
 %  ancien
+<<label=bfig,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")
+@
 
+<<label=bfigps,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 7, height = 7, pointsize = 12, bg = "white",horizontal= FALSE,paper="special")
+@
 
 
 % 1111111111111
+<<label=bfig1,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 5, height = 2, pointsize = 10, bg = "white")
+@
 
+<<label=bfigps1,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""),  width = 5, height =2, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
 % 222222222222222
+<<label=bfig2,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 3.9, height = 3.1, pointsize = 10, bg = "white")
+@
 
+<<label=bfigps2,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 3.9, height = 3.1,   pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
 %   3333333333333333333333333333
 
+<<label=bfig3,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 5.92, height = 6.74, pointsize = 10, bg = "white")
+@
+<<label=bfigps3,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 5.92, height = 6.74, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
 
+<<label=bfig4,echo=FALSE,eval=FALSE>>=
+.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
+@
+<<label=bfigps4,echo=FALSE,eval=FALSE>>=
+postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+@
 
+<<label=zfig2,echo=FALSE,eval=FALSE>>=
+dev.null <- dev.off()
+@
 
+<<label=zfiginclude,echo=FALSE,eval=FALSE>>=
+cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
+@ 
 
 
 \begin{Exercice}[Op\'erateur retard]

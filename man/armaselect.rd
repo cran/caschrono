@@ -22,11 +22,11 @@ A matrix with \code{nbmod} rows and 3 columns (values of \code{p}, \code{q} and 
 \author{Yves Aragon}
 
 \examples{
-# Simulation of an ARMA(1,2) model
-set.seed(4123)                                                                                                
-n2 = 210                                                                                                     
-yc = arima.sim(n = 200, list( ar = -0.8, ma= c(-0.3, 0.6)), sd = sqrt(1.5))                               
-yc = yc-10                                                                               
+set.seed(4123)
+n2 <- 210
+yc <- arima.sim(n = 200, list(ar = -0.8, ma=c(-0.3, 0.6)),
+sd = sqrt(1.5))
+yc <- yc-10
 armaselect(yc, nbmod=5) 
 }
 \keyword{ts}

@@ -21,11 +21,9 @@ No values
 \author{Yves Aragon and Thibault Laurent}
 
 \examples{
-# Simulation of a Ma(2)
-set.seed(951)                                                                                                                                                                                                    
-ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))                                                                                                                                                                                      
-
-# Representation 
-plotacfthemp(ya, ma=c(-0.3,0.6), titre="MA(2)")   
+set.seed(951)
+ya <- arima.sim(n=200, list(ma = c(-0.3, 0.6)), 
+sd = sqrt(1.5))
+plotacfthemp(ya, ma=c(-0.3,0.6), titre="MA(2)") 
 }
 \keyword{ts}
