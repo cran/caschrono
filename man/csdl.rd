@@ -16,10 +16,14 @@ from 2006-01-02 to 2009-06-30.}
 
 \source{http://fr.finance.yahoo.com/}
 \examples{
+if(require("timeSeries")){
 data(csdl)
 # we create then the returns
 aa = returns(csdl, percentage = TRUE)
 aab <- aa[complete.cases(aa) == TRUE,]
-r.csdl = its(aab, as.POSIXct(row.names(aab)))
+# in previous version we use package its which will not be maintained anymore
+# r.csdl = its(aab, as.POSIXct(row.names(aab)))
+r.csdl = zoo(aab, as.POSIXct(row.names(aab)))
+}
 }
 \keyword{datasets}

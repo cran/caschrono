@@ -126,7 +126,7 @@
 
 
 \title{Mod\`eles de base en s\'eries temporelles (compl\'ements du Chapitre 4)}
-\author{Yves Aragon\footnote{aragon@cict.fr} \cr
+\author{Yves Aragon\footnote{yves.aragon@gmail.com} \cr
 {\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
@@ -139,7 +139,7 @@
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
 .PngNo <- 0
-nom.fich = "./Figures/anx4-bitmap-"
+nom.fich = "anx4-bitmap-"
 @
 % les diff\'erents types de graphiques
 %  ancien
@@ -230,12 +230,14 @@ valeurs.
 
 {\small
 <<label=lb2>>=
-require(fBasics)
-require(caschrono)
-data(csdl)
+require("caschrono")
+require("timeSeries")
+data("csdl")
 aa = returns(csdl, percentage = TRUE)
 aab = aa[complete.cases(aa) == TRUE,]
-r.csdl = its(aab, as.POSIXct(row.names(aab)))
+# in previous version we use package its which will not be maintained anymo
+# r.csdl = its(aab, as.POSIXct(row.names(aab)))
+r.csdl = zoo(aab, as.POSIXct(row.names(aab)))
 r.danone= r.csdl[,3]
 rdt2 = (r.danone-mean(r.danone))^2
 a0=Box.test.2(r.danone, nlag=c(3,6,9,12),
@@ -251,9 +253,9 @@ colnames(a12)= c("Retard","p-val. serie compl.",
 }
 
 <<label=lb2.tex, results=tex>>=
-require(xtable)
-xtable(a12, caption="Table a12 : test de blancheur 
-du rendement de Danone et de son carre.",label="danoblanc", 
+require("xtable")
+xtable(a12, caption="Table a12 : test de blancheur du rendement de Danone et de son carre.",
+ label="danoblanc", 
 digits=4)
 @
 
@@ -366,6 +368,7 @@ Si l'on veut estimer un MA(2) sur la s\'erie \code{ya}, on \'ecrit la commande
 
 {\small
 <<label=ma2.estim>>=
+require("forecast")
 (mod.ma2= Arima(ya,order=c(0,0,2), include.mean=FALSE))
 @
 }
@@ -450,28 +453,26 @@ et quantile empirique d'ordres .25 et .75 pour chaque retard :
 <<label=simar2>>=
 require(FitARMA)
 set.seed(51)
-nsim=100
-nobs=200
-nsim=50
-nlag=20
-y.mat = matrix(0,nrow=nobs,ncol=nsim)
-facp.mat= matrix(0,nrow=nlag,ncol=nsim)
-y.mat = matrix(0,nrow=200,ncol=nsim)
-facp.mat= matrix(0,nrow=nlag,ncol=nsim)
-for (isim in 1:nsim)
-{
-# isim=2
-y.mat[,isim] = arima.sim(n=nobs,list(ar=c(-0.7, 0.2)),sd = sqrt(2))
-facp.mat[,isim] = pacf(y.mat[,isim], 20, plot=FALSE)$acf
+nsim <- 100
+nobs <- 200
+nsim <- 50
+nlag <- 20
+y.mat <- matrix(0, nrow = nobs, ncol = nsim)
+facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
+y.mat <- matrix(0, nrow = 200, ncol = nsim)
+facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
+for(isim in 1:nsim){
+ y.mat[,isim] <- arima.sim(n = nobs, list(ar = c(-0.7, 0.2)), sd = sqrt(2))
+ facp.mat[,isim] = pacf(y.mat[,isim], 20, plot = FALSE)$acf
 }
-aa=t(apply(facp.mat,1,'quantile',probs = c(0.25,.75)))
+aa <- t(apply(facp.mat,1, "quantile", probs = c(0.25, .75)))
 #pacf theo
-theo =  TacvfARMA(phi=c(-.7,.2),lag.max=20)
-pacf.theo  = PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf
+theo <- TacvfARMA(phi=c(-.7,.2),lag.max=20)
+pacf.theo <- PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf
 # intervalle autour de 0 \`a 50%
-binf= qnorm(.25)/nobs^.5
-bsup=qnorm(.75)/nobs^.5
-aaa = cbind(aa,pacf.theo,binf,bsup)
+binf <- qnorm(.25)/nobs^.5
+bsup <- qnorm(.75)/nobs^.5
+aaa <- cbind(aa, pacf.theo, binf, bsup)
 @
 }
 \code{binf} et \code{bsup} d\'efinissent la bande de confiance asymptotique, valable \'evidemment \`a partir du retard 3, voir la propri\'et\'e 4.6, alors que les quantiles
@@ -481,8 +482,8 @@ On obtient le graphique
 
 {\small
 <<eval=FALSE>>=
-matplot(1:20,aaa,type='l',ylab="PACF",xlab="retard",col='black')
-legend("topright",paste("nombre de simulations : ",as.character(nsim)))
+matplot(1:20, aaa, type = "l", ylab = "PACF", xlab = "retard", col = "black")
+legend("topright", paste("nombre de simulations : ", as.character(nsim)))
 @
 }
 
@@ -491,8 +492,8 @@ vers la loi asymptotique de la propri\'et\'e 4.6.
 
 
 <<label=matplot0,fig=TRUE,echo=FALSE,eval=FALSE,height=6>>=
-matplot(1:20,aaa,type='l',ylab="PACF",xlab="retard",col='black')
-legend("topright",paste("nombre de simulations : ",as.character(nsim)))
+matplot(1:20, aaa, type = "l", ylab = "PACF", xlab = "retard", col = "black")
+legend("topright", paste("nombre de simulations : ", as.character(nsim)))
 @
 
 \begin{figure}[htbp]
@@ -531,12 +532,12 @@ Nous ajustons  un MA(1) \`a \code{y1} qui suit en r\'ealit\'e un AR(1).
 
 <<label=prep.y1, echo=FALSE>>=
 set.seed(123)
-y1 = arima.sim(n=100,list(ar=-.7), sd=sqrt(4))
-y2 = arima.sim(n=100,list(ar=c(rep(0,11),-.7)), sd=sqrt(4))
+y1 = arima.sim(n = 100, list(ar = -.7), sd = sqrt(4))
+y2 = arima.sim(n = 100, list(ar = c(rep(0, 11), -.7)), sd = sqrt(4))
 @
 {\small
 <<label=estim.ma1>>=
-(mod2=Arima(y1,order=c(0,0,1), include.mean=FALSE))
+(mod2 = Arima(y1, order=c(0, 0, 1), include.mean = FALSE))
 @
 }
 \noindent
@@ -545,9 +546,9 @@ Testons maintenant la blancheur du r\'esidu.
 
 {\small
 <<label=test.ma1>>=
-aa=Box.test.2(residuals(mod2), nlag=c(3,6,9,12),type="Ljung-Box",
-decim=4,fitdf=1)
-colnames(aa)= c("Retard","p-val.")
+aa = Box.test.2(residuals(mod2), nlag = c(3, 6, 9, 12), type = "Ljung-Box",
+ decim = 4, fitdf = 1)
+colnames(aa) = c("Retard", "p-val.")
 t(aa)
 @
 }
@@ -579,13 +580,13 @@ par \code{arima.sim()}.
 
 {\small
 <<>>=
-theo =  TacvfARMA(theta=c(.3,-.6),lag.max=20)
+theo = TacvfARMA(theta = c(.3, -.6), lag.max = 20)
 (acf.theo = theo[-1]/theo[1])
-(pacf.theo  = PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf)
+(pacf.theo = PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
 set.seed(12)
-y=arima.sim(n=200,list(ma=c(-0.3, .6)),sd = sqrt(1.5))
-(acf.emp= acf(y, 20, plot=FALSE)$acf[-1])
-(pacf.emp= pacf(y, 20, plot=FALSE)$acf)
+y = arima.sim(n = 200, list(ma = c(-0.3, .6)), sd = sqrt(1.5))
+(acf.emp = acf(y, 20, plot = FALSE)$acf[-1])
+(pacf.emp = pacf(y, 20, plot = FALSE)$acf)
 @
 }
 \code{acf()} fournit les autocorr\'elations \`a partir du retard 0, tandis que \code{pacf()} fournit les autocorr\'elations partielles \`a partir du retard 1.
@@ -606,12 +607,12 @@ R\'epondre pour ce mod\`ele, aux questions de l'exercice pr\'ec\'edent.
 <<>>=
 theo =  TacvfARMA(phi=-.8,lag.max=20)
 (acf.theo = theo[-1]/theo[1])
-(pacf.theo  = PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf)
+(pacf.theo  = PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
 set.seed(23)
-y=arima.sim(n=200,list(ar=-.8),
-sd = sqrt(1.5))-10
-(acf.emp= acf(y, 20, plot=FALSE)$acf[-1])
-(pacf.emp= pacf(y, 20, plot=FALSE)$acf)
+y = arima.sim(n = 200,list(ar = -.8),
+sd = sqrt(1.5)) -10
+(acf.emp = acf(y, 20, plot = FALSE)$acf[-1])
+(pacf.emp = pacf(y, 20, plot = FALSE)$acf)
 @
 }
 
@@ -632,15 +633,15 @@ La simulation ne pose pas de difficult\'es :
 {\small
 <<label=prep_arma1_21a, echo=TRUE>>=
 set.seed(4123)
-yc = arima.sim(n=200,list(ar=-0.8, ma= c(-0.3, 0.6)), sd = sqrt(1.5))-10
+yc = arima.sim(n = 200, list(ar = -0.8, ma = c(-0.3, 0.6)), sd = sqrt(1.5))-10
 @
 }
 On calcule d'autre part les ACF et PACF th\'eroriques
 
 {\small
 <<label=prep_arma1_21a0, echo=TRUE>>=
-acf.th = ARMAacf(ar=-0.8, ma=c(-0.3, 0.6),lag.max=20, pacf=FALSE)
-pacf.th= ARMAacf(ar=-0.8, ma=c(-0.3, 0.6),lag.max=20, pacf=TRUE)
+acf.th = ARMAacf(ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20, pacf = FALSE)
+pacf.th = ARMAacf(ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20, pacf = TRUE)
 @
 }
 \noindent
@@ -650,7 +651,7 @@ Enfin on repr\'esente ces quatre fonctions sur un m\^eme graphique, fig. \ref{ac
 
 {\small
 <<label=plot.arma1,fig=TRUE,echo=TRUE,eval=FALSE>>=
-plotacfthemp(yc, ar=-0.8, ma=c(-0.3, 0.6), lag.max=20)
+plotacfthemp(yc, ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20)
 @
 }
 \noindent
@@ -673,7 +674,7 @@ L'estimation de (\ref{arma12.a}), par exemple sur \code{yc}, s'obtient par
 
 {\small
 <<label=estim.12>>=
-(mod12 = Arima(yc, order=c(1,0,2)))
+(mod12 = Arima(yc, order=c(1, 0, 2)))
 @
 }
 \noindent
@@ -696,21 +697,21 @@ y_t = 4  + \frac{1 +0.6 \bm^2 }{(1+0.8  \bm)(1 - 0.7\bm^4)}  z_t, \hspace{1cm} z
 
 {\small
 <<label=prep_arma1_21b>>=
-require(TSA)
-require(polynom)
 set.seed(951)
-ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+ya = arima.sim(n = 200, list(ma = c(-0.3, 0.6)), sd = sqrt(1.5))
 set.seed(7392)
-autopol = polynomial(c(1,0.8))*polynomial(c(1,0,0,0,-0.7))
-yd=arima.sim(n=200,list(ar=-autopol[-1],ma=c(0,0.6)),sd=sqrt(1.5))
-yd=yd+4
+require("polynom")
+autopol = polynomial(c(1, 0.8))*polynomial(c(1, 0, 0, 0, -0.7))
+yd = arima.sim(n = 200, list(ar = -autopol[-1], ma = c(0, 0.6)), sd = sqrt(1.5))
+yd = yd + 4
 @
 }
 
 
 {\small
 <<label=id.saiso,fig=TRUE,echo=TRUE,eval=FALSE,height=6>>=
-res=armasubsets(y=yd,nar=10,nma=10,y.name='yd',ar.method='ols')
+require("TSA")
+res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", ar.method = "ols")
 plot(res)
 @
 }

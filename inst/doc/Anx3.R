@@ -91,20 +91,20 @@ nom.fich = "anx3-bitmap-"
 ###################################################
 ### code chunk number 14: sim.nor
 ###################################################
-require(e1071)
 set.seed(5923)
-x= rnorm(1000)
+x = rnorm(1000)
 xr = exp(x)
-c(skewness(x),kurtosis(x))
-c(skewness(xr),kurtosis(xr))
+require("TSA")
+c(skewness(x), kurtosis(x))
+c(skewness(xr), kurtosis(xr))
 
 
 ###################################################
 ### code chunk number 15: plot.nor (eval = FALSE)
 ###################################################
-## op=par(mfrow=c(1,2),mar=c(4,3,2,0.5),lwd=2 )
-## plot(density(x),main="",ylab="density",xlab="x normale")
-## plot(density(xr),main="",ylab="density",xlab="xr log-normale")
+## op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+## plot(density(x), main = "", ylab = "density", xlab = "x normale")
+## plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 ## par(op)
 
 
@@ -113,15 +113,15 @@ c(skewness(xr),kurtosis(xr))
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
-op=par(mfrow=c(1,2),mar=c(4,3,2,0.5),lwd=2 )
-plot(density(x),main="",ylab="density",xlab="x normale")
-plot(density(xr),main="",ylab="density",xlab="xr log-normale")
+op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+plot(density(x), main = "", ylab = "density", xlab = "x normale")
+plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 par(op)
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
-op=par(mfrow=c(1,2),mar=c(4,3,2,0.5),lwd=2 )
-plot(density(x),main="",ylab="density",xlab="x normale")
-plot(density(xr),main="",ylab="density",xlab="xr log-normale")
+op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+plot(density(x), main = "", ylab = "density", xlab = "x normale")
+plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 par(op)
 dev.null <- dev.off()
 cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")

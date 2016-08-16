@@ -125,7 +125,7 @@
 \makeatother
 
 \title{Rappels de statistique math\'ematique (compl\'ements du Chapitre 3)}
-\author{Yves Aragon\footnote{aragon@cict.fr} \cr
+\author{Yves Aragon\footnote{yves.aragon@gmail.com} \cr
 {\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle
@@ -139,7 +139,7 @@ owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
 .PngNo <- 0
 #rep.ima = getwd()
-nom.fich = "./Figures/anx3-bitmap-"
+nom.fich = "anx3-bitmap-"
 @
 %
 @
@@ -437,21 +437,21 @@ Simulons un vecteur $x$ de 1000 observations i.i.d. $\nor(0,1)$ et calculons le 
 
 {\small
 <<sim.nor>>=
-require(e1071)
 set.seed(5923)
-x= rnorm(1000)
+x = rnorm(1000)
 xr = exp(x)
-c(skewness(x),kurtosis(x))
-c(skewness(xr),kurtosis(xr))
+require("TSA")
+c(skewness(x), kurtosis(x))
+c(skewness(xr), kurtosis(xr))
 @
 }
 \noindent
 
 
 <<label=plot.nor,fig=TRUE,echo=FALSE,eval=FALSE,height=6>>=
-op=par(mfrow=c(1,2),mar=c(4,3,2,0.5),lwd=2 )
-plot(density(x),main="",ylab="density",xlab="x normale")
-plot(density(xr),main="",ylab="density",xlab="xr log-normale")
+op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+plot(density(x), main = "", ylab = "density", xlab = "x normale")
+plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 par(op)
 @
 \begin{figure}

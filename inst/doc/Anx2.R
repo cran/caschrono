@@ -112,28 +112,28 @@ nom.fich = "./Figures/anx2-bitmap-"
 ### code chunk number 17: Anx2.Rnw:308-311 (eval = FALSE)
 ###################################################
 ## x = rnorm(10)
-## xmat = as.matrix(x, ncol=1)
+## xmat = as.matrix(x, ncol = 1)
 ## y = as.vector(xmat[,1])
 
 
 ###################################################
 ### code chunk number 18: r_st.huron
 ###################################################
-require(forecast)
+require("forecast")
 temps = time(LakeHuron)
-mod.lac=Arima(LakeHuron,order=c(1,0,0),xreg= temps,method='ML')
+mod.lac = Arima(LakeHuron, order = c(1, 0, 0), xreg = temps, method = "ML")
 
 
 ###################################################
 ### code chunk number 19: r_st.huron.struc
 ###################################################
-str(mod.lac, width=60, strict.width="cut")
+str(mod.lac, width = 60, strict.width = "cut")
 
 
 ###################################################
 ### code chunk number 20: r_st.huron.coef
 ###################################################
-residus= mod.lac$residuals
-(coeftemps = mod.lac$coef[names(mod.lac$coef) == 'temps'])
+residus = mod.lac$residuals
+(coeftemps = mod.lac$coef[names(mod.lac$coef) == "temps"])
 
 

@@ -126,7 +126,7 @@
 
 
 \title{D\'emarche de base en s\'eries temporelles (compl\'ements du Chapitre 1)}
-\author{Yves Aragon\footnote{aragon@cict.fr} \cr
+\author{Yves Aragon\footnote{yves.aragon@gmail.com} \cr
 {\normalsize Universit\'e Toulouse 1 Capitole} }
 \begin{document}
 \maketitle

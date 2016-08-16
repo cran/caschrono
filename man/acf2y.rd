@@ -24,7 +24,7 @@ if numer=TRUE, it returns the values of ACF and PACF for each lag
 Springer.}
 
 \examples{
-data(nottem)
+data("nottem")
 acf2y(nottem)
 }
 \keyword{ts}

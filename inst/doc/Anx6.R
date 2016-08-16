@@ -90,38 +90,34 @@ nom.fich = "./Figures/anx6-bitmap-"
 ###################################################
 ### code chunk number 14: alpha
 ###################################################
-alpha= seq(.1,.3, by=.1)
-arret = seq(10,40,by=10)
-n.al= length(alpha) ; n.arret = length(arret)
-cumul = matrix(0,nrow=n.al,ncol=n.arret)
-rownames(cumul) =as.character(alpha)
+alpha = seq(.1, .3, by = .1)
+arret = seq(10, 40, by = 10)
+n.al = length(alpha); n.arret = length(arret)
+cumul = matrix(0, nrow = n.al, ncol = n.arret)
+rownames(cumul) = as.character(alpha)
 colnames(cumul) = as.character(arret)
-poids = function(alf,i)
-{
+poids <- function(alf, i){
 # renvoie les poids alpha*(1 - alpha)^j, j=0, i-1
-wgh= rep(0,i)
-wgh[1]= alf
-for(k in 2:i )
-{wgh[k] = wgh[k-1]*(1 - alf)}
+wgh = rep(0,i)
+wgh[1] = alf
+for(k in 2:i ){
+ wgh[k] <- wgh[k-1]*(1 - alf)
+}
 sum(wgh)
 }
-for (m in 1:length(alpha))
-{
-for (n in 1:length(arret))
-{
-cumul[m,n] = poids(alpha[m],arret[n])
-}
-}
-round(cumul,digits=2)
+for(m in 1:length(alpha)){
+for (n in 1:length(arret)){
+ cumul[m,n] = poids(alpha[m],arret[n])
+}}
+round(cumul, digits = 2)
 
 
 ###################################################
-### code chunk number 15: Anx6.Rnw:242-248
+### code chunk number 15: Anx6.Rnw:239-244
 ###################################################
-require(forecast)
-require(expsmooth)
-require(caschrono)
-ets0 = ets(fmsales,model="ANN")
+require("forecast")
+require("expsmooth")
+ets0 = ets(fmsales, model = "ANN")
 summary(ets0)
 str(ets0, width = 60, strict.width = "cut")
 
@@ -129,13 +125,14 @@ str(ets0, width = 60, strict.width = "cut")
 ###################################################
 ### code chunk number 16: testbl
 ###################################################
-Box.test.2(residuals(ets0), nlag = c(3,6,9))
+require("caschrono")
+Box.test.2(residuals(ets0), nlag = c(3, 6, 9))
 
 
 ###################################################
-### code chunk number 17: Anx6.Rnw:289-291
+### code chunk number 17: Anx6.Rnw:286-288
 ###################################################
-(ets0.hw=HoltWinters(fmsales, alpha = NULL, beta = FALSE, 
-gamma =FALSE))
+(ets0.hw <- HoltWinters(fmsales, alpha = NULL, beta = FALSE, 
+ gamma = FALSE))
 
 

@@ -1,2 +1,4 @@
-import(forecast, Hmisc, its, timeSeries)
+import(graphics, stats, utils, zoo)
+importFrom(Hmisc, Lag)
+importFrom(methods, is)
 exportPattern("^[[:alpha:]]+")

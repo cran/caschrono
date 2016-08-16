@@ -5,7 +5,7 @@
 identification method and returns the nbmod best ARMA models, with respect to
 the Schwarz's Bayesian Criterion (sbc).}
 \usage{
-armaselect(y, max.p= 15, max.q=15, nbmod = 10)
+armaselect(y, max.p = 15, max.q = 15, nbmod = 10)
 }
 \arguments{
  \item{y}{a time series}
@@ -24,9 +24,9 @@ A matrix with \code{nbmod} rows and 3 columns (values of \code{p}, \code{q} and 
 \examples{
 set.seed(4123)
 n2 <- 210
-yc <- arima.sim(n = 200, list(ar = -0.8, ma=c(-0.3, 0.6)),
-sd = sqrt(1.5))
-yc <- yc-10
-armaselect(yc, nbmod=5) 
+yc <- arima.sim(n = 200, list(ar = -0.8, ma = c(-0.3, 0.6)),
+ sd = sqrt(1.5))
+yc <- yc - 10
+armaselect(yc, nbmod = 5) 
 }
 \keyword{ts}

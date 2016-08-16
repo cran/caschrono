@@ -4,7 +4,7 @@
 \description{\code{Box.test.2} computes at different lags, a 'Portemanteau' statistic 
 for testing that a time series is a white noise.}
 \usage{
-Box.test.2(x, nlag,type=c("Box-Pierce","Ljung-Box"), fitdf = 0, decim=8)
+Box.test.2(x, nlag, type = c("Box-Pierce", "Ljung-Box"), fitdf = 0, decim = 8)
 }
 \arguments{
  \item{x}{a time series object}
@@ -22,7 +22,7 @@ It returns a matrix of size \code{nlag} x 2 with the statistics and the p-value
 
 \examples{
 set.seed(123)
-y1 = arima.sim(n=100,list(ar=-.7), sd=sqrt(4))
-a1=Box.test.2(y1, nlag=c(3,6,9,12),type="Ljung-Box",decim=4)
+y1 = arima.sim(n = 100, list(ar = -.7), sd = sqrt(4))
+a1 = Box.test.2(y1, nlag = c(3, 6, 9, 12), type = "Ljung-Box", decim = 4)
 }
 \keyword{ts}

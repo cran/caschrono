@@ -307,7 +307,7 @@ fr\'equent. Dans le code ci-dessous,  \code{x} et \code{y} sont des vecteurs, et
 {\small
 <<eval=FALSE>>=
 x = rnorm(10)
-xmat = as.matrix(x, ncol=1)
+xmat = as.matrix(x, ncol = 1)
 y = as.vector(xmat[,1])
 @
 }
@@ -337,9 +337,9 @@ Au chapitre 1, on a utilis\'e le code suivant :
 
 {\small
 <<label=r_st.huron>>=
-require(forecast)
+require("forecast")
 temps = time(LakeHuron)
-mod.lac=Arima(LakeHuron,order=c(1,0,0),xreg= temps,method='ML')
+mod.lac = Arima(LakeHuron, order = c(1, 0, 0), xreg = temps, method = "ML")
 @
 }
 \noindent
@@ -357,7 +357,7 @@ par \code{summary(mod.lac)}, op\'eration que nous ferons souvent ; mais ici exam
 
 {\small
 <<label=r_st.huron.struc>>=
-str(mod.lac, width=60, strict.width="cut")
+str(mod.lac, width = 60, strict.width = "cut")
 @
 }
 \noindent
@@ -369,8 +369,8 @@ On voit par exemple, que le nom de ce coefficient est \code{temps}, on peut donc
 
 {\small
 <<label=r_st.huron.coef>>=
-residus= mod.lac$residuals
-(coeftemps = mod.lac$coef[names(mod.lac$coef) == 'temps'])
+residus = mod.lac$residuals
+(coeftemps = mod.lac$coef[names(mod.lac$coef) == "temps"])
 @
 }
 \noindent
