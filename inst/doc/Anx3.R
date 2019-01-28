@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx3.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx3.Rnw:137-142
+### code chunk number 1: Anx3.Rnw:138-143
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -92,8 +92,8 @@ nom.fich = "anx3-bitmap-"
 ### code chunk number 14: sim.nor
 ###################################################
 set.seed(5923)
-x = rnorm(1000)
-xr = exp(x)
+x <- rnorm(1000)
+xr <- exp(x)
 require("TSA")
 c(skewness(x), kurtosis(x))
 c(skewness(xr), kurtosis(xr))
@@ -102,24 +102,24 @@ c(skewness(xr), kurtosis(xr))
 ###################################################
 ### code chunk number 15: plot.nor (eval = FALSE)
 ###################################################
-## op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+## op <- par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
 ## plot(density(x), main = "", ylab = "density", xlab = "x normale")
 ## plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 ## par(op)
 
 
 ###################################################
-### code chunk number 16: Anx3.Rnw:459-466
+### code chunk number 16: Anx3.Rnw:460-467
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
-op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+op <- par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
 plot(density(x), main = "", ylab = "density", xlab = "x normale")
 plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 par(op)
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
-op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+op <- par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
 plot(density(x), main = "", ylab = "density", xlab = "x normale")
 plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 par(op)

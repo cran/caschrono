@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx7.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx7.Rnw:135-139
+### code chunk number 1: Anx7.Rnw:136-140
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -92,36 +92,39 @@ nom.fich = "./Figures/annexe_simul-bitmap-"
 ###################################################
 # graine
 set.seed(2761)
-innov1 = rnorm(290, sd = 4.18)
-y = arima.sim(list(order = c(12, 0, 1), ma = -.7, ar = c(rep(0, 11), .9)), 
-  innov = innov1, n.start = 50, n = 240) + 50
-y.ts = ts(y, frequency = 12, start = c(1920, 1))
-ytr = cbind(y.ts, nottem)
-colnames(ytr) = c("serie simulee", "temperature")
+innov1 <- rnorm(290, sd = 4.18)
+y <- arima.sim(list(order = c(12, 0, 1), 
+                    ma = -.7, ar = c(rep(0, 11), .9)), 
+               innov = innov1, n.start = 50, n = 240) + 50
+y.ts <- ts(y, frequency = 12, start = c(1920, 1))
+ytr <- cbind(y.ts, nottem)
+colnames(ytr) <- c("serie simulee", "temperature")
 
 
 ###################################################
 ### code chunk number 15: autop
 ###################################################
 require("polynom")
-autop = polynomial(c(1, -1/1.4))*polynomial(c(1, -1))*polynomial(c(1, -1/1.9))
+autop <- polynomial(c(1, -1/1.4)) * polynomial(c(1, -1)) * 
+  polynomial(c(1, -1/1.9))
 
 
 ###################################################
 ### code chunk number 16: autop2
 ###################################################
-autop1 = polynomial(c(1, -1/1.4))*polynomial(c(1, -1/1.9))
-asim8b = arima.sim(n = 60, list(ar = -autop1[-1], 
- order = c(2, 1, 0)))
+autop1 <- polynomial(c(1, -1/1.4)) * 
+  polynomial(c(1, -1/1.9))
+asim8b <- arima.sim(n = 60, list(ar = -autop1[-1], 
+                                 order = c(2, 1, 0)))
 
 
 ###################################################
 ### code chunk number 17: construct3
 ###################################################
 require(dse)
-AR = array(autop1, c(length(autop1), 1, 1))
-MA = array(1, c(1, 1, 1))
-mod2 = ARMA(A = AR, B = MA)
-asim8c = simulate(mod2, sampleT = 60, sd = 1.5)
+AR <- array(autop1, c(length(autop1), 1, 1))
+MA <- array(1, c(1, 1, 1))
+mod2 <- ARMA(A = AR, B = MA)
+asim8c <- simulate(mod2, sampleT = 60, sd = 1.5)
 
 

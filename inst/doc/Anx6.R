@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx6.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx6.Rnw:135-139
+### code chunk number 1: Anx6.Rnw:136-140
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -90,34 +90,37 @@ nom.fich = "./Figures/anx6-bitmap-"
 ###################################################
 ### code chunk number 14: alpha
 ###################################################
-alpha = seq(.1, .3, by = .1)
-arret = seq(10, 40, by = 10)
-n.al = length(alpha); n.arret = length(arret)
-cumul = matrix(0, nrow = n.al, ncol = n.arret)
-rownames(cumul) = as.character(alpha)
-colnames(cumul) = as.character(arret)
-poids <- function(alf, i){
-# renvoie les poids alpha*(1 - alpha)^j, j=0, i-1
-wgh = rep(0,i)
-wgh[1] = alf
-for(k in 2:i ){
- wgh[k] <- wgh[k-1]*(1 - alf)
+alpha <- seq(.1, .3, by = .1)
+arret <- seq(10, 40, by = 10)
+n.al <- length(alpha)
+n.arret <- length(arret)
+cumul <- matrix(0, nrow = n.al, ncol = n.arret)
+rownames(cumul) <- as.character(alpha)
+colnames(cumul) <- as.character(arret)
+poids <- function(alf, i) {
+  wgh <- rep(0, i)
+  wgh[1] <- alf
+  for(k in 2:i) {
+    wgh[k] <- wgh[k - 1] * (1 - alf)
+  }
+  sum(wgh)
 }
-sum(wgh)
+
+for (m in 1:length(alpha)) { 
+  for (n in 1:length(arret)){
+    cumul[m, n] <- poids(alpha[m], arret[n])
+  }
 }
-for(m in 1:length(alpha)){
-for (n in 1:length(arret)){
- cumul[m,n] = poids(alpha[m],arret[n])
-}}
+
 round(cumul, digits = 2)
 
 
 ###################################################
-### code chunk number 15: Anx6.Rnw:239-244
+### code chunk number 15: Anx6.Rnw:243-248
 ###################################################
 require("forecast")
 require("expsmooth")
-ets0 = ets(fmsales, model = "ANN")
+ets0 <- ets(fmsales, model = "ANN")
 summary(ets0)
 str(ets0, width = 60, strict.width = "cut")
 
@@ -130,9 +133,9 @@ Box.test.2(residuals(ets0), nlag = c(3, 6, 9))
 
 
 ###################################################
-### code chunk number 17: Anx6.Rnw:286-288
+### code chunk number 17: Anx6.Rnw:290-292
 ###################################################
 (ets0.hw <- HoltWinters(fmsales, alpha = NULL, beta = FALSE, 
- gamma = FALSE))
+                        gamma = FALSE))
 
 

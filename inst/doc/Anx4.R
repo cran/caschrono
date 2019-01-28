@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx4.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx4.Rnw:138-142
+### code chunk number 1: Anx4.Rnw:139-143
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -93,79 +93,79 @@ nom.fich = "anx4-bitmap-"
 require("caschrono")
 require("timeSeries")
 data("csdl")
-aa = returns(csdl, percentage = TRUE)
-aab = aa[complete.cases(aa) == TRUE,]
+aa <- returns(csdl, percentage = TRUE)
+aab <- aa[complete.cases(aa) == TRUE,]
 # in previous version we use package its which will not be maintained anymo
 # r.csdl = its(aab, as.POSIXct(row.names(aab)))
-r.csdl = zoo(aab, as.POSIXct(row.names(aab)))
-r.danone= r.csdl[,3]
-rdt2 = (r.danone-mean(r.danone))^2
-a0=Box.test.2(r.danone, nlag=c(3,6,9,12),
- type="Ljung-Box",decim=4)
-a1=Box.test.2(r.danone[1:600], nlag=c(3,6,9,12),
- type="Ljung-Box",decim=4)
-a2=Box.test.2(rdt2[1:600], nlag=c(3,6,9,12), 
- type="Ljung-Box",decim=4)
-a12 = cbind(a0,a1[,2],a2[,2])
-colnames(a12)= c("Retard","p-val. serie compl.",
- "p-val. 600 obs.", "p-val. rdt carre")
+r.csdl <- zoo(aab, as.POSIXct(row.names(aab)))
+r.danone <- r.csdl[, 3]
+rdt2 <- (r.danone-mean(r.danone))^2
+a0 <- Box.test.2(r.danone, nlag = c(3, 6, 9, 12),
+                 type = "Ljung-Box", decim = 4)
+a1 <- Box.test.2(r.danone[1:600], nlag = c(3, 6, 9, 12),
+                 type = "Ljung-Box", decim = 4)
+a2 <- Box.test.2(rdt2[1:600], nlag = c(3, 6, 9, 12),
+                 type = "Ljung-Box", decim = 4)
+a12 <- cbind(a0, a1[, 2], a2[, 2])
+colnames(a12) <- c("Retard", "p-val. serie compl.",
+                   "p-val. 600 obs.", "p-val. rdt carre")
 
 
 ###################################################
 ### code chunk number 15: lb2.tex
 ###################################################
 require(xtable)
-xtable(a12, caption="Table a12 : test de blancheur 
-du rendement de Danone et de son carre.",label="danoblanc", 
-digits=4)
+xtable(a12, caption = "Table a12 : test de blancheur du rendement 
+       de Danone et de son carre.", label = "danoblanc",
+       digits = 4)
 
 
 ###################################################
-### code chunk number 16: Anx4.Rnw:286-288
+### code chunk number 16: Anx4.Rnw:287-289
 ###################################################
 ARMAtoMA(-.7, 0, 10)
-ARMAtoMA(c(rep(0,11),-.7), 0, 25)
+ARMAtoMA(c(rep(0, 11), -.7), 0, 25)
 
 
 ###################################################
-### code chunk number 17: Anx4.Rnw:295-298
+### code chunk number 17: Anx4.Rnw:296-299
 ###################################################
 require(FitARMA)
-ImpulseCoefficientsARMA(-.7,0,lag.max=10)
-ImpulseCoefficientsARMA(c(rep(0,11),-.7),0,lag.max=25)
+ImpulseCoefficientsARMA(-.7, 0, lag.max = 10)
+ImpulseCoefficientsARMA(c(rep(0, 11), -.7), 0, lag.max = 25)
 
 
 ###################################################
 ### code chunk number 18: prep_ma2
 ###################################################
 set.seed(951)
-ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+ya <- arima.sim(n = 200, list(ma = c(-0.3, 0.6)), sd = sqrt(1.5))
 
 
 ###################################################
 ### code chunk number 19: plot.ma2 (eval = FALSE)
 ###################################################
 ## set.seed(951)
-## ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))
-## titre= "MA(2)"
-## plotacfthemp(ya, ma=c(-0.3, 0.6), lag.max=20)
+## ya <- arima.sim(n = 200, list(ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+## titre <- "MA(2)"
+## plotacfthemp(ya, ma = c(-0.3, 0.6), lag.max = 20)
 
 
 ###################################################
-### code chunk number 20: Anx4.Rnw:354-361
+### code chunk number 20: Anx4.Rnw:355-362
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
 set.seed(951)
-ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))
-titre= "MA(2)"
-plotacfthemp(ya, ma=c(-0.3, 0.6), lag.max=20)
+ya <- arima.sim(n = 200, list(ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+titre <- "MA(2)"
+plotacfthemp(ya, ma = c(-0.3, 0.6), lag.max = 20)
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
 set.seed(951)
-ya = arima.sim(n = 200, list( ma = c(-0.3, 0.6)), sd = sqrt(1.5))
-titre= "MA(2)"
-plotacfthemp(ya, ma=c(-0.3, 0.6), lag.max=20)
+ya <- arima.sim(n = 200, list(ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+titre <- "MA(2)"
+plotacfthemp(ya, ma = c(-0.3, 0.6), lag.max = 20)
 dev.null <- dev.off()
 cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
@@ -174,45 +174,45 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 ### code chunk number 21: ma2.estim
 ###################################################
 require("forecast")
-(mod.ma2= Arima(ya,order=c(0,0,2), include.mean=FALSE))
+(mod.ma2 = Arima(ya, order = c(0, 0,2), include.mean = FALSE))
 
 
 ###################################################
 ### code chunk number 22: prep_ar1
 ###################################################
 set.seed(5419)
-n2 = 210
-yb = arima.sim(n=200, list(ar=-0.8), sd=sqrt(1.5))
-yb = yb-10
+n2 <- 210
+yb <- arima.sim(n = 200, list(ar = -0.8), sd = sqrt(1.5))
+yb <- yb - 10
 
 
 ###################################################
 ### code chunk number 23: plot.ar1 (eval = FALSE)
 ###################################################
 ## set.seed(5419)
-## n2 = 210
-## yb = arima.sim(n=200, list(ar=-0.8), sd=sqrt(1.5))
-## yb = yb-10
-## plotacfthemp(yb, ar=-0.8, lag.max=20)
+## n2 <- 210
+## yb <- arima.sim(n = 200, list(ar = -0.8), sd = sqrt(1.5))
+## yb <- yb - 10
+## plotacfthemp(yb, ar = -0.8, lag.max = 20)
 
 
 ###################################################
-### code chunk number 24: Anx4.Rnw:399-406
+### code chunk number 24: Anx4.Rnw:400-407
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")
 set.seed(5419)
-n2 = 210
-yb = arima.sim(n=200, list(ar=-0.8), sd=sqrt(1.5))
-yb = yb-10
-plotacfthemp(yb, ar=-0.8, lag.max=20)
+n2 <- 210
+yb <- arima.sim(n = 200, list(ar = -0.8), sd = sqrt(1.5))
+yb <- yb - 10
+plotacfthemp(yb, ar = -0.8, lag.max = 20)
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""), width = 7, height = 7, pointsize = 12, bg = "white",horizontal= FALSE,paper="special")
 set.seed(5419)
-n2 = 210
-yb = arima.sim(n=200, list(ar=-0.8), sd=sqrt(1.5))
-yb = yb-10
-plotacfthemp(yb, ar=-0.8, lag.max=20)
+n2 <- 210
+yb <- arima.sim(n = 200, list(ar = -0.8), sd = sqrt(1.5))
+yb <- yb - 10
+plotacfthemp(yb, ar = -0.8, lag.max = 20)
 dev.null <- dev.off()
 cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
@@ -220,7 +220,7 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 ###################################################
 ### code chunk number 25: estim.12
 ###################################################
-(mod12 = Arima(yb, order=c(1,0,0)))
+(mod12 = Arima(yb, order = c(1, 0, 0)))
 
 
 ###################################################
@@ -237,13 +237,15 @@ facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
 y.mat <- matrix(0, nrow = 200, ncol = nsim)
 facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
 for(isim in 1:nsim){
- y.mat[,isim] <- arima.sim(n = nobs, list(ar = c(-0.7, 0.2)), sd = sqrt(2))
- facp.mat[,isim] = pacf(y.mat[,isim], 20, plot = FALSE)$acf
+ y.mat[, isim] <- arima.sim(n = nobs, 
+                            list(ar = c(-0.7, 0.2)), 
+                            sd = sqrt(2))
+ facp.mat[, isim] = pacf(y.mat[,isim], 20, plot = FALSE)$acf
 }
 aa <- t(apply(facp.mat,1, "quantile", probs = c(0.25, .75)))
-#pacf theo
-theo <- TacvfARMA(phi=c(-.7,.2),lag.max=20)
-pacf.theo <- PacfDL(theo/theo[1], LinearPredictor=TRUE)$Pacf
+# pacf theo
+theo <- TacvfARMA(phi = c(-.7, .2), lag.max = 20)
+pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf
 # intervalle autour de 0 \`a 50%
 binf <- qnorm(.25)/nobs^.5
 bsup <- qnorm(.75)/nobs^.5
@@ -251,30 +253,38 @@ aaa <- cbind(aa, pacf.theo, binf, bsup)
 
 
 ###################################################
-### code chunk number 27: Anx4.Rnw:484-486 (eval = FALSE)
+### code chunk number 27: Anx4.Rnw:487-491 (eval = FALSE)
 ###################################################
-## matplot(1:20, aaa, type = "l", ylab = "PACF", xlab = "retard", col = "black")
-## legend("topright", paste("nombre de simulations : ", as.character(nsim)))
+## matplot(1:20, aaa, type = "l", ylab = "PACF", 
+##         xlab = "retard", col = "black")
+## legend("topright", paste("nombre de simulations : ", 
+##                          as.character(nsim)))
 
 
 ###################################################
 ### code chunk number 28: matplot0 (eval = FALSE)
 ###################################################
-## matplot(1:20, aaa, type = "l", ylab = "PACF", xlab = "retard", col = "black")
-## legend("topright", paste("nombre de simulations : ", as.character(nsim)))
+## matplot(1:20, aaa, type = "l", ylab = "PACF", 
+##         xlab = "retard", col = "black")
+## legend("topright", paste("nombre de simulations : ", 
+##                          as.character(nsim)))
 
 
 ###################################################
-### code chunk number 29: Anx4.Rnw:501-508
+### code chunk number 29: Anx4.Rnw:508-515
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
-matplot(1:20, aaa, type = "l", ylab = "PACF", xlab = "retard", col = "black")
-legend("topright", paste("nombre de simulations : ", as.character(nsim)))
+matplot(1:20, aaa, type = "l", ylab = "PACF", 
+        xlab = "retard", col = "black")
+legend("topright", paste("nombre de simulations : ", 
+                         as.character(nsim)))
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
-matplot(1:20, aaa, type = "l", ylab = "PACF", xlab = "retard", col = "black")
-legend("topright", paste("nombre de simulations : ", as.character(nsim)))
+matplot(1:20, aaa, type = "l", ylab = "PACF", 
+        xlab = "retard", col = "black")
+legend("topright", paste("nombre de simulations : ", 
+                         as.character(nsim)))
 dev.null <- dev.off()
 cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
@@ -283,79 +293,88 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 ### code chunk number 30: prep.y1
 ###################################################
 set.seed(123)
-y1 = arima.sim(n = 100, list(ar = -.7), sd = sqrt(4))
-y2 = arima.sim(n = 100, list(ar = c(rep(0, 11), -.7)), sd = sqrt(4))
+y1 <- arima.sim(n = 100, list(ar = -.7), 
+                sd = sqrt(4))
+y2 <- arima.sim(n = 100, list(ar = c(rep(0, 11), -.7)), 
+                sd = sqrt(4))
 
 
 ###################################################
 ### code chunk number 31: estim.ma1
 ###################################################
-(mod2 = Arima(y1, order=c(0, 0, 1), include.mean = FALSE))
+(mod2 <- Arima(y1, order = c(0, 0, 1), include.mean = FALSE))
 
 
 ###################################################
 ### code chunk number 32: test.ma1
 ###################################################
-aa = Box.test.2(residuals(mod2), nlag = c(3, 6, 9, 12), type = "Ljung-Box",
- decim = 4, fitdf = 1)
-colnames(aa) = c("Retard", "p-val.")
+aa <- Box.test.2(residuals(mod2), nlag = c(3, 6, 9, 12), 
+                type = "Ljung-Box",
+                decim = 4, fitdf = 1)
+colnames(aa) <- c("Retard", "p-val.")
 t(aa)
 
 
 ###################################################
-### code chunk number 33: Anx4.Rnw:582-589
+### code chunk number 33: Anx4.Rnw:592-599
 ###################################################
-theo = TacvfARMA(theta = c(.3, -.6), lag.max = 20)
-(acf.theo = theo[-1]/theo[1])
-(pacf.theo = PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
+theo <- TacvfARMA(theta = c(.3, -.6), lag.max = 20)
+(acf.theo <- theo[-1]/theo[1])
+(pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
 set.seed(12)
-y = arima.sim(n = 200, list(ma = c(-0.3, .6)), sd = sqrt(1.5))
-(acf.emp = acf(y, 20, plot = FALSE)$acf[-1])
-(pacf.emp = pacf(y, 20, plot = FALSE)$acf)
+y <- arima.sim(n = 200, list(ma = c(-0.3, .6)), sd = sqrt(1.5))
+(acf.emp <- acf(y, 20, plot = FALSE)$acf[-1])
+(pacf.emp <- pacf(y, 20, plot = FALSE)$acf)
 
 
 ###################################################
-### code chunk number 34: Anx4.Rnw:607-615
+### code chunk number 34: Anx4.Rnw:617-625
 ###################################################
-theo =  TacvfARMA(phi=-.8,lag.max=20)
-(acf.theo = theo[-1]/theo[1])
-(pacf.theo  = PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
+theo <- TacvfARMA(phi = -.8, lag.max = 20)
+(acf.theo <- theo[-1]/theo[1])
+(pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
 set.seed(23)
-y = arima.sim(n = 200,list(ar = -.8),
-sd = sqrt(1.5)) -10
-(acf.emp = acf(y, 20, plot = FALSE)$acf[-1])
-(pacf.emp = pacf(y, 20, plot = FALSE)$acf)
+y <- arima.sim(n = 200, list(ar = -.8),
+               sd = sqrt(1.5)) - 10
+(acf.emp <- acf(y, 20, plot = FALSE)$acf[-1])
+(pacf.emp <- pacf(y, 20, plot = FALSE)$acf)
 
 
 ###################################################
 ### code chunk number 35: prep_arma1_21a
 ###################################################
 set.seed(4123)
-yc = arima.sim(n = 200, list(ar = -0.8, ma = c(-0.3, 0.6)), sd = sqrt(1.5))-10
+yc <- arima.sim(n = 200, list(ar = -0.8, ma = c(-0.3, 0.6)), 
+                sd = sqrt(1.5)) - 10
 
 
 ###################################################
 ### code chunk number 36: prep_arma1_21a0
 ###################################################
-acf.th = ARMAacf(ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20, pacf = FALSE)
-pacf.th = ARMAacf(ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20, pacf = TRUE)
+acf.th <- ARMAacf(ar = -0.8, ma = c(-0.3, 0.6), 
+                  lag.max = 20, pacf = FALSE)
+pacf.th <- ARMAacf(ar = -0.8, ma = c(-0.3, 0.6), 
+                   lag.max = 20, pacf = TRUE)
 
 
 ###################################################
 ### code chunk number 37: plot.arma1 (eval = FALSE)
 ###################################################
-## plotacfthemp(yc, ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20)
+## plotacfthemp(yc, ar = -0.8, ma = c(-0.3, 0.6), 
+##              lag.max = 20)
 
 
 ###################################################
-### code chunk number 38: Anx4.Rnw:660-667
+### code chunk number 38: Anx4.Rnw:674-681
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")
-plotacfthemp(yc, ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20)
+plotacfthemp(yc, ar = -0.8, ma = c(-0.3, 0.6), 
+             lag.max = 20)
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""), width = 7, height = 7, pointsize = 12, bg = "white",horizontal= FALSE,paper="special")
-plotacfthemp(yc, ar = -0.8, ma = c(-0.3, 0.6), lag.max = 20)
+plotacfthemp(yc, ar = -0.8, ma = c(-0.3, 0.6), 
+             lag.max = 20)
 dev.null <- dev.off()
 cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
@@ -370,34 +389,38 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 ### code chunk number 40: prep_arma1_21b
 ###################################################
 set.seed(951)
-ya = arima.sim(n = 200, list(ma = c(-0.3, 0.6)), sd = sqrt(1.5))
+ya <- arima.sim(n = 200, list(ma = c(-0.3, 0.6)), sd = sqrt(1.5))
 set.seed(7392)
 require("polynom")
-autopol = polynomial(c(1, 0.8))*polynomial(c(1, 0, 0, 0, -0.7))
-yd = arima.sim(n = 200, list(ar = -autopol[-1], ma = c(0, 0.6)), sd = sqrt(1.5))
-yd = yd + 4
+autopol <- polynomial(c(1, 0.8)) * polynomial(c(1, 0, 0, 0, -0.7))
+yd <- arima.sim(n = 200, list(ar = -autopol[-1], 
+                              ma = c(0, 0.6)), sd = sqrt(1.5))
+yd <- yd + 4
 
 
 ###################################################
 ### code chunk number 41: id.saiso (eval = FALSE)
 ###################################################
 ## require("TSA")
-## res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", ar.method = "ols")
+## res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", 
+##                    ar.method = "ols")
 ## plot(res)
 
 
 ###################################################
-### code chunk number 42: Anx4.Rnw:721-728
+### code chunk number 42: Anx4.Rnw:737-744
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")
 require("TSA")
-res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", ar.method = "ols")
+res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", 
+                   ar.method = "ols")
 plot(res)
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""), width = 7, height = 7, pointsize = 12, bg = "white",horizontal= FALSE,paper="special")
 require("TSA")
-res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", ar.method = "ols")
+res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", 
+                   ar.method = "ols")
 plot(res)
 dev.null <- dev.off()
 cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")

@@ -125,8 +125,9 @@
 
 \title{Consommation d'\'electricit\'e (compl\'ements du Chapitre 10)}
 \author{Yves Aragon\footnote{yves.aragon@gmail.com} \cr
-{\normalsize Universit\'e Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse Capitole} }
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 \setcounter{section}{10}
 \renewcommand{\thefootnote}{\arabic{footnote}}
@@ -231,8 +232,8 @@ et  r\'eestimer (\ref{kwh.mco.2}).
 
 {\small
 <<label=prep.df2>>=
-mod2 = lm(sqrt(kwh) ~ htdd + cldd + t1 + t1.2, data = khct.df)
-u = ts(residuals(mod2), start = c(1970, 1), frequency = 12)
+mod2 <- lm(sqrt(kwh) ~ htdd + cldd + t1 + t1.2, data = khct.df)
+u <- ts(residuals(mod2), start = c(1970, 1), frequency = 12)
 @
 }
 
@@ -254,9 +255,11 @@ kwh1rc <- window(sqrt(khct[,"kwh"]), end = c(1983,12))
 xreg1 <- khct.df[ ,c("htdd", "cldd", "t1", "t1.2")]
 xreg2 <- xreg1[,-4]
 require("forecast")
-(mdarx3c <- Arima(kwh1rc, order = c(1, 0, 0), seasonal = list(order = c(1, 0, 1)),
-  xreg = xreg2))
-u.3c <- kwh1rc - as.matrix(xreg2)%*%as.matrix(mdarx3c$coef[5:7]) - mdarx3c$coef[4]
+(mdarx3c <- Arima(kwh1rc, order = c(1, 0, 0), 
+                  seasonal = list(order = c(1, 0, 1)),
+                  xreg = as.matrix(xreg2)))
+u.3c <- kwh1rc - as.matrix(xreg2)%*%as.matrix(mdarx3c$coef[5:7]) - 
+  mdarx3c$coef[4]
 @
 }
 Enfin nous superposons les deux r\'esidus :

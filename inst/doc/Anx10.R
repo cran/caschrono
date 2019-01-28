@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx10.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx10.Rnw:135-139
+### code chunk number 1: Anx10.Rnw:136-140
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -118,8 +118,8 @@ colnames(khct.df) <- c("kwh", "htdd", "cldd", "t1", "t1.2")
 ###################################################
 ### code chunk number 18: prep.df2
 ###################################################
-mod2 = lm(sqrt(kwh) ~ htdd + cldd + t1 + t1.2, data = khct.df)
-u = ts(residuals(mod2), start = c(1970, 1), frequency = 12)
+mod2 <- lm(sqrt(kwh) ~ htdd + cldd + t1 + t1.2, data = khct.df)
+u <- ts(residuals(mod2), start = c(1970, 1), frequency = 12)
 
 
 ###################################################
@@ -129,9 +129,11 @@ kwh1rc <- window(sqrt(khct[,"kwh"]), end = c(1983,12))
 xreg1 <- khct.df[ ,c("htdd", "cldd", "t1", "t1.2")]
 xreg2 <- xreg1[,-4]
 require("forecast")
-(mdarx3c <- Arima(kwh1rc, order = c(1, 0, 0), seasonal = list(order = c(1, 0, 1)),
-  xreg = xreg2))
-u.3c <- kwh1rc - as.matrix(xreg2)%*%as.matrix(mdarx3c$coef[5:7]) - mdarx3c$coef[4]
+(mdarx3c <- Arima(kwh1rc, order = c(1, 0, 0), 
+                  seasonal = list(order = c(1, 0, 1)),
+                  xreg = as.matrix(xreg2)))
+u.3c <- kwh1rc - as.matrix(xreg2)%*%as.matrix(mdarx3c$coef[5:7]) - 
+  mdarx3c$coef[4]
 
 
 ###################################################
@@ -155,7 +157,7 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
 
 ###################################################
-### code chunk number 22: Anx10.Rnw:323-328
+### code chunk number 22: Anx10.Rnw:326-331
 ###################################################
 vcovar = mdarx3c$var.coef[c("cldd", "htdd"), c("cldd", "htdd")]
 delta0 = mdarx3c$coef["cldd"] - 10*mdarx3c$coef["htdd"]

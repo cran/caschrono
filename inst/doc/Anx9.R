@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx9.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx9.Rnw:135-139
+### code chunk number 1: Anx9.Rnw:136-140
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -88,26 +88,26 @@ nom.fich = "./Figures/anx9-bitmap-"
 
 
 ###################################################
-### code chunk number 14: Anx9.Rnw:215-234
+### code chunk number 14: Anx9.Rnw:216-235
 ###################################################
 data("nottem")
-nott1 = window(nottem, end = c(1936, 12))
-nott2 = window(nottem, start = c(1937, 1))
-f = t(as.matrix(1:6))/12
-temps = as.matrix(1:length(nottem))
-# \'elimination de la colonne nulle
-xmat0 = cbind(cos(2*pi*temps%*%f), sin(2*pi*temps%*%f))[,-12]
-xmat0 = as.data.frame(xmat0)
-colnames(xmat0) = c("cos_1", "cos_2", "cos_3", "cos_4", "cos_5", "cos_6",
-                    "sin_1", "sin_2", "sin_3", "sin_4", "sin_5")
-# s\'eparation des intervalles d'estimation et de pr\'evision
-xmat1 = xmat0[1:204, ] ; xmat2 = xmat0[205:240, ]
+nott1 <- window(nottem, end = c(1936, 12))
+nott2 <- window(nottem, start = c(1937, 1))
+f <- t(as.matrix(1:6))/12
+temps <- as.matrix(1:length(nottem))
+xmat0 <-  cbind(cos(2*pi*temps%*%f), sin(2*pi*temps%*%f))[,-12]
+xmat0 <-  as.data.frame(xmat0)
+colnames(xmat0) <-  c("cos_1", "cos_2", "cos_3", "cos_4", 
+                    "cos_5", "cos_6", "sin_1", "sin_2", 
+                    "sin_3", "sin_4", "sin_5")
+xmat1 <- xmat0[1:204, ] 
+xmat2 <- xmat0[205:240, ]
 attach(xmat1, warn.conflicts = FALSE)
-xmat1a = cbind(cos_1, sin_1, sin_2, sin_4)
+xmat1a <-  cbind(cos_1, sin_1, sin_2, sin_4)
 # calcul des variances de chaque colonne
-(v.explicatives = apply(xmat1a, 2, "var"))
-(m.expli.filt = apply(diff(xmat1a, 12), 2, "mean"))
-(v.expli.filt = apply(diff(xmat1a, 12), 2, "var"))
+(v.explicatives <- apply(xmat1a, 2, "var"))
+(m.expli.filt <- apply(diff(xmat1a, 12), 2, "mean"))
+(v.expli.filt <- apply(diff(xmat1a, 12), 2, "var"))
 # calcul de la variance de ychapeau
 
 

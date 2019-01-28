@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx12.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx12.Rnw:135-139
+### code chunk number 1: Anx12.Rnw:136-140
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -119,11 +119,12 @@ y <- y[-(1:10)]
 
 
 ###################################################
-### code chunk number 17: Anx12.Rnw:287-292
+### code chunk number 17: Anx12.Rnw:288-294
 ###################################################
 require(fGarch)
-spec.1 <- garchSpec(model = list(mu=5, omega=0.1, alpha=0.9, beta=0),
-   rseed=397)
+spec.1 <- garchSpec(model = list(mu = 5, omega = 0.1, 
+                                 alpha = 0.9, beta = 0),
+                    rseed = 397)
 archsim.1 <- garchSim(extended = TRUE, spec.1, n = 300, n.start=10)
 head(archsim.1,2)
 
@@ -133,9 +134,12 @@ head(archsim.1,2)
 ###################################################
 moyenne <- mean(archsim.1[,1])
 ret <- c(6, 12, 18)
-a1 <- Box.test.2(archsim.1[,1], ret, type = "Box-Pierce", decim = 8)
-a2 <- Box.test.2((archsim.1[,1]-moyenne)^2, ret, type = "Box-Pierce", decim = 8)
-a3 <- Box.test.2(archsim.1[,3]^2, ret, type = "Box-Pierce", decim = 8)
+a1 <- Box.test.2(archsim.1[,1], ret, 
+                 type = "Box-Pierce", decim = 8)
+a2 <- Box.test.2((archsim.1[,1]-moyenne)^2, ret, 
+                 type = "Box-Pierce", decim = 8)
+a3 <- Box.test.2(archsim.1[,3]^2, ret, 
+                 type = "Box-Pierce", decim = 8)
 a123 <- cbind(a1, a2[,2], a3[,2])
 colnames(a123) <-
    c("Retard", "p.val y1", "p.val y1 centre carre", "p.val z_t")
@@ -152,8 +156,10 @@ xtable(a123 , caption = "Test de blancheur, p-values", label = "blanc.y",
 ###################################################
 ### code chunk number 20: sim.garch
 ###################################################
-spec <- garchSpec(model=list(mu = 2, omega = 0.09, alpha = c(0.15, 0.3),
-  beta = 0.4), rseed = 9647)
+spec <- garchSpec(model = list(mu = 2, omega = 0.09, 
+                             alpha = c(0.15, 0.3),
+                             beta = 0.4), 
+                  rseed = 9647)
 var.margi = 0.09/(1 - 0.15 - 0.3 - 0.4)
 y = garchSim(spec, n = 420, extended = TRUE)
 y1 = y[21:420, 1]
@@ -173,18 +179,19 @@ y1b[extrem985] <- q5[3]*sign(y1[extrem985]-m1)
 ###################################################
 ### code chunk number 22: y1.ext2
 ###################################################
-mod1 <- garchFit(~garch(2,1), data = y1b, trace = FALSE, include.mean = TRUE)
+mod1 <- garchFit(~garch(2,1), data = y1b, trace = FALSE, 
+                 include.mean = TRUE)
 
 
 ###################################################
-### code chunk number 23: Anx12.Rnw:396-398
+### code chunk number 23: Anx12.Rnw:404-406
 ###################################################
 param = c("alpha2", "beta1")
 estim = as.matrix(coef(mod1)[param])
 
 
 ###################################################
-### code chunk number 24: Anx12.Rnw:404-406
+### code chunk number 24: Anx12.Rnw:412-414
 ###################################################
 # matrice des covariances des estimateurs
 vcov.par = mod1@fit$cvar[param,param]
@@ -208,7 +215,8 @@ differ = estim-theo
 # stat de test
 khi = t(differ)%*%solve(vcov.par)%*%differ;
 # statistique de test et p-value
-cat("stat de test et p-value : ", c(khi, 1-pchisq(khi, df=2)), "\n")
+cat("stat de test et p-value : ", 
+    c(khi, 1-pchisq(khi, df=2)), "\n")
 
 
 ###################################################
@@ -227,8 +235,9 @@ r.lor <- window(r.csdl[,"L_Oreal"], start = "2007-12-28")
 r.lor.0 = r.lor[1:(length(r.lor)-51)]
 r.lor.1 = r.lor[(length(r.lor)-50):length(r.lor)]
 require("forecast")
-mod.r.lor = Arima(as.numeric(r.lor.0), order = c(0, 0, 4), include.mean = FALSE,
-                fixed = c(NA, NA, 0, NA))
+mod.r.lor = Arima(as.numeric(r.lor.0), order = c(0, 0, 4), 
+                  include.mean = FALSE,
+                  fixed = c(NA, NA, 0, NA))
 
 
 ###################################################
@@ -244,11 +253,13 @@ var.marg.est <- function(mod)
  {param.estim <- mod@fit$par
   std.estim <- mod@fit$se.coef
   k <- which(names(param.estim)=="omega")
-  value <- param.estim[k]/(1-sum(param.estim[(k+1):length(param.estim)]))
+  value <- param.estim[k]/(1 - 
+        sum(param.estim[(k + 1):length(param.estim)]))
   cat("variance marginale : ", value, "\n")
  }
-mod.garch.lor <- garchFit(~garch(1,1), data = as.numeric(r.lor.0), trace = FALSE,
-   include.mean = TRUE, na.action = na.pass)
+mod.garch.lor <- garchFit(~garch(1,1), data = as.numeric(r.lor.0), 
+                          trace = FALSE, include.mean = TRUE, 
+                          na.action = na.pass)
 summary(mod.garch.lor)
 var.marg.est(mod.garch.lor)
 
@@ -276,8 +287,9 @@ bsup.garch.lor = pred.garch.lor$meanForecast+demi
 ## par(oma=rep(0.5,4))
 ## mat.lor = cbind(binf.arima.lor,bsup.arima.lor, 
 ##  binf.garch.lor, bsup.garch.lor, r.lor.1[1:npred])
-## matplot(1:npred,mat.lor, type = "l", col = "black", lty = c(1, 1, 2, 2, 3),
-##   lwd = 2, xlab = "horizon 50", ylab = "rendement")
+## matplot(1:npred,mat.lor, type = "l", col = "black", 
+##         lty = c(1, 1, 2, 2, 3), lwd = 2, 
+##         xlab = "horizon 50", ylab = "rendement")
 ## leg.txt = c("GARCH", "AR", "realisation")
 ## legend(14, 3, leg.txt, lty = c(1, 2, 3))
 
@@ -290,8 +302,9 @@ pdf(file=paste(file,".pdf",sep=""), width = 7, height = 4, pointsize = 10, bg = 
 par(oma=rep(0.5,4))
 mat.lor = cbind(binf.arima.lor,bsup.arima.lor, 
  binf.garch.lor, bsup.garch.lor, r.lor.1[1:npred])
-matplot(1:npred,mat.lor, type = "l", col = "black", lty = c(1, 1, 2, 2, 3),
-  lwd = 2, xlab = "horizon 50", ylab = "rendement")
+matplot(1:npred,mat.lor, type = "l", col = "black", 
+        lty = c(1, 1, 2, 2, 3), lwd = 2, 
+        xlab = "horizon 50", ylab = "rendement")
 leg.txt = c("GARCH", "AR", "realisation")
 legend(14, 3, leg.txt, lty = c(1, 2, 3))
 dev.null <- dev.off()
@@ -299,8 +312,9 @@ postscript(file=paste(file,".ps",sep=""),  width = 7, height =4, pointsize = 10,
 par(oma=rep(0.5,4))
 mat.lor = cbind(binf.arima.lor,bsup.arima.lor, 
  binf.garch.lor, bsup.garch.lor, r.lor.1[1:npred])
-matplot(1:npred,mat.lor, type = "l", col = "black", lty = c(1, 1, 2, 2, 3),
-  lwd = 2, xlab = "horizon 50", ylab = "rendement")
+matplot(1:npred,mat.lor, type = "l", col = "black", 
+        lty = c(1, 1, 2, 2, 3), lwd = 2, 
+        xlab = "horizon 50", ylab = "rendement")
 leg.txt = c("GARCH", "AR", "realisation")
 legend(14, 3, leg.txt, lty = c(1, 2, 3))
 dev.null <- dev.off()
@@ -321,9 +335,14 @@ r.dan.1 = r.dan[(length(r.dan)-49):length(r.dan)]
 ###################################################
 ### code chunk number 34: armagarch.dan
 ###################################################
-mod.arma.dan = Arima(as.numeric(r.dan.0), order = c(2, 0, 0), include.mean = FALSE)
-mod.garch.dan = garchFit(~garch(1,1), data = as.numeric(r.dan.0), trace = FALSE,
-               include.mean = FALSE, na.action = na.pass)
+mod.arma.dan = Arima(as.numeric(r.dan.0), 
+                     order = c(2, 0, 0), 
+                     include.mean = FALSE)
+mod.garch.dan = garchFit(~garch(1, 1), 
+                         data = as.numeric(r.dan.0), 
+                         trace = FALSE,
+                         include.mean = FALSE, 
+                         na.action = na.pass)
 
 
 ###################################################
@@ -348,8 +367,9 @@ bsup.garch.dan = pred.garch.dan$meanForecast + demi
 ## par(oma=rep(0.5,4))
 ## mat.dan = cbind(binf.arima.dan, bsup.arima.dan, 
 ##  binf.garch.dan, bsup.garch.dan, r.dan.1[1:npred])
-## matplot(1:npred, mat.dan, type = "l", col = "black", lty = c(1, 1, 2, 2, 3),
-##   lwd = 2, xlab = "horizon 50", ylab = "rendement")
+## matplot(1:npred, mat.dan, type = "l", col = "black", 
+##         lty = c(1, 1, 2, 2, 3), lwd = 2, 
+##         xlab = "horizon 50", ylab = "rendement")
 ## leg.txt = c("GARCH", "AR", "realisation")
 ## legend(14, 3, leg.txt, lty = c(1, 2, 3))
 
@@ -362,8 +382,9 @@ pdf(file=paste(file,".pdf",sep=""), width = 7, height = 4, pointsize = 10, bg = 
 par(oma=rep(0.5,4))
 mat.dan = cbind(binf.arima.dan, bsup.arima.dan, 
  binf.garch.dan, bsup.garch.dan, r.dan.1[1:npred])
-matplot(1:npred, mat.dan, type = "l", col = "black", lty = c(1, 1, 2, 2, 3),
-  lwd = 2, xlab = "horizon 50", ylab = "rendement")
+matplot(1:npred, mat.dan, type = "l", col = "black", 
+        lty = c(1, 1, 2, 2, 3), lwd = 2, 
+        xlab = "horizon 50", ylab = "rendement")
 leg.txt = c("GARCH", "AR", "realisation")
 legend(14, 3, leg.txt, lty = c(1, 2, 3))
 dev.null <- dev.off()
@@ -371,8 +392,9 @@ postscript(file=paste(file,".ps",sep=""),  width = 7, height =4, pointsize = 10,
 par(oma=rep(0.5,4))
 mat.dan = cbind(binf.arima.dan, bsup.arima.dan, 
  binf.garch.dan, bsup.garch.dan, r.dan.1[1:npred])
-matplot(1:npred, mat.dan, type = "l", col = "black", lty = c(1, 1, 2, 2, 3),
-  lwd = 2, xlab = "horizon 50", ylab = "rendement")
+matplot(1:npred, mat.dan, type = "l", col = "black", 
+        lty = c(1, 1, 2, 2, 3), lwd = 2, 
+        xlab = "horizon 50", ylab = "rendement")
 leg.txt = c("GARCH", "AR", "realisation")
 legend(14, 3, leg.txt, lty = c(1, 2, 3))
 dev.null <- dev.off()

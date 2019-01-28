@@ -126,8 +126,9 @@
 
 \title{Rappels de statistique math\'ematique (compl\'ements du Chapitre 3)}
 \author{Yves Aragon\footnote{yves.aragon@gmail.com} \cr
-{\normalsize Universit\'e Toulouse 1 Capitole} }
+{\normalsize Universit\'e Toulouse Capitole} }
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 \renewcommand{\thefootnote}{\arabic{footnote}}
 \setcounter{section}{3}
@@ -438,8 +439,8 @@ Simulons un vecteur $x$ de 1000 observations i.i.d. $\nor(0,1)$ et calculons le 
 {\small
 <<sim.nor>>=
 set.seed(5923)
-x = rnorm(1000)
-xr = exp(x)
+x <- rnorm(1000)
+xr <- exp(x)
 require("TSA")
 c(skewness(x), kurtosis(x))
 c(skewness(xr), kurtosis(xr))
@@ -449,7 +450,7 @@ c(skewness(xr), kurtosis(xr))
 
 
 <<label=plot.nor,fig=TRUE,echo=FALSE,eval=FALSE,height=6>>=
-op = par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
+op <- par(mfrow = c(1, 2), mar = c(4, 3, 2, 0.5), lwd = 2)
 plot(density(x), main = "", ylab = "density", xlab = "x normale")
 plot(density(xr), main = "", ylab = "density", xlab = "xr log-normale")
 par(op)

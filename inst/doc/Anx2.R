@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx2.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx2.Rnw:139-143
+### code chunk number 1: Anx2.Rnw:140-144
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )
@@ -88,14 +88,14 @@ nom.fich = "./Figures/anx2-bitmap-"
 
 
 ###################################################
-### code chunk number 14: Anx2.Rnw:217-219 (eval = FALSE)
+### code chunk number 14: Anx2.Rnw:218-220 (eval = FALSE)
 ###################################################
 ## ?aggregate
 ## help(aggregate)
 
 
 ###################################################
-### code chunk number 15: Anx2.Rnw:229-232 (eval = FALSE)
+### code chunk number 15: Anx2.Rnw:230-233 (eval = FALSE)
 ###################################################
 ## help.search("date")
 ## # ou
@@ -103,25 +103,26 @@ nom.fich = "./Figures/anx2-bitmap-"
 
 
 ###################################################
-### code chunk number 16: Anx2.Rnw:243-244 (eval = FALSE)
+### code chunk number 16: Anx2.Rnw:244-245 (eval = FALSE)
 ###################################################
 ## RSiteSearch("gini")
 
 
 ###################################################
-### code chunk number 17: Anx2.Rnw:308-311 (eval = FALSE)
+### code chunk number 17: Anx2.Rnw:309-312 (eval = FALSE)
 ###################################################
-## x = rnorm(10)
-## xmat = as.matrix(x, ncol = 1)
-## y = as.vector(xmat[,1])
+## x <- rnorm(10)
+## xmat <- as.matrix(x, ncol = 1)
+## y <- as.vector(xmat[, 1])
 
 
 ###################################################
 ### code chunk number 18: r_st.huron
 ###################################################
 require("forecast")
-temps = time(LakeHuron)
-mod.lac = Arima(LakeHuron, order = c(1, 0, 0), xreg = temps, method = "ML")
+temps <- time(LakeHuron)
+mod.lac <- Arima(LakeHuron, order = c(1, 0, 0), 
+                 xreg = temps, method = "ML")
 
 
 ###################################################
@@ -133,7 +134,7 @@ str(mod.lac, width = 60, strict.width = "cut")
 ###################################################
 ### code chunk number 20: r_st.huron.coef
 ###################################################
-residus = mod.lac$residuals
-(coeftemps = mod.lac$coef[names(mod.lac$coef) == "temps"])
+residus <- mod.lac$residuals
+(coeftemps <- mod.lac$coef[names(mod.lac$coef) == "temps"])
 
 

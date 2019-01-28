@@ -1,8 +1,8 @@
 ### R code from vignette source 'Anx1.Rnw'
-### Encoding: ISO8859-1
+### Encoding: UTF-8
 
 ###################################################
-### code chunk number 1: Anx1.Rnw:139-143
+### code chunk number 1: Anx1.Rnw:140-144
 ###################################################
 owidth <- getOption("width") # largeur des sorties
 options(width=60, continue="+ ","warn"=-1 )

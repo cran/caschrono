@@ -126,9 +126,10 @@
 
 
 \title{D\'emarche de base en s\'eries temporelles (compl\'ements du Chapitre 1)}
-\author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Universit\'e Toulouse 1 Capitole} }
+\author{Yves Aragon\footnote{yves.aragon@gmail.com} \cr
+{\normalsize Universit\'e Toulouse Capitole} }
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 \setcounter{section}{1}
 \renewcommand{\thefootnote}{\arabic{footnote}}

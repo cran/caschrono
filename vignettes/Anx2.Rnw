@@ -126,9 +126,10 @@
 
 
 \title{\RR~pour les s\'eries temporelles (compl\'ements du Chapitre 2)}
-\author{Yves Aragon\footnote{aragon@cict.fr} \cr
-{\normalsize Universit\'e Toulouse 1 Capitole} }
+\author{Yves Aragon\footnote{yves.aragon@gmail.com} \cr
+{\normalsize Universit\'e Toulouse Capitole} }
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 \maketitle
 \setcounter{section}{2}
 \renewcommand{\thefootnote}{\arabic{footnote}}
@@ -306,9 +307,9 @@ fr\'equent. Dans le code ci-dessous,  \code{x} et \code{y} sont des vecteurs, et
 
 {\small
 <<eval=FALSE>>=
-x = rnorm(10)
-xmat = as.matrix(x, ncol = 1)
-y = as.vector(xmat[,1])
+x <- rnorm(10)
+xmat <- as.matrix(x, ncol = 1)
+y <- as.vector(xmat[, 1])
 @
 }
 %%%%%%%%%%%%%%%%%%
@@ -338,8 +339,9 @@ Au chapitre 1, on a utilis\'e le code suivant :
 {\small
 <<label=r_st.huron>>=
 require("forecast")
-temps = time(LakeHuron)
-mod.lac = Arima(LakeHuron, order = c(1, 0, 0), xreg = temps, method = "ML")
+temps <- time(LakeHuron)
+mod.lac <- Arima(LakeHuron, order = c(1, 0, 0), 
+                 xreg = temps, method = "ML")
 @
 }
 \noindent
@@ -369,8 +371,8 @@ On voit par exemple, que le nom de ce coefficient est \code{temps}, on peut donc
 
 {\small
 <<label=r_st.huron.coef>>=
-residus = mod.lac$residuals
-(coeftemps = mod.lac$coef[names(mod.lac$coef) == "temps"])
+residus <- mod.lac$residuals
+(coeftemps <- mod.lac$coef[names(mod.lac$coef) == "temps"])
 @
 }
 \noindent
