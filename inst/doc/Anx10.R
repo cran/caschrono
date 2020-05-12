@@ -1,5 +1,4 @@
 ### R code from vignette source 'Anx10.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: Anx10.Rnw:136-140

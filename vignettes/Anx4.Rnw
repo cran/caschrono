@@ -698,8 +698,6 @@ On voit que \code{Arima()} note \code{intercept}, ce qui est ici, la moyenne de 
 
 % ###################################################################
 \begin{Exercice}
-\code{armasubsets()} de  \pkg{TSA} aide \`a l'identification des mod\`eles ARMA suivant le m\^eme principe que \code{armaselect()} mais reconna\^{\i}t les trous (les plages de coefficients nuls)
-dans les ordres de r\'egression.
 Utiliser \code{armasubsets()} pour identifier le mod\`ele de \code{yd} simul\'e suivant 
 \begin{eqnarray}
 y_t = 4  + \frac{1 +0.6 \bm^2 }{(1+0.8  \bm)(1 - 0.7\bm^4)}  z_t, \hspace{1cm} z_t \sim \BBN(0,1.5). \label{ex.sarma}
@@ -708,6 +706,7 @@ y_t = 4  + \frac{1 +0.6 \bm^2 }{(1+0.8  \bm)(1 - 0.7\bm^4)}  z_t, \hspace{1cm} z
 \end{Exercice}
 
 \textbf{R\'eponse.}
+
 
 {\small
 <<label=prep_arma1_21b>>=
@@ -722,33 +721,11 @@ yd <- yd + 4
 @
 }
 
+Note du 12 mai 2020: TSA n'est plus maintenu sur le CRAN
 
-{\small
-<<label=id.saiso,fig=TRUE,echo=TRUE,eval=FALSE,height=6>>=
-require("TSA")
-res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", 
-                   ar.method = "ols")
-plot(res)
-@
-}
 
-\begin{figure}[htbp]
-\begin{center}
-<<results=tex,echo=FALSE>>=
-<<bfig>>
-<<id.saiso>>
-<<zfig2>>
-<<bfigps>>
-<<id.saiso>>
-<<zfig2>>
-<<zfiginclude>>
-@
-\end{center}
-\caption{Identification de yd par armasubsets().}
-\label{id.saiso}
-\end{figure}
 
-Les zones  les plus sombres du graphique (fig. \ref{id.saiso}) sugg\`erent les ordres \`a retenir mais l'interpr\'etation n'est pas simple.
+
 
 \end{document}
 

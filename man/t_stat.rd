@@ -10,7 +10,7 @@ t_stat(modarima, decim=6)
  \item{decim}{an integer, the precision of the results}
 }
 \details{\code{modarima} may be created with the function \code{Arima} (package \code{forecast})
-or \code{arimax} (package \code{TSA})}
+or \code{arimax} (package TSA)}
 \value{
 It returns a matrix   2 x (number of free coefficients)  of the t-statistics and the p-values.
 }

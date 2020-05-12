@@ -327,10 +327,5 @@ L'intervention en $t1$ est associ\'ee \`a une impulsion $P_t^{t1}$ et un amortis
 A la date $t2$ la s\'erie est n\'ecessairement en train de revenir \`a son niveau moyen initial quand survient l'\'ev\'enement.
 
 
-%require(Hmisc) # pour la fonction Lag
-%require(forecast,quietly=TRUE)
-%require(TSA)
-%require(caschrono)
-
 
 \end{document}

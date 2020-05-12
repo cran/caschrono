@@ -1,5 +1,4 @@
 ### R code from vignette source 'Anx4.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: Anx4.Rnw:139-143
@@ -396,33 +395,5 @@ autopol <- polynomial(c(1, 0.8)) * polynomial(c(1, 0, 0, 0, -0.7))
 yd <- arima.sim(n = 200, list(ar = -autopol[-1], 
                               ma = c(0, 0.6)), sd = sqrt(1.5))
 yd <- yd + 4
-
-
-###################################################
-### code chunk number 41: id.saiso (eval = FALSE)
-###################################################
-## require("TSA")
-## res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", 
-##                    ar.method = "ols")
-## plot(res)
-
-
-###################################################
-### code chunk number 42: Anx4.Rnw:737-744
-###################################################
-.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
-pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")
-require("TSA")
-res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", 
-                   ar.method = "ols")
-plot(res)
-dev.null <- dev.off()
-postscript(file=paste(file,".ps",sep=""), width = 7, height = 7, pointsize = 12, bg = "white",horizontal= FALSE,paper="special")
-require("TSA")
-res <- armasubsets(y = yd, nar = 10, nma = 10, y.name = "yd", 
-                   ar.method = "ols")
-plot(res)
-dev.null <- dev.off()
-cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
 

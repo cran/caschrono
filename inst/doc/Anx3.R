@@ -1,5 +1,4 @@
 ### R code from vignette source 'Anx3.Rnw'
-### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: Anx3.Rnw:138-143
@@ -94,7 +93,7 @@ nom.fich = "anx3-bitmap-"
 set.seed(5923)
 x <- rnorm(1000)
 xr <- exp(x)
-require("TSA")
+require("fBasics")
 c(skewness(x), kurtosis(x))
 c(skewness(xr), kurtosis(xr))
 
