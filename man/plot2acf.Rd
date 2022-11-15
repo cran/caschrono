@@ -3,7 +3,7 @@
 \title{ACF plots of two series}
 \description{Plots the ACF of two series at the same lags}
 \usage{
-plot2acf(y1, y2, lag.max=40, main=c("",""))
+plot2acf(y1, y2, lag.max = 40, main = c("", ""))
 }
 \arguments{
  \item{y1}{A time series object}
@@ -23,9 +23,9 @@ no value
 \examples{
 data(nottem)
 set.seed(2561)
-innov1 = rnorm(290,sd=4.18)
-y  = arima.sim(list(order = c(12,0,1), ma=-.7, ar=c(rep(0,11),.9)), 
-innov =innov1, n.start =50, n = 240) + 50
-plot2acf(nottem, y, main=c("ACF nottem","ACF SAR"))
+innov1 <- rnorm(290,sd=4.18)
+y <- arima.sim(list(order = c(12, 0, 1), ma = -.7, ar = c(rep(0, 11), .9)),
+               innov = innov1, n.start = 50, n = 240) + 50
+plot2acf(nottem, y, main = c("ACF nottem", "ACF SAR"))
 }
 \keyword{ts}

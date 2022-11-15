@@ -290,10 +290,10 @@ ARMAtoMA(c(rep(0, 11), -.7), 0, 25)
 @
 }
 
-Par \code{ImpulseCoefficientsARMA()} de \pkg{FitARMA} :
+Par \code{ImpulseCoefficientsARMA()} de \pkg{FitARMA} (Attention, le package \pkg{FitARMA} n'est plus maintenu sur le CRAN)
 
 {\small
-<<>>=
+<<eval=FALSE>>=
 require(FitARMA)
 ImpulseCoefficientsARMA(-.7, 0, lag.max = 10)
 ImpulseCoefficientsARMA(c(rep(0, 11), -.7), 0, lag.max = 25)
@@ -449,9 +449,10 @@ et calculer la PACF empirique jusqu'au retard 4. Comparer avec l'exemple pr\'ec\
 D'autre part nous effectuons \code{nsim} simulations pour comparer la pr\'ecision de l'estimateur et nous superposons  valeur th\'eorique
 et quantile empirique d'ordres .25 et .75 pour chaque retard :
 
+(Attention, le package \pkg{FitARMA} n'est plus maintenu sur le CRAN, mais il est disponible sur Github https://github.com/cran/FitARMA)
 
 {\small
-<<label=simar2>>=
+<<label=simar2, eval = F>>=
 require(FitARMA)
 set.seed(51)
 nsim <- 100
@@ -479,7 +480,7 @@ aaa <- cbind(aa, pacf.theo, binf, bsup)
 @
 }
 \code{binf} et \code{bsup} d\'efinissent la bande de confiance asymptotique, valable \'evidemment \`a partir du retard 3, voir la propri\'et\'e 4.6, alors que les quantiles
-d'ordres .25 et .75, matrice \code{aa}, donnent les quantiles empiriques d'apr\`es les \Sexpr{nsim} simulations. 
+d'ordres .25 et .75, matrice \code{aa}, donnent les quantiles empiriques d'apr\`es les 50 simulations. 
 On obtient le graphique  
 (fig. \ref{matplot}) pour 50 simulations par
 
@@ -505,7 +506,7 @@ legend("topright", paste("nombre de simulations : ",
 
 \begin{figure}[htbp]
 \begin{center}
-<<results=tex,echo=FALSE>>=
+<<results=tex,echo=FALSE, eval = F>>=
 <<bfig4>>
 <<matplot0>>
 <<zfig2>>
@@ -589,7 +590,7 @@ par \code{arima.sim()}.
 \textbf{R\'eponse.}
 
 {\small
-<<>>=
+<< eval = F>>=
 theo <- TacvfARMA(theta = c(.3, -.6), lag.max = 20)
 (acf.theo <- theo[-1]/theo[1])
 (pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
@@ -614,7 +615,7 @@ R\'epondre pour ce mod\`ele, aux questions de l'exercice pr\'ec\'edent.
 \textbf{R\'eponse.}
 
 {\small
-<<>>=
+<< eval = F>>=
 theo <- TacvfARMA(phi = -.8, lag.max = 20)
 (acf.theo <- theo[-1]/theo[1])
 (pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)

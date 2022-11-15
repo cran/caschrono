@@ -22,7 +22,7 @@ It returns a matrix of size \code{nlag} x 2 with the statistics and the p-value
 
 \examples{
 set.seed(123)
-y1 = arima.sim(n = 100, list(ar = -.7), sd = sqrt(4))
-a1 = Box.test.2(y1, nlag = c(3, 6, 9, 12), type = "Ljung-Box", decim = 4)
+y1 <- arima.sim(n = 100, list(ar = -.7), sd = sqrt(4))
+a1 <- Box.test.2(y1, nlag = c(3, 6, 9, 12), type = "Ljung-Box", decim = 4)
 }
 \keyword{ts}

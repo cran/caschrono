@@ -127,11 +127,11 @@ ARMAtoMA(c(rep(0, 11), -.7), 0, 25)
 
 
 ###################################################
-### code chunk number 17: Anx4.Rnw:296-299
+### code chunk number 17: Anx4.Rnw:296-299 (eval = FALSE)
 ###################################################
-require(FitARMA)
-ImpulseCoefficientsARMA(-.7, 0, lag.max = 10)
-ImpulseCoefficientsARMA(c(rep(0, 11), -.7), 0, lag.max = 25)
+## require(FitARMA)
+## ImpulseCoefficientsARMA(-.7, 0, lag.max = 10)
+## ImpulseCoefficientsARMA(c(rep(0, 11), -.7), 0, lag.max = 25)
 
 
 ###################################################
@@ -223,36 +223,36 @@ cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
 
 ###################################################
-### code chunk number 26: simar2
+### code chunk number 26: simar2 (eval = FALSE)
 ###################################################
-require(FitARMA)
-set.seed(51)
-nsim <- 100
-nobs <- 200
-nsim <- 50
-nlag <- 20
-y.mat <- matrix(0, nrow = nobs, ncol = nsim)
-facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
-y.mat <- matrix(0, nrow = 200, ncol = nsim)
-facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
-for(isim in 1:nsim){
- y.mat[, isim] <- arima.sim(n = nobs, 
-                            list(ar = c(-0.7, 0.2)), 
-                            sd = sqrt(2))
- facp.mat[, isim] = pacf(y.mat[,isim], 20, plot = FALSE)$acf
-}
-aa <- t(apply(facp.mat,1, "quantile", probs = c(0.25, .75)))
-# pacf theo
-theo <- TacvfARMA(phi = c(-.7, .2), lag.max = 20)
-pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf
-# intervalle autour de 0 \`a 50%
-binf <- qnorm(.25)/nobs^.5
-bsup <- qnorm(.75)/nobs^.5
-aaa <- cbind(aa, pacf.theo, binf, bsup)
+## require(FitARMA)
+## set.seed(51)
+## nsim <- 100
+## nobs <- 200
+## nsim <- 50
+## nlag <- 20
+## y.mat <- matrix(0, nrow = nobs, ncol = nsim)
+## facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
+## y.mat <- matrix(0, nrow = 200, ncol = nsim)
+## facp.mat <- matrix(0, nrow = nlag, ncol = nsim)
+## for(isim in 1:nsim){
+##  y.mat[, isim] <- arima.sim(n = nobs, 
+##                             list(ar = c(-0.7, 0.2)), 
+##                             sd = sqrt(2))
+##  facp.mat[, isim] = pacf(y.mat[,isim], 20, plot = FALSE)$acf
+## }
+## aa <- t(apply(facp.mat,1, "quantile", probs = c(0.25, .75)))
+## # pacf theo
+## theo <- TacvfARMA(phi = c(-.7, .2), lag.max = 20)
+## pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf
+## # intervalle autour de 0 \`a 50%
+## binf <- qnorm(.25)/nobs^.5
+## bsup <- qnorm(.75)/nobs^.5
+## aaa <- cbind(aa, pacf.theo, binf, bsup)
 
 
 ###################################################
-### code chunk number 27: Anx4.Rnw:487-491 (eval = FALSE)
+### code chunk number 27: Anx4.Rnw:488-492 (eval = FALSE)
 ###################################################
 ## matplot(1:20, aaa, type = "l", ylab = "PACF", 
 ##         xlab = "retard", col = "black")
@@ -270,22 +270,22 @@ aaa <- cbind(aa, pacf.theo, binf, bsup)
 
 
 ###################################################
-### code chunk number 29: Anx4.Rnw:508-515
+### code chunk number 29: Anx4.Rnw:509-516 (eval = FALSE)
 ###################################################
-.PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
-pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
-matplot(1:20, aaa, type = "l", ylab = "PACF", 
-        xlab = "retard", col = "black")
-legend("topright", paste("nombre de simulations : ", 
-                         as.character(nsim)))
-dev.null <- dev.off()
-postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
-matplot(1:20, aaa, type = "l", ylab = "PACF", 
-        xlab = "retard", col = "black")
-legend("topright", paste("nombre de simulations : ", 
-                         as.character(nsim)))
-dev.null <- dev.off()
-cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
+## .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
+## pdf(file=paste(file,".pdf",sep=""), width = 6, height = 6, pointsize = 10, bg = "white")
+## matplot(1:20, aaa, type = "l", ylab = "PACF", 
+##         xlab = "retard", col = "black")
+## legend("topright", paste("nombre de simulations : ", 
+##                          as.character(nsim)))
+## dev.null <- dev.off()
+## postscript(file=paste(file,".ps",sep=""), width = 6, height = 6, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
+## matplot(1:20, aaa, type = "l", ylab = "PACF", 
+##         xlab = "retard", col = "black")
+## legend("topright", paste("nombre de simulations : ", 
+##                          as.character(nsim)))
+## dev.null <- dev.off()
+## cat("\\includegraphics[width=0.9\\textwidth]{", file, "}\n\n", sep="")
 
 
 ###################################################
@@ -315,28 +315,28 @@ t(aa)
 
 
 ###################################################
-### code chunk number 33: Anx4.Rnw:592-599
+### code chunk number 33: Anx4.Rnw:593-600 (eval = FALSE)
 ###################################################
-theo <- TacvfARMA(theta = c(.3, -.6), lag.max = 20)
-(acf.theo <- theo[-1]/theo[1])
-(pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
-set.seed(12)
-y <- arima.sim(n = 200, list(ma = c(-0.3, .6)), sd = sqrt(1.5))
-(acf.emp <- acf(y, 20, plot = FALSE)$acf[-1])
-(pacf.emp <- pacf(y, 20, plot = FALSE)$acf)
+## theo <- TacvfARMA(theta = c(.3, -.6), lag.max = 20)
+## (acf.theo <- theo[-1]/theo[1])
+## (pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
+## set.seed(12)
+## y <- arima.sim(n = 200, list(ma = c(-0.3, .6)), sd = sqrt(1.5))
+## (acf.emp <- acf(y, 20, plot = FALSE)$acf[-1])
+## (pacf.emp <- pacf(y, 20, plot = FALSE)$acf)
 
 
 ###################################################
-### code chunk number 34: Anx4.Rnw:617-625
+### code chunk number 34: Anx4.Rnw:618-626 (eval = FALSE)
 ###################################################
-theo <- TacvfARMA(phi = -.8, lag.max = 20)
-(acf.theo <- theo[-1]/theo[1])
-(pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
-set.seed(23)
-y <- arima.sim(n = 200, list(ar = -.8),
-               sd = sqrt(1.5)) - 10
-(acf.emp <- acf(y, 20, plot = FALSE)$acf[-1])
-(pacf.emp <- pacf(y, 20, plot = FALSE)$acf)
+## theo <- TacvfARMA(phi = -.8, lag.max = 20)
+## (acf.theo <- theo[-1]/theo[1])
+## (pacf.theo <- PacfDL(theo/theo[1], LinearPredictor = TRUE)$Pacf)
+## set.seed(23)
+## y <- arima.sim(n = 200, list(ar = -.8),
+##                sd = sqrt(1.5)) - 10
+## (acf.emp <- acf(y, 20, plot = FALSE)$acf[-1])
+## (pacf.emp <- pacf(y, 20, plot = FALSE)$acf)
 
 
 ###################################################
@@ -364,7 +364,7 @@ pacf.th <- ARMAacf(ar = -0.8, ma = c(-0.3, 0.6),
 
 
 ###################################################
-### code chunk number 38: Anx4.Rnw:674-681
+### code chunk number 38: Anx4.Rnw:675-682
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 7, height = 7, pointsize = 12, bg = "white")

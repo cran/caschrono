@@ -3,7 +3,7 @@
 \title{Plots the ACF and PACF of a theoretical ARMA model and the empirical ACF and PACF of an observed series}
 \description{\code{plotacfthemp} plots the ACF and PACF of a theoretical ARMA model and the empirical ACF and PACF of an observed series.}
 \usage{
-plotacfthemp(y, ar = numeric(0), ma = numeric(0), lag.max = 20, titre="")
+plotacfthemp(y, ar = numeric(0), ma = numeric(0), lag.max = 20, titre = "")
 }
 \arguments{
  \item{y}{time series, a \code{ts} object}

@@ -7,7 +7,8 @@ The file "/import/champagne_2001.txt" contains monthly total shipping of 75 cl b
 }
 \format{The series first is imported as a vector of numeric type with function \code{scan}
  and then transformed into a \code{ts} object. Is is then converted in 1,000 of bottles.}
-\source{SRISE-DRAAF Champagne-Ardenne}
+ 
+\source{SRISE - DRAAF Champagne-Ardenne}
 \examples{
 data("champa.ts")
 # The executed code is : 

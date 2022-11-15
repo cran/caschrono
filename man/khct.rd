@@ -10,11 +10,9 @@ Monthly electricity consumption, heating degree days and cooling degree days in 
   \item{cldd}{cooling degree days, in Fahrenheit degrees}
 }
 \details{
-\code{htdd} (heating degree days) is minus the sum over the month of the daily difference between the average daily temperature, 
-if it is lower than 65 F. degrees, and 65 F. degrees, the equilibrium temperature above which a house does not need to be heated. \cr
-\code{cldd} (cooling degree days)  is the sum over the month of the daily difference between the average daily temperature, 
-if it is greater than  65 F. degrees, and 65, the equilibrium temperature above which air conditioning is switched on. \cr
-The dataset is from the book  by Pankratz (1981).
+\code{htdd} (heating degree days) is minus the sum over the month of the daily difference between the average daily temperature, if it is lower than 65 F. degrees, and 65 F. degrees, the equilibrium temperature above which a house does not need to be heated. \cr
+\code{cldd} (cooling degree days)  is the sum over the month of the daily difference between the average daily temperature, if it is greater than  65 F. degrees, and 65, the equilibrium temperature above which air conditioning is switched on. \cr
+The dataset is from the book  by Pankratz (1991).
 }
 \usage{data(csdl)}
 \source{Pankratz A., Forecasting with dynamic regression models, 1991, Wiley.}

@@ -3,14 +3,13 @@
 \title{Arima coefficients tests}
 \description{It computes the t-statistics tests for the coefficients of an Arima model}
 \usage{
-t_stat(modarima, decim=6)
+t_stat(modarima, decim = 6)
 }
 \arguments{
  \item{modarima}{an \code{Arima} object}
  \item{decim}{an integer, the precision of the results}
 }
-\details{\code{modarima} may be created with the function \code{Arima} (package \code{forecast})
-or \code{arimax} (package TSA)}
+\details{\code{modarima} may be created with the function \code{Arima} (package \code{forecast}) or \code{arimax} (package TSA)}
 \value{
 It returns a matrix   2 x (number of free coefficients)  of the t-statistics and the p-values.
 }

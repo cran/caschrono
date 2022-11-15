@@ -3,7 +3,7 @@
 \title{Plots of the ACF and PACF of a time series}
 \description{Plots of the ACF and PACF at the same lags}
 \usage{
-acf2y(y, lag.max=40, numer=TRUE)
+acf2y(y, lag.max = 40, numer = TRUE)
 }
 \arguments{
  \item{y}{A time series object}

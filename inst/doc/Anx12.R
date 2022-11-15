@@ -221,7 +221,7 @@ cat("stat de test et p-value : ",
 ###################################################
 ### code chunk number 27: lor.1a
 ###################################################
-# require(fBasics)
+require(fBasics)
 data(csdl)
 aa = returns(csdl, percentage = TRUE)
 aab = aa[complete.cases(aa) == TRUE,]
@@ -284,8 +284,8 @@ bsup.garch.lor = pred.garch.lor$meanForecast+demi
 ### code chunk number 31: ajust (eval = FALSE)
 ###################################################
 ## par(oma=rep(0.5,4))
-## mat.lor = cbind(binf.arima.lor,bsup.arima.lor, 
-##  binf.garch.lor, bsup.garch.lor, r.lor.1[1:npred])
+## mat.lor = cbind(binf.arima.lor, bsup.arima.lor, 
+##  binf.garch.lor, bsup.garch.lor, as.numeric(r.lor.1[1:npred]))
 ## matplot(1:npred,mat.lor, type = "l", col = "black", 
 ##         lty = c(1, 1, 2, 2, 3), lwd = 2, 
 ##         xlab = "horizon 50", ylab = "rendement")
@@ -299,8 +299,8 @@ bsup.garch.lor = pred.garch.lor$meanForecast+demi
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 7, height = 4, pointsize = 10, bg = "white")
 par(oma=rep(0.5,4))
-mat.lor = cbind(binf.arima.lor,bsup.arima.lor, 
- binf.garch.lor, bsup.garch.lor, r.lor.1[1:npred])
+mat.lor = cbind(binf.arima.lor, bsup.arima.lor, 
+ binf.garch.lor, bsup.garch.lor, as.numeric(r.lor.1[1:npred]))
 matplot(1:npred,mat.lor, type = "l", col = "black", 
         lty = c(1, 1, 2, 2, 3), lwd = 2, 
         xlab = "horizon 50", ylab = "rendement")
@@ -309,8 +309,8 @@ legend(14, 3, leg.txt, lty = c(1, 2, 3))
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""),  width = 7, height =4, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
 par(oma=rep(0.5,4))
-mat.lor = cbind(binf.arima.lor,bsup.arima.lor, 
- binf.garch.lor, bsup.garch.lor, r.lor.1[1:npred])
+mat.lor = cbind(binf.arima.lor, bsup.arima.lor, 
+ binf.garch.lor, bsup.garch.lor, as.numeric(r.lor.1[1:npred]))
 matplot(1:npred,mat.lor, type = "l", col = "black", 
         lty = c(1, 1, 2, 2, 3), lwd = 2, 
         xlab = "horizon 50", ylab = "rendement")
@@ -363,9 +363,9 @@ bsup.garch.dan = pred.garch.dan$meanForecast + demi
 ###################################################
 ### code chunk number 36: pred.dan (eval = FALSE)
 ###################################################
-## par(oma=rep(0.5,4))
+## par(oma=rep(0.5, 4))
 ## mat.dan = cbind(binf.arima.dan, bsup.arima.dan, 
-##  binf.garch.dan, bsup.garch.dan, r.dan.1[1:npred])
+##  binf.garch.dan, bsup.garch.dan, as.numeric(r.dan.1[1:npred]))
 ## matplot(1:npred, mat.dan, type = "l", col = "black", 
 ##         lty = c(1, 1, 2, 2, 3), lwd = 2, 
 ##         xlab = "horizon 50", ylab = "rendement")
@@ -378,9 +378,9 @@ bsup.garch.dan = pred.garch.dan$meanForecast + demi
 ###################################################
 .PngNo <- .PngNo + 1; file = paste(nom.fich, .PngNo, sep="")
 pdf(file=paste(file,".pdf",sep=""), width = 7, height = 4, pointsize = 10, bg = "white")
-par(oma=rep(0.5,4))
+par(oma=rep(0.5, 4))
 mat.dan = cbind(binf.arima.dan, bsup.arima.dan, 
- binf.garch.dan, bsup.garch.dan, r.dan.1[1:npred])
+ binf.garch.dan, bsup.garch.dan, as.numeric(r.dan.1[1:npred]))
 matplot(1:npred, mat.dan, type = "l", col = "black", 
         lty = c(1, 1, 2, 2, 3), lwd = 2, 
         xlab = "horizon 50", ylab = "rendement")
@@ -388,9 +388,9 @@ leg.txt = c("GARCH", "AR", "realisation")
 legend(14, 3, leg.txt, lty = c(1, 2, 3))
 dev.null <- dev.off()
 postscript(file=paste(file,".ps",sep=""),  width = 7, height =4, pointsize = 10, bg = "white",horizontal= FALSE,paper="special")
-par(oma=rep(0.5,4))
+par(oma=rep(0.5, 4))
 mat.dan = cbind(binf.arima.dan, bsup.arima.dan, 
- binf.garch.dan, bsup.garch.dan, r.dan.1[1:npred])
+ binf.garch.dan, bsup.garch.dan, as.numeric(r.dan.1[1:npred]))
 matplot(1:npred, mat.dan, type = "l", col = "black", 
         lty = c(1, 1, 2, 2, 3), lwd = 2, 
         xlab = "horizon 50", ylab = "rendement")

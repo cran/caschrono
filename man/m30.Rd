@@ -11,7 +11,7 @@ into account the change of the definition of a fatal accident.
 Until 2004, an accident is fatal if death occurs within 6 days whereas from 
 2006 the deadline moves to 30 days.
 }
-\source{http://www.securite-routiere.org/Fiches/statistiques/statmensuelles.htm}
+\source{http://www.securite-routiere.org/}
 \examples{
 data(m30)
 }

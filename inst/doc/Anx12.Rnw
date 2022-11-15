@@ -508,7 +508,7 @@ du r\'esidu du premier ajustement. Tout d'abord, nous r\'eestimons le mod\`ele A
 
 {\small
 <<label=lor.1a, echo=TRUE>>=
-# require(fBasics)
+require(fBasics)
 data(csdl)
 aa = returns(csdl, percentage = TRUE)
 aab = aa[complete.cases(aa) == TRUE,]
@@ -582,8 +582,8 @@ puis par la mod\'elisation ARMA.
 {\small
 <<label=ajust,height=10,fig=TRUE,echo=TRUE,eval=FALSE>>=
 par(oma=rep(0.5,4))
-mat.lor = cbind(binf.arima.lor,bsup.arima.lor, 
- binf.garch.lor, bsup.garch.lor, r.lor.1[1:npred])
+mat.lor = cbind(binf.arima.lor, bsup.arima.lor, 
+ binf.garch.lor, bsup.garch.lor, as.numeric(r.lor.1[1:npred]))
 matplot(1:npred,mat.lor, type = "l", col = "black", 
         lty = c(1, 1, 2, 2, 3), lwd = 2, 
         xlab = "horizon 50", ylab = "rendement")
@@ -684,9 +684,9 @@ puis par la mod\'elisation ARMA.
 
 {\small
 <<label=pred.dan,height=10,fig=TRUE,echo=TRUE,eval=FALSE>>=
-par(oma=rep(0.5,4))
+par(oma=rep(0.5, 4))
 mat.dan = cbind(binf.arima.dan, bsup.arima.dan, 
- binf.garch.dan, bsup.garch.dan, r.dan.1[1:npred])
+ binf.garch.dan, bsup.garch.dan, as.numeric(r.dan.1[1:npred]))
 matplot(1:npred, mat.dan, type = "l", col = "black", 
         lty = c(1, 1, 2, 2, 3), lwd = 2, 
         xlab = "horizon 50", ylab = "rendement")
