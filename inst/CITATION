@@ -1,11 +1,11 @@
 citHeader("To cite caschrono in publications use:")
 
-citEntry(entry="Book",
-         title = "Series temporelles avec R",
-         author = personList(as.person("Yves Aragon")),
-         series = "Pratique R",
-         year = "2016",
-         publisher = "edp sciences",
-         address = "Paris",
-         ISBN = "978-2-7598-1779-5",
-         textVersion = "Yves Aragon (2016), Series temporelles avec R. edp sciences, Paris")
+bibentry(
+     bibtype = "Book",
+     title = "Series temporelles avec R",
+     author = as.person("Yves Aragon [aut]"),
+     year = "2016",
+     publisher = "edp sciences",
+     address = "Paris",
+     isbn = "978-2-7598-1779-5"
+   )

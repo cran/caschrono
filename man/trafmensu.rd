@@ -6,8 +6,8 @@
 The file "/import/trafquoti.txt" contains daily Air traffic at Toulouse Blagnac Airport for the period 1993-2007
 }
 \format{The series is imported first as a data.frame with function \code{read.table},
-aggregated by month and then transformed into a \code{ts} object. Is is then converted in 1,000 of people.}
-\source{Chambre de Commerce et d'Industrie de Toulouse (CCIT)}
+aggregated by month and then transformed into a \code{ts} object. Is is then converted in 1000 of people.}
+\source{Chambre de Commerce et d Industrie de Toulouse (CCIT)}
 \examples{
 data(trafmensu)
 # The executed code is : 

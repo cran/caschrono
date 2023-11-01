@@ -6,7 +6,7 @@
 Series Temporelles Avec R
 }
 \description{
-Functions, data sets and exercises solutions for the book 'Series temporelles avec R' (Yves Aragon, edp sciences, 2016). For all chapters, a vignette is available with some additional material and exercises solutions.  
+Functions, data sets and exercises solutions for the book Series temporelles avec R (Yves Aragon, edp sciences, 2016). For all chapters, a vignette is available with some additional material and exercises solutions.  
 }
 \details{
 \tabular{ll}{

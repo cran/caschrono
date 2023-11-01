@@ -6,7 +6,7 @@
 \code{popfr} is the French population average for the period 1846-1951.}
 \usage{data(popfr)}
 \format{Time series data}
-\details{One unit: 1,000 inhabitants. Two missing values in 1916 and 1941}
+\details{One unit: 1000 inhabitants. Two missing values in 1916 and 1941}
 \source{https://www.insee.fr/fr/statistiques}
 \examples{
 data(popfr)
